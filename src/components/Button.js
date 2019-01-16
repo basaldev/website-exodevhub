@@ -11,7 +11,6 @@ const Button = styled.button`
   color: white;
   padding: ${props => (props.big ? '0.35rem 1.6rem' : '0.25rem 1.5rem')};
   transition: all ${props => props.theme.transitions.normal};
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   &:hover {
     background: ${props => lighten(0.05, props.theme.colors.primary)};
     cursor: pointer;

@@ -9,7 +9,6 @@ import config from '../../config/SiteConfig';
 
 const Content = styled.div`
   grid-column: 2;
-  box-shadow: 0 4px 120px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   padding: 2rem 4rem;
   background-color: ${props => props.theme.colors.bg};

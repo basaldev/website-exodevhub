@@ -13,7 +13,6 @@ const Wrapper = styled.header`
   margin-left: -1rem;
   margin-right: -1rem;
   padding: 2rem 2rem 5rem 2rem;
-  box-shadow: inset 0px -10px 30px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const Content = styled.div`

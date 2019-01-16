@@ -7,7 +7,6 @@ import { media } from '../utils/media';
 
 const Content = styled.div`
   grid-column: 2;
-  box-shadow: 0 4px 120px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   padding: 3rem 6rem;
   @media ${media.tablet} {
@@ -22,7 +21,6 @@ const Content = styled.div`
 const Hero = styled.div`
   grid-column: 2;
   padding: 3rem 2rem 6rem 2rem;
-  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
   color: ${props => props.theme.colors.grey.dark};
 
   p {
@@ -51,7 +49,6 @@ const IndexPage = ({
         </p>
       </Hero>
       <Content>
-        <SectionTitle>Latest stories</SectionTitle>
         {postEdges.map(post => (
           <Article
             title={post.node.frontmatter.title}

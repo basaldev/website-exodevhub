@@ -16,7 +16,7 @@ collections:
       - { name: title, label: Title }
       - { name: category, label: Category }
       - { name: body, label: Body, widget: markdown }
-      - { name: related, label: Body, widget: markdown }
+      - { name: author, label: Author, widget: markdown }
   - name: people
     label: People
     folder: people
