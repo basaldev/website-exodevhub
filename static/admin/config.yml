@@ -11,7 +11,20 @@ collections:
     folder: blog
     create: true
     fields:
-      - { name: date, label: Date, widget: date }
+      - { name: date, label: Date, widget: datetime }
+      - { name: img, label: Image, widget: image}
       - { name: title, label: Title }
       - { name: category, label: Category }
       - { name: body, label: Body, widget: markdown }
+      - { name: related, label: Body, widget: markdown }
+  - name: people
+    label: People
+    folder: people
+    create: true
+    fields:
+      - { name: img, label: Image, widget: image}
+      - { name: title, label: Title }
+      - { name: twitter, label: Twitter }
+      - { name: github, label: Github }
+
+
