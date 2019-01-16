@@ -1,186 +1,205 @@
 ---
 date: "2018-01-01"
-title: "Scittle Luo"
+title: "Web Components: Attributes and Properties"
 category: "General"
 ---
 
-[View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
-This is a paragraph.
+When working with component libraries there is a blending of Javascript Properties and HTML Attributes that can make it confusing to understand what they really are and how they work. This can be a problem later on so here is a breakdown.
 
-    This is a paragraph.
+**HTML elements have attributes.** Theses are strings that can be passed into an HTML Tag.
 
-# Header 1
+    <img src="https://picsum.photos/200/300" />
 
-## Header 2
+This is because a HTML Document is only a string until it is coupled with a DOM.
 
-    Header 1
-    ========
+*The Document Object Model (DOM) represents that same document ... The DOM is an object-oriented representation of the web page, which can be modified with a scripting language such as JavaScript. - MDN*
 
-    Header 2
-    --------
+When you request a tag using Javascript, it will return an `Element` Object from the DOM; with this Javascript object, you can change the *attributes* of the HTML element but you can also set properties of the object itself which don't have visible representation in the document.
 
-# Header 1
+Properties can be complex data like arrays, functions or other objects; This is especially useful when storing data related to a node.
 
-## Header 2
+*Try it yourself.*
+```js
+$0 //will return the selected element in chrome/firefox/safari
+$0.coolBeans = ['baked', 'black', 'refried'];
+$0.coolBeans; // return a real array, not a string ['baked', 'black', 'refried']
+```
+Now lets do the same with attributes
+```js
+$0 //will return the selected element in chrome/firefox/safari
+$0.setAttribute('coolBeans', ['baked', 'black', 'refried']);
+$0.coolBeans; // return undefined
+$0.getAttribute('coolBeans'); // return a string "baked,black,refried"
+```
+Things get a little more complex when you start using a property that is already defined as an attribute for that tag.
+```js
+const imgTag = document.createElement('img'); //non rendered img tag
+imgTag.srcset = ['https://picsum.photos/320/320 320w',
+                                    'https://picsum.photos/480/320 480w'
+                                    'https://picsum.photos/640/320 640w']
+// this is going to return a real array right?
+// nope
+imgTag.srcset; //"https://picsum.photos/320/320 320w,https://picsum.photos/480/320 480w,https://picsum.photos/640/320 640w"
+```
+This Image Element's Class has a property handlers for `srcset` which ***reflect*** it has attributes and set the property as well.
 
-### Header 3
+For the most part this isn't a problem but it's helpful to understand this relationship because it will help you build better more reusable Web Components.
 
-#### Header 4
+We will be using the library Lit Element from Google, Below is a basic example.
 
-##### Header 5
-
-###### Header 6
-
-    # Header 1
-    ## Header 2
-    ### Header 3
-    #### Header 4
-    ##### Header 5
-    ###### Header 6
-
-# Header 1
-
-## Header 2
-
-### Header 3
-
-#### Header 4
-
-##### Header 5
-
-###### Header 6
-
-    # Header 1 #
-    ## Header 2 ##
-    ### Header 3 ###
-    #### Header 4 ####
-    ##### Header 5 #####
-    ###### Header 6 ######
-
-> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-
-    > Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-
-> ## This is a header.
->
-> 1. This is the first list item.
-> 2. This is the second list item.
->
-> Here's some example code:
->
->     Markdown.generate();
-
-    > ## This is a header.
-    > 1. This is the first list item.
-    > 2. This is the second list item.
-    >
-    > Here's some example code:
-    >
-    >     Markdown.generate();
-
-- Red
-- Green
-- Blue
-
-* Red
-* Green
-* Blue
-
-- Red
-- Green
-- Blue
-
-```markdown
-- Red
-- Green
-- Blue
-
-* Red
-* Green
-* Blue
-
-- Red
-- Green
-- Blue
+```javascript
+class BeanList extends LitElement {
+  constructor() {
+    super();
+  }
+  render() {
+    return html`
+	   <ul>
+			<li>Baked<li>
+			<li>Black</li>
+		  <li>Refried</li>
+		 </ul>
+    `
+  }
+}
+customElements.define('cool-beans', BeanList);
+// You can now add <cool-beans></cool-beans> to your html
 ```
 
-1. Buy flour and salt
-1. Mix together with water
-1. Bake
+This will now render a beautiful list of cool beans, but it's a static string so let's move them to an array.
 
-```markdown
-1. Buy flour and salt
-1. Mix together with water
-1. Bake
+```javascript
+class BeanList extends LitElement {
+  constructor() {
+    super();
+    this.list = [
+			'Baked',
+			'Black',
+			'Refried'
+		]
+  }
+  render() {
+    return html`
+      <ul>
+        ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
+      </ul>
+		`
+  }
+}
 ```
 
-Paragraph:
+Now we have set the `.list`  of the object, we can access this data using Javascript.
+```javascript
+$0 //will return the selected element in chrome/firefox/safari
+$0.list // its return a real array ['Baked','Black','Refried']
+$0.list = ['Baked','Black','Refried','Pino'];
+$0.list // ['Baked','Black','Refried','Pino']
 
-    Code
+const x = document.createElement('cool-beans');
+x.list = ['Baked','Black','Refried','Pino'];
+document.body.appendChild(x);
+// This WILL render the <li>Pino</li> because the list was updated before
+// it rendered the tag
+```
+But you will notice the HTML doesn't update. The Object property is not connected to the Render cycle and it won't re-render if this property is changed. So let's make it listen to our new list.
+```js
+class BeanList extends LitElement {
+    constructor() {
+    super();
+    this.list = [
+            'Baked',
+            'Black',
+            'Refried'
+        ]
+    }
+    static get properties() {
+    return {
+        list: {}
+    };
+    }
+    render() {
+    return html`
+        <ul>
+        ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
+        </ul>
+        `
+    }
+}
+```
+Now we have added a property listener, when this property is updated, it will re-render.
+```js
+$0 //will return the selected element in chrome/firefox/safari
+$0.list // its return a real array ['Baked','Black','Refried']
+$0.list = ['Baked','Black','Refried','Pino'];
+$0.list // It will re-render and you still have
+                // a real ['Baked','Black','Refried','Pino']
+```
+So now our example from before works perfectly.  Now the final piece of the puzzle is connecting out properties to our attributes.
+```js
+class BeanList extends LitElement {
+    constructor() {
+    super();
+    this.list = [
+            'Baked',
+            'Black',
+            'Refried'
+        ]
+    }
+    static get properties() {
+    return {
+        list: {
+        reflect: true,
+        type: {
+        fromAttribute: x => x.split(','),
+        toAttribute: x => x.join(),
+        }
+    },
+    }
+    }
+    render() {
+    return html`
+        <ul>
+        ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
+        </ul>
+        `
+    }
+}
+```
+Hooray with this above example, you can now do both!
+```js
+    $0 //will return the selected element in chrome/firefox/safari
+    $0.setAttribute('list', ['Baked','Black','Refried','Pino'];);
+    $0.list = ['Baked','Black','Refried','Pino'];
+```
+Both statements will update the Attributes, Property and HTML of the component.
 
-<!-- -->
+`fromAttribute`  and `toAttribute` are very powerful interfaces to have but `lit-element` comes with some pre-made converters like `Array` the full list can be found here ([found here](https://lit-element.polymer-project.org/guide/properties#conversion-type))
 
-    Paragraph:
+If you want to use more complex structures, you are unlikely to reflect those as attributes so you don't need the converters.
 
-        Code
+    class BeanList extends LitElement {
+      static get properties() {
+       return {
+          list: { attribute: false },
+       }
+      }
+      constructor() {
+        super();
+        this.list = [];
+      }
+      render() {
+        return html`
+          <ul>
+            ${this.list.map((bean)=> { return html`<li><caption><img src="${bean.img}" />${bean.name}</caption></li>`})}
+          </ul>
+    		`
+      }
+    }
+    customElements.define('cool-beans', BeanList);
 
----
+In the above example you, no attribute is created on the element only properties and you a set them using a range of framework including native HTML. Have a play.
 
----
+[https://glitch.com/embed/#!/embed/brave-pastry?path=src/index.ts&previewSize=33](https://glitch.com/embed/#!/embed/brave-pastry?path=src/index.ts&previewSize=33)
 
----
-
----
-
----
-
-    * * *
-
-    ***
-
-    *****
-
-    - - -
-
-    ---------------------------------------
-
-This is [an example](http://example.com "Example") link.
-
-[This link](http://example.com) has no title attr.
-
-This is [an example][id] reference-style link.
-
-[id]: http://example.com "Optional Title"
-
-    This is [an example](http://example.com "Example") link.
-
-    [This link](http://example.com) has no title attr.
-
-    This is [an example] [id] reference-style link.
-
-    [id]: http://example.com "Optional Title"
-
-_single asterisks_
-
-_single underscores_
-
-**double asterisks**
-
-**double underscores**
-
-    *single asterisks*
-
-    _single underscores_
-
-    **double asterisks**
-
-    __double underscores__
-
-This paragraph has some `code` in it.
-
-    This paragraph has some `code` in it.
-
-![Alt Text](https://placehold.it/200x50 "Image Title")
-
-    ![Alt Text](https://placehold.it/200x50 "Image Title")
+One Caveat is that some frameworks don't pass properties correctly to Web Components yet. A  list of compatible framework can be [found here](https://custom-elements-everywhere.com/)
