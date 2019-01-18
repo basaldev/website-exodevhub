@@ -17,21 +17,24 @@ const designTokens = {
       },
       navy: {
         base: '#302C8B',
-      }
+      },
       pink: {
         base: '#FFC5A5'
       }
     },
   },
   spacing: {
-    scale: [0, 8, 16, 24, 32, 40],
+    scale: [0, 8, 16, 24, 32, 40, 50, 60],
     baseline: 20,
+  },
+  border: {
+    width: 3
   },
   type: {
     baseFontSize: '22',
     sizes: {
-      xs: '10',
-      s: '16',
+      xs: '16',
+      s: '20',
       base: '22',
       m: '28',
       l: '36',
@@ -49,7 +52,6 @@ const designTokens = {
     lineHeight: {
       headings: 1.1,
     },
-    fontSizeUnit: 'px',
     fontWeight: {
       normal: 300, // Useful to set here if using anything other than `normal`
       bold: 'bold', // Useful to set here when bold webfonts come as 400 font-weight.
