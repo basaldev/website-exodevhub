@@ -8,7 +8,7 @@ import { media } from '../utils/media';
 const Content = styled.div`
   grid-column: 2;
   border-radius: 1rem;
-  padding: 3rem 6rem;
+  padding: 2rem 2rem;
   @media ${media.tablet} {
     padding: 3rem 2rem;
   }
@@ -24,13 +24,13 @@ const Hero = styled.div`
   color: ${props => props.theme.colors.grey.dark};
 
   p {
-    font-size: 1.68rem;
+    font-size: 1rem;
     margin-top: -1rem;
     @media ${media.phone} {
-      font-size: 1.25rem;
+      font-size: 1rem;
     }
     @media ${media.tablet} {
-      font-size: 1.45rem;
+      font-size: 1rem;
     }
   }
 `;
