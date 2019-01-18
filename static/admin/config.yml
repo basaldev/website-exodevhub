@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: stagfoo/exodevhub-website
+  repo: exodevhub/exodevhub-website
 
 media_folder: static/assets
 public_folder: assets
