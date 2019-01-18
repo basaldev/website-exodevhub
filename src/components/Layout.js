@@ -85,7 +85,7 @@ const Layout = ({ children }) => (
           <link href="https://fonts.googleapis.com/css?family=Prata|Noto+Sans+JP" rel="stylesheet"></link>
           {children}
           <Footer>
-            &copy; {data.site.buildTime.split('.')[2]} by Exolever Asia All rights reserved. <br />
+            ExO Lever Asia 合同会社 &copy;{data.site.buildTime.split('.')[2]} All rights reserved. <br />
             <span>Last build: {data.site.buildTime}</span>
           </Footer>
         </React.Fragment>
