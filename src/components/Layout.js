@@ -9,6 +9,13 @@ import theme from '../../config/Theme';
 import { media } from '../utils/media';
 
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'Big John PRO';
+    src: url('BigJohnPRO-Bold.woff2') format('woff2'),
+        url('BigJohnPRO-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+  }
   ::selection {
     color: ${theme.colors.bg};
     background: ${theme.colors.primary};
@@ -27,10 +34,19 @@ const GlobalStyle = createGlobalStyle`
     transition: all ${theme.transitions.normal};
   }
   a:hover {
-    color: ${theme.colors.primary};
+    opacity: 0.8;
   }
   h1, h2, h3, h4 {
+    text-transform: uppercase;
     color: ${theme.colors.grey.dark};
+  }
+  h1 span.white {
+    color:white
+    text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+     -1px 1px 0 #000,
+      1px 1px 0 #000;
   }
   blockquote {
     font-style: italic;
@@ -82,10 +98,10 @@ const Layout = ({ children }) => (
         <React.Fragment>
           <SEO />
           <GlobalStyle />
-          <link href="https://fonts.googleapis.com/css?family=Prata|Noto+Sans+JP" rel="stylesheet"></link>
+          <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700" rel="stylesheet"></link>
           {children}
           <Footer>
-            &copy; {data.site.buildTime.split('.')[2]} by Exolever Asia All rights reserved. <br />
+            ExO Lever Asia 合同会社 &copy;{data.site.buildTime.split('.')[2]} All rights reserved. <br />
             <span>Last build: {data.site.buildTime}</span>
           </Footer>
         </React.Fragment>
