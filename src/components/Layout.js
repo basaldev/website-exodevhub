@@ -11,8 +11,8 @@ import { media } from '../utils/media';
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Big John PRO';
-    src: url('BigJohnPRO-Bold.woff2') format('woff2'),
-        url('BigJohnPRO-Bold.woff') format('woff');
+    src: url('/fonts/BigJohnPRO-Bold.woff2') format('woff2'),
+        url('/fonts/BigJohnPRO-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
   }
