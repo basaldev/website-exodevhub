@@ -12,9 +12,10 @@ export default class HTML extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
-            <link rel="preload" href="/fonts/BigJohnPRO-Bold.woff2" as="font">
-            <link rel="preload" href="/fonts/BigJohnPRO-Bold.woff" as="font">
+
           {this.props.headComponents}
+          <link rel="preload" href="/fonts/BigJohnPRO-Bold.woff2" as="font"></link>
+          <link rel="preload" href="/fonts/BigJohnPRO-Bold.woff" as="font"></link>
         </head>
         <body {...this.props.bodyAttributes}>
         <style>{`
@@ -24,6 +25,7 @@ export default class HTML extends React.Component {
           }
         `}</style>
           {this.props.preBodyComponents}
+
           <noscript key="noscript" id="gatsby-noscript">
             This app works best with JavaScript enabled.
           </noscript>

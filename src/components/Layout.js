@@ -23,6 +23,7 @@ const GlobalStyle = createGlobalStyle`
     font-display:block;
   }
   body {
+    font-display:block;
     background: ${theme.colors.bg};
     color: ${theme.default};
     font-display: swap;
