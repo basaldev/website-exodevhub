@@ -61,7 +61,7 @@ const SplashPage = ({
 }) => (
     <Layout>
       <Wrapper>
-        <Header></Header>
+        <Header />
         <Hero>
           <SectionTitle text="Coming Soon" white="S" ></SectionTitle>
           <p>
@@ -79,7 +79,7 @@ const IndexPage = ({
 }) => (
     <Layout>
       <Wrapper>
-        <Header></Header>
+        <Header />
         <Content>
           <SectionTitle text="writings" white="g" ></SectionTitle>
           <ArticleWrapper>

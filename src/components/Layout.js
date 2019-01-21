@@ -9,13 +9,7 @@ import theme from '../../config/Theme';
 import { media } from '../utils/media';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Big John PRO';
-    src: url('/fonts/BigJohnPRO-Bold.woff2') format('woff2'),
-        url('/fonts/BigJohnPRO-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-  }
+
   ::selection {
     color: ${theme.colors.bg};
     background: ${theme.colors.primary};
@@ -24,6 +18,8 @@ const GlobalStyle = createGlobalStyle`
     background: ${theme.colors.bg};
     color: ${theme.default};
     font-display: swap;
+    transition: 0.5s ease all;
+    opacity: 1 !important;
     @media ${media.phone} {
       font-size: 14px;
     }

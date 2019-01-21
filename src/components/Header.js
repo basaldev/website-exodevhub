@@ -38,7 +38,7 @@ const Content = styled.div`
   }
 `;
 
-const Header = ({ children }) => (
+const Header = ({children}) => (
   <Wrapper>
     <Content>
       <Link to="/"><img src={config.siteLogo} /></Link>
@@ -52,7 +52,3 @@ const Header = ({ children }) => (
 );
 
 export default Header;
-
-Header.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
-};
