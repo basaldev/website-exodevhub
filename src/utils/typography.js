@@ -12,12 +12,8 @@ const typography = new Typography({
   headerWeight: 700,
   googleFonts: [
     {
-      name: config.headerFontFamily,
-      styles: ['700'],
-    },
-    {
       name: config.bodyFontFamily,
-      styles: ['400'],
+      styles: ['400, 700'],
     },
   ],
   overrideStyles: ({ adjustFontSizeTo, rhythm }, options, styles) => ({

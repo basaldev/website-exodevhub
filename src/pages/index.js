@@ -38,7 +38,11 @@ const Hero = styled.div`
   padding: 3rem 2rem 6rem 2rem;
   text-align:center;
   color: ${props => props.theme.colors.grey.dark};
-
+  h1 {
+    @media ${media.phone} {
+      font-size: 10vw;
+    }
+  }
   p {
     font-size: 1rem;
     margin-top: -1rem;
@@ -57,7 +61,7 @@ const SplashPage = ({
 }) => (
     <Layout>
       <Wrapper>
-        <Header></Header>
+        <Header />
         <Hero>
           <SectionTitle text="Coming Soon" white="S" ></SectionTitle>
           <p>
@@ -75,7 +79,7 @@ const IndexPage = ({
 }) => (
     <Layout>
       <Wrapper>
-        <Header></Header>
+        <Header />
         <Content>
           <SectionTitle text="writings" white="g" ></SectionTitle>
           <ArticleWrapper>
