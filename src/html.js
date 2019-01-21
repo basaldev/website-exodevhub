@@ -19,13 +19,7 @@ export default class HTML extends React.Component {
           body {
             opacity: 0;
           }
-          @font-face {
-            font-family: 'Big John PRO';
-            src: url('/fonts/BigJohnPRO-Bold.woff2') format('woff2'),
-                url('/fonts/BigJohnPRO-Bold.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-          }
+
         `}</style>
           {this.props.preBodyComponents}
           <noscript key="noscript" id="gatsby-noscript">

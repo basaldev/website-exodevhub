@@ -2,7 +2,7 @@ module.exports = {
   pathPrefix: '/', // Prefix for all links. If you deploy your site to example.com/portfolio your pathPrefix should be "portfolio"
 
   siteTitle: 'Exo Devhub', // Navigation and Site Title
-  siteTitleAlt: 'Exo Devhub - R', // Alternative Site title for SEO
+  siteTitleAlt: 'Exo Devhub', // Alternative Site title for SEO
   siteUrl: 'https://minimal-blog.netlify.com', // Domain of your site. No trailing slash!
   siteLanguage: 'en', // Language Tag on <html> element
   siteBanner: '/social/banner.jpg', // Your image for og:image tag. You can find it in the /static folder
