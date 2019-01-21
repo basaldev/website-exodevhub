@@ -10,12 +10,6 @@ const typography = new Typography({
   headerFontFamily: [config.headerFontFamily, 'sans-serif'],
   bodyFontFamily: [config.bodyFontFamily, 'sans-serif'],
   headerWeight: 700,
-  googleFonts: [
-    {
-      name: config.bodyFontFamily,
-      styles: ['400, 700'],
-    },
-  ],
   overrideStyles: ({ adjustFontSizeTo, rhythm }, options, styles) => ({
     h2: {
       fontFamily: ['Noto Sans', 'sans-serif'].join(','),

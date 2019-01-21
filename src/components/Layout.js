@@ -103,7 +103,6 @@ const Layout = ({ children }) => (
         <React.Fragment>
           <SEO />
           <GlobalStyle />
-          <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700" rel="stylesheet"></link>
           {children}
           <Footer>
             ExO Lever Asia 合同会社 &copy;{data.site.buildTime.split('.')[2]} All rights reserved. <br />

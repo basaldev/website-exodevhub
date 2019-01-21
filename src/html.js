@@ -16,6 +16,7 @@ export default class HTML extends React.Component {
           {this.props.headComponents}
           <link rel="preload" crossorigin="anonymous" href="/fonts/BigJohnPRO-Bold.woff2" as="font"></link>
           <link rel="preload" crossorigin="anonymous" href="/fonts/BigJohnPRO-Bold.woff" as="font"></link>
+          <link rel="preload" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700" rel="stylesheet"></link>
         </head>
         <body {...this.props.bodyAttributes}>
         <style>{`
