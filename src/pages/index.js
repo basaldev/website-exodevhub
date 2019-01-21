@@ -38,7 +38,11 @@ const Hero = styled.div`
   padding: 3rem 2rem 6rem 2rem;
   text-align:center;
   color: ${props => props.theme.colors.grey.dark};
-
+  h1 {
+    @media ${media.phone} {
+      font-size: 10vw;
+    }
+  }
   p {
     font-size: 1rem;
     margin-top: -1rem;
