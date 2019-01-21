@@ -20,8 +20,8 @@ export default class HTML extends React.Component {
         <style>{`
           body {
             opacity: 0;
+            font-display:block;
           }
-
         `}</style>
           {this.props.preBodyComponents}
           <noscript key="noscript" id="gatsby-noscript">
