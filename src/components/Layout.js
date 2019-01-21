@@ -20,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
         url('/fonts/BigJohnPRO-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
+    font-display:block;
   }
   body {
     background: ${theme.colors.bg};
