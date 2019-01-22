@@ -7,8 +7,8 @@ module.exports = {
   siteLanguage: 'en', // Language Tag on <html> element
   siteBanner: '/social/banner.jpg', // Your image for og:image tag. You can find it in the /static folder
   favicon: 'src/favicon.png', // Your image for favicons. You can find it in the /src folder
-  siteDescription: 'Minimal Blog with big typography', // Your site description
-  author: 'LekoArts', // Author for schemaORGJSONLD
+  siteDescription: '', // Your site description
+  author: 'Exodevhub Team', // Author for schemaORGJSONLD
   siteLogo: '/social/logo.svg', // Image for schemaORGJSONLD
 
   // siteFBAppID: '123456789', // Facebook App ID - Optional

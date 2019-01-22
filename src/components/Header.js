@@ -22,8 +22,8 @@ const Dropdown = styled.div`
   }
 `
 const Wrapper = styled.header`
-  grid-column: 1 / -1;
-  padding: ${designSystem.spacing(4)}  ${designSystem.spacing(2)};
+  grid-column: 2;
+  padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(10)} 0;
 `;
 
 const Content = styled.div`

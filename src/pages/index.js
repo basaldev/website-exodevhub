@@ -10,23 +10,16 @@ import { designSystem } from '../utils/designSystem';
 const Content = styled.div`
   grid-column: 2;
   border-radius: 1rem;
-  padding: 2rem 2rem;
-  @media ${media.tablet} {
-    padding: 3rem 2rem;
-  }
-  @media ${media.phone} {
-    padding: 2rem 1.5rem;
-  }
+  @media ${media.tablet} {}
+  @media ${media.phone} {}
   overflow: hidden;
 `;
 
 const ArticleWrapper = styled.div`
+  grid-column: 2;
   display: flex;
-  justify-content: flex-start;
-  @media ${media.tablet} {
-    flex-direction: column;
-    padding: 3rem 2rem;
-  }
+  flex-wrap: wrap;
+  justify-content: space-between;
   @media ${media.phone} {
     flex-direction: column;
   }
@@ -35,8 +28,7 @@ const ArticleWrapper = styled.div`
 
 const Hero = styled.div`
   grid-column: 2;
-  padding: 3rem 2rem 6rem 2rem;
-  text-align:center;
+  padding: 3rem 0 6rem 0;
   color: ${props => props.theme.colors.grey.dark};
   h1 {
     @media ${media.phone} {
@@ -46,11 +38,14 @@ const Hero = styled.div`
   p {
     font-size: 1rem;
     margin-top: -1rem;
+    width: 45%;
     @media ${media.phone} {
       font-size: 1rem;
+
     }
     @media ${media.tablet} {
       font-size: 1rem;
+      width: 100%;
     }
   }
 `;
@@ -88,6 +83,7 @@ const IndexPage = ({
               title={post.node.frontmatter.title}
               date={post.node.frontmatter.date}
               excerpt={post.node.excerpt}
+              shape={post.node.frontmatter.shape || 'diamond'}
               timeToRead={post.node.timeToRead}
               slug={post.node.fields.slug}
               category={post.node.frontmatter.category}
@@ -106,7 +102,7 @@ const IndexPage = ({
     </Layout>
   );
 
-export default SplashPage;
+export default IndexPage;
 
 IndexPage.propTypes = {
   data: PropTypes.shape({
@@ -128,6 +124,7 @@ export const IndexQuery = graphql`
             title
             date(formatString: "DD.MM.YYYY")
             category
+            shape
           }
           excerpt(pruneLength: 200)
           timeToRead

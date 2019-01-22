@@ -5,14 +5,24 @@ import { Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
 import { Subline } from 'components';
 import { designSystem } from 'utils/designSystem';
+import { media } from '../utils/media';
 
 
 const shapeSize = 120;
 const Post = styled.article`
-  flex: 1;
-  margin: ${designSystem.spacing(4)};
-  max-width: 50vw;
+  flex: 45% 0 0;
   clear:both;
+  margin-bottom: ${designSystem.spacing(10)};
+  margin-right: ${designSystem.spacing(4)};
+  &:last-of-type {
+    margin-right: 0;
+    margin-bottom: 0;
+
+  }
+  @media ${media.phone} {
+    width: auto;
+    margin-right: 0;
+  }
 `;
 
 const Title = styled.h2`
@@ -20,17 +30,17 @@ const Title = styled.h2`
   margin-bottom: 0.75rem;
   text-transform: capitalize;
   font-weight:bold;
-  font-size: ${designSystem.fontSize('l')}px;
+  font-size: ${designSystem.fontSize('s')}px;
   border: ${designSystem.get('border.width')}px solid;
-  padding: ${designSystem.spacing(3)};
+  display:table;
+  & a {
+    padding: 0 ${designSystem.spacing(3)};
+    vertical-align:middle;
+    display: table-cell;
+  }
   clear:both;
   background: white;
   min-height: 110px;
-  text-shadow:
-  -0.5px -0.5px 0 #000,
-  0.5px -0.5px 0 #000,
-   -0.5px 0.5px 0 #000,
-   0.5px 0.5px 0 #000;
 `;
 //REPLCAE with SVG
 const Shape = styled.div`
@@ -50,8 +60,7 @@ const Shape = styled.div`
      case 'corner':
      return `
       overflow:hidden;
-      top: -15px;
-      left: -20px;
+      top: -5px;
       border-radius: 100% 0 0 0;
       background: ${designSystem.color('orange')}
      `;
@@ -59,14 +68,18 @@ const Shape = styled.div`
      return `
       overflow:hidden;
       transform: rotate(45deg);
-      background: ${designSystem.color('navy')}
+      left: 24px;
+      top: ${designSystem.spacing(1)};
+      width: 110px;
+      height: 110px;
+      background: ${designSystem.color('blue')}
      `;
      default:
      case 'circle':
      return `
       overflow:hidden;
       border-radius: 100%;
-      background: ${designSystem.color('blue')}
+      background: ${designSystem.color('green')}
      `;
    }
   }};
@@ -93,7 +106,6 @@ opacity: 0.3;
 
 const Article = ({ title, date, excerpt, slug, timeToRead, category, shape }) => {
   const firstChar = title.charAt(0);
-
   return (
     <Post>
 
@@ -101,7 +113,7 @@ const Article = ({ title, date, excerpt, slug, timeToRead, category, shape }) =>
       <Shape type={shape}></Shape>
       <Meta>
         <span>{date} &mdash; {timeToRead} Min Read</span>
-        <Link to={`/categories/${kebabCase(category)}`}>In{' '} #{category}</Link>
+        <Link to={`/categories/${kebabCase(category)}`}> - In{' '} #{category}</Link>
       </Meta>
       <Title>
         <Link to={slug}>{title}</Link>
