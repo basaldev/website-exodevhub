@@ -1,24 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { darken, lighten } from 'polished';
+import { designSystem } from 'utils/designSystem';
+import { Button } from 'components';
+import { Link } from 'gatsby';
+import config from '../../config/SiteConfig';
 
+const Dropdown = styled.div`
+  float:right;
+  position: absolute;
+  right: ${designSystem.spacing(2)};
+  top: ${designSystem.spacing(1)};
+  & *:first-child {
+    display: block;
+  }
+  & * {
+    display:none;
+  }
+  &:hover * {
+    display:block;
+  }
+`
 const Wrapper = styled.header`
-  background: linear-gradient(
-    45deg,
-    ${props => darken(0.1, props.theme.colors.primary)},
-    ${props => lighten(0.1, props.theme.colors.primary)}
-  );
-  grid-column: 1 / -1;
-  margin-left: -1rem;
-  margin-right: -1rem;
-  padding: 2rem 2rem 5rem 2rem;
+  grid-column: 2;
+  padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(10)} 0;
 `;
 
 const Content = styled.div`
-  max-width: 1000px;
   margin: 0 auto;
-
+  position: relative;
   a {
     color: white;
     &:hover {
@@ -28,14 +38,17 @@ const Content = styled.div`
   }
 `;
 
-const Header = ({ children }) => (
+const Header = ({children}) => (
   <Wrapper>
-    <Content>{children}</Content>
+    <Content>
+      <Link to="/"><img src={config.siteLogo} /></Link>
+      <Dropdown>
+        <Button>socials</Button>
+        <Button to="http://twitter.com">twitter</Button>
+      </Dropdown>
+      {children}
+    </Content>
   </Wrapper>
 );
 
 export default Header;
-
-Header.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
-};

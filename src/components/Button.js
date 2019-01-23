@@ -1,30 +1,24 @@
 import styled from 'styled-components';
-import { lighten } from 'polished';
+import { designSystem } from 'utils/designSystem';
+import { Link } from 'gatsby';
 
-const Button = styled.button`
-  background: ${props => props.theme.colors.primary};
+const Button = styled(Link)`
+  background: ${designSystem.color('yellow')};
   border: none;
   display: inline-flex;
   align-items: center;
-  border-radius: ${props => (props.big ? '1.5rem' : '1rem')};
+  text-transform: uppercase;
+  color: black;
+  font-weight: bold;
+  padding: ${designSystem.spacing(2)};
+  line-height: 1;
+  font-family: ${designSystem.get('type.fontFamily.mono')};
   font-size: ${props => (props.big ? '1.2rem' : '1rem')};
-  color: white;
-  padding: ${props => (props.big ? '0.35rem 1.6rem' : '0.25rem 1.5rem')};
-  transition: all ${props => props.theme.transitions.normal};
   &:hover {
-    background: ${props => lighten(0.05, props.theme.colors.primary)};
     cursor: pointer;
-    transform: translateY(-2px);
   }
   &:focus {
     outline: none;
   }
-  svg {
-    width: 20px;
-    height: 20px;
-    margin-right: 0.75rem;
-    fill: white;
-  }
 `;
-
 export default Button;

@@ -7,43 +7,77 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { SEO } from 'components';
 import theme from '../../config/Theme';
 import { media } from '../utils/media';
+import { designSystem } from '../utils/designSystem';
 
 const GlobalStyle = createGlobalStyle`
+
   ::selection {
     color: ${theme.colors.bg};
     background: ${theme.colors.primary};
   }
+  @font-face {
+    font-family: 'Big John PRO';
+    src: url('/fonts/BigJohnPRO-Bold.woff2') format('woff2'),
+        url('/fonts/BigJohnPRO-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display:block;
+  }
   body {
+    font-display:block;
     background: ${theme.colors.bg};
     color: ${theme.default};
     font-display: swap;
+    transition: 0.5s ease all;
+    opacity: 1 !important;
     @media ${media.phone} {
       font-size: 14px;
     }
   }
+  a:visited;
   a {
-    color: ${theme.colors.grey.dark};
+    color: ${designSystem.color('blue')};
     text-decoration: none;
-    transition: all ${theme.transitions.normal};
   }
   a:hover {
-    color: ${theme.colors.primary};
+    opacity:1;
+    color: ${designSystem.color('blue')};
+
+  }
+  h1 a,
+  h4 a,
+  h3 a,
+  h2 a {
+    color: inherit;
   }
   h1, h2, h3, h4 {
+    text-transform: uppercase;
     color: ${theme.colors.grey.dark};
   }
+  h1 span.white {
+    color:white
+    text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+     -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
   blockquote {
-    font-style: italic;
     position: relative;
+    margin-left: 0;
+    background: ${designSystem.color('white')};
+    font-size: 1.2rem;
+    padding: ${designSystem.spacing(4)};
   }
 
   blockquote:before {
     content: "";
     position: absolute;
-    background: ${theme.colors.primary};
+    background: ${designSystem.color('red')};
     height: 100%;
     width: 6px;
-    margin-left: -1.6rem;
+    top:0px;
+    left: 0px;
   }
   label {
     margin-bottom: .5rem;
@@ -82,10 +116,9 @@ const Layout = ({ children }) => (
         <React.Fragment>
           <SEO />
           <GlobalStyle />
-          <link href="https://fonts.googleapis.com/css?family=Prata|Noto+Sans+JP" rel="stylesheet"></link>
           {children}
           <Footer>
-            &copy; {data.site.buildTime.split('.')[2]} by Exolever Asia All rights reserved. <br />
+            ExO Lever Asia 合同会社 &copy;{data.site.buildTime.split('.')[2]} All rights reserved. <br />
             <span>Last build: {data.site.buildTime}</span>
           </Footer>
         </React.Fragment>

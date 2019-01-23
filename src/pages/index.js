@@ -2,68 +2,108 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Layout, Article, Wrapper, Button, SectionTitle } from 'components';
+import { Layout, Header, Article, Wrapper, Button, SectionTitle } from 'components';
 import { media } from '../utils/media';
+import config from '../../config/SiteConfig';
+import { designSystem } from '../utils/designSystem';
 
 const Content = styled.div`
   grid-column: 2;
   border-radius: 1rem;
-  padding: 2rem 2rem;
-  @media ${media.tablet} {
-    padding: 3rem 2rem;
-  }
-  @media ${media.phone} {
-    padding: 2rem 1.5rem;
-  }
+  @media ${media.tablet} {}
+  @media ${media.phone} {}
   overflow: hidden;
 `;
 
+const ArticleWrapper = styled.div`
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media ${media.tablet} {
+    flex-direction: column;
+  }
+  @media ${media.phone} {
+    flex-direction: column;
+  }
+`;
+
+
 const Hero = styled.div`
   grid-column: 2;
-  padding: 3rem 2rem 6rem 2rem;
+  padding: 3rem 0 6rem 0;
   color: ${props => props.theme.colors.grey.dark};
-
+  h1 {
+    @media ${media.phone} {
+      font-size: 10vw;
+    }
+  }
   p {
     font-size: 1rem;
     margin-top: -1rem;
+    width: 45%;
     @media ${media.phone} {
       font-size: 1rem;
+
     }
     @media ${media.tablet} {
       font-size: 1rem;
+      width: 100%;
     }
   }
 `;
+const SplashPage = ({
+  data: {
+    allMarkdownRemark: { edges: postEdges },
+  },
+}) => (
+    <Layout>
+      <Wrapper>
+        <Header />
+        <Hero>
+          <SectionTitle text="Coming Soon" white="S" ></SectionTitle>
+          <p>
+            We are currently building the website, it will be up any day now {`;)`}
+        </p>
+        </Hero>
+      </Wrapper>
+    </Layout>
+  );
 
 const IndexPage = ({
   data: {
     allMarkdownRemark: { edges: postEdges },
   },
 }) => (
-  <Layout>
-    <Wrapper>
-      <Hero>
-        <h1>Exo Devhub</h1>
-        <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+    <Layout>
+      <Wrapper>
+        <Header />
+        <Content>
+          <SectionTitle text="writings" white="g" ></SectionTitle>
+          <ArticleWrapper>
+          {postEdges.map(post => (
+            <Article
+              title={post.node.frontmatter.title}
+              date={post.node.frontmatter.date}
+              excerpt={post.node.excerpt}
+              shape={post.node.frontmatter.shape || 'diamond'}
+              timeToRead={post.node.timeToRead}
+              slug={post.node.fields.slug}
+              category={post.node.frontmatter.category}
+              key={post.node.fields.slug}
+            />
+          ))}
+          </ArticleWrapper>
+        </Content>
+        <Hero>
+          <SectionTitle text="about" white="o" ></SectionTitle>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
         </p>
-      </Hero>
-      <Content>
-        {postEdges.map(post => (
-          <Article
-            title={post.node.frontmatter.title}
-            date={post.node.frontmatter.date}
-            excerpt={post.node.excerpt}
-            timeToRead={post.node.timeToRead}
-            slug={post.node.fields.slug}
-            category={post.node.frontmatter.category}
-            key={post.node.fields.slug}
-          />
-        ))}
-      </Content>
-    </Wrapper>
-  </Layout>
-);
+        </Hero>
+      </Wrapper>
+    </Layout>
+  );
 
 export default IndexPage;
 
@@ -87,6 +127,7 @@ export const IndexQuery = graphql`
             title
             date(formatString: "DD.MM.YYYY")
             category
+            shape
           }
           excerpt(pruneLength: 200)
           timeToRead

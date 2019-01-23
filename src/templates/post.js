@@ -8,10 +8,10 @@ import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
 import '../utils/prismjs-theme.css';
+import { designSystem } from '../utils/designSystem';
 
 const Content = styled.article`
   grid-column: 2;
-  max-width: 1000px;
   border-radius: 1rem;
   padding: 2rem 4rem;
   background-color: ${props => props.theme.colors.bg};
@@ -23,14 +23,28 @@ const Content = styled.article`
   @media ${media.phone} {
     padding: 2rem 1.5rem;
   }
+  h2 {
+    text-transform: capitalize;
+  }
 `;
-
-const Title = styled.h1`
+const Grid = styled.div`
+    justify-items: center;
+`;
+const Title = styled.h2`
   margin-bottom: 1rem;
+  font-weight:bold;
+  text-shadow:
+  -0.5px -0.5px 0 #000,
+  0.5px -0.5px 0 #000,
+   -0.5px 0.5px 0 #000,
+   0.5px 0.5px 0 #000;
+   text-transform: capitalize;
 `;
 
 const PostContent = styled.div`
-  margin-top: 4rem;
+padding: 2rem;
+margin-top: ${designSystem.spacing(6)};
+border: 5px solid ${designSystem.color('black')};
 `;
 
 const Post = ({ pageContext: { slug, prev, next }, data: { markdownRemark: postNode } }) => {
@@ -41,15 +55,13 @@ const Post = ({ pageContext: { slug, prev, next }, data: { markdownRemark: postN
       <Wrapper>
         <SEO postPath={slug} postNode={postNode} postSEO />
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
-        <Header>
-          <Link to="/">{config.siteTitle}</Link>
-        </Header>
+        <Header></Header>
         <Content>
-          <Title>{post.title}</Title>
           <Subline>
-            {post.date} &mdash; {postNode.timeToRead} Min Read &mdash; In{' '}
-            <Link to={`/categories/${kebabCase(post.category)}`}>{post.category}</Link>
+            <span>{post.date} &mdash; {postNode.timeToRead} Min Read </span>
+            <Link to={`/categories/${kebabCase(post.category)}`}>#{post.category}</Link>
           </Subline>
+          <Title>{post.title}</Title>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
           <PrevNext prev={prev} next={next} />
         </Content>

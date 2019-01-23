@@ -1,5 +1,5 @@
 const colors = {
-  primary: '#FF9065', // Color for buttons or links
+  primary: '#3B4DEE', // Color for buttons or links
   bg: 'white', // Background color
   grey: {
     dark: 'rgba(0, 0, 0, 0.9)',
@@ -14,7 +14,7 @@ const transitions = {
 };
 
 const fontSize = {
-  small: '0.9rem',
+  small: '1rem',
 };
 
 const theme = {
