@@ -109,7 +109,7 @@ display:block;
 text-align: right;
 margin-left: ${designSystem.spacing(6)};
 @media ${media.phone} {
-  margin-left:${designSystem.spacing(9)};
+  margin-left:${designSystem.spacing(10)};
 }
 `
 
