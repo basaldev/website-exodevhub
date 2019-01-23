@@ -14,12 +14,14 @@ const Content = styled.div`
   grid-column: 2;
   border-radius: 1rem;
   padding: 2rem 0rem;
-  background-color: ${props => props.theme.colors.bg};
   z-index: 9000;
-  margin-top: -3rem;
+  width: 70vw;
+  margin:0 auto;
   @media ${media.tablet} {
+    width: auto;
   }
   @media ${media.phone} {
+    width: auto;
   }
 `;
 
@@ -41,8 +43,8 @@ const Category = ({
     <Wrapper>
       <Helmet title={`Categories | ${config.siteTitle}`} />
       <Header></Header>
-      <LinkHeader text={'Categories'} white="o"><Button to="/categories">all categories</Button></LinkHeader>
       <Content>
+      <LinkHeader text={'Categories'} white="o"><Button to="/categories">all categories</Button></LinkHeader>
         {group.map(category => (
           <Title key={category.fieldValue}>
             <Link to={`/categories/${kebabCase(category.fieldValue)}`}>#{category.fieldValue}</Link> (

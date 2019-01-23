@@ -13,9 +13,13 @@ const Content = styled.div`
   border-radius: 1rem;
   background-color: ${props => props.theme.colors.bg};
   z-index: 9000;
+  width: 70vw;
+  margin:0 auto;
   @media ${media.tablet} {
+    width: auto;
   }
   @media ${media.phone} {
+    width: auto;
   }
 `;
 const ArticleWrapper = styled.div`
@@ -62,7 +66,6 @@ const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) =>
         <Helmet title={`${category} | ${config.siteTitle}`} />
         <Header></Header>
         <Content>
-
         <LinkHeader text={'#'+category } white={category.split("")[category.length - 4]}>
         <Button to="/categories">all categories</Button>
         </LinkHeader>
