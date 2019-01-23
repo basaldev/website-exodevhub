@@ -14,14 +14,16 @@ const Content = styled.article`
   grid-column: 2;
   border-radius: 1rem;
   padding: 2rem 4rem;
-  background-color: ${props => props.theme.colors.bg};
   z-index: 9000;
-  margin-top: -3rem;
+  max-width: 75vw;
+  margin:0 auto;
   @media ${media.tablet} {
     padding: 3rem 3rem;
+    max-width: none;
   }
   @media ${media.phone} {
     padding: 2rem 1.5rem;
+    max-width: none;
   }
   h2 {
     text-transform: capitalize;
@@ -48,7 +50,7 @@ border: 5px solid ${designSystem.color('black')};
 `;
 
 const Post = ({ pageContext: { slug, prev, next }, data: { markdownRemark: postNode } }) => {
-  const post = postNode.frontmatter;
+const post = postNode.frontmatter;
 
   return (
     <Layout>

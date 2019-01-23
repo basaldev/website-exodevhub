@@ -1,11 +1,32 @@
 import styled from 'styled-components';
 import React from 'react';
 import { lastIndexOf } from 'lodash';
+import { Button, SectionTitle } from 'components';
+import { designSystem } from '../utils/designSystem';
 
-const SectionTitle = ({ text, white }) => {
-  const title = text.split("");
-  const index = lastIndexOf(title, white);
-  return (<h1>{title.splice(0,index)}<span className="white">{white}</span>{title.splice(1,index)}</h1>);
+const TitleHeader = styled.div`
+grid-column: 2;
+display:block;
+clear:both;
+overflow:hidden;
+h1 {
+  display:inline-block;
+  float:left;
+}
+`
+const ButtonWrapper = styled.div`
+  transform: translateY(${designSystem.spacing(2)});
+  margin-left: ${designSystem.spacing(2)};
+  float:left;
+`
+
+const LinkHeader = ({ text, white, children }) => {
+  return (
+    <TitleHeader>
+    <SectionTitle text={text} white={white} ></SectionTitle>
+    <ButtonWrapper>{children}</ButtonWrapper>
+    </TitleHeader >
+  );
 };
 
-export default SectionTitle;
+export default LinkHeader;

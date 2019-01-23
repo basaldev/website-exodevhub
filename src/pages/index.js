@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Layout, Header, Article, Wrapper, Button, SectionTitle } from 'components';
+import { Layout, Header, Article, Wrapper, Button, SectionTitle, LinkHeader } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
 import { designSystem } from '../utils/designSystem';
@@ -52,6 +52,7 @@ const Hero = styled.div`
     }
   }
 `;
+
 const SplashPage = ({
   data: {
     allMarkdownRemark: { edges: postEdges },
@@ -79,7 +80,7 @@ const IndexPage = ({
       <Wrapper>
         <Header />
         <Content>
-          <SectionTitle text="writings" white="g" ></SectionTitle>
+        <LinkHeader text={'writings'} white="g"><Button to="/categories">all categories</Button></LinkHeader>
           <ArticleWrapper>
           {postEdges.map(post => (
             <Article

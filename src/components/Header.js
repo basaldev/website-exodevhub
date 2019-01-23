@@ -6,6 +6,17 @@ import { Button } from 'components';
 import { Link } from 'gatsby';
 import config from '../../config/SiteConfig';
 
+const button = `
+border: none;
+align-items: center;
+text-transform: uppercase;
+color: black;
+font-weight: bold;
+padding: ${designSystem.spacing(2)};
+line-height: 1;
+font-family: ${designSystem.get('type.fontFamily.mono')};
+font-size: ${props => (props.big ? '1.2rem' : '1rem')};
+`
 const Dropdown = styled.div`
   float:right;
   position: absolute;
@@ -20,6 +31,24 @@ const Dropdown = styled.div`
   &:hover * {
     display:block;
   }
+  a {
+    ${button}
+    &:hover {
+      cursor: pointer;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      opacity: 0.85;
+      color: ${designSystem.color('blue')};
+    }
+  }
+  a {
+    margin-top: ${designSystem.spacing(1)};
+    background: ${designSystem.color('black')};
+    color: ${designSystem.color('white')};
+  }
 `
 const Wrapper = styled.header`
   grid-column: 2;
@@ -29,22 +58,19 @@ const Wrapper = styled.header`
 const Content = styled.div`
   margin: 0 auto;
   position: relative;
-  a {
-    color: white;
-    &:hover {
-      opacity: 0.85;
-      color: white;
-    }
-  }
 `;
+const FakeButton = styled.span`
+  ${button}
+  background: ${designSystem.color('yellow')};
 
+`
 const Header = ({children}) => (
   <Wrapper>
     <Content>
       <Link to="/"><img src={config.siteLogo} /></Link>
       <Dropdown>
-        <Button>socials</Button>
-        <Button to="http://twitter.com">twitter</Button>
+        <FakeButton>socials</FakeButton>
+        <a target="_blank" href={`http://twitter.com/${config.userTwitter}`}>twitter</a>
       </Dropdown>
       {children}
     </Content>

@@ -41,7 +41,7 @@ const Title = styled.h2`
   }
   clear:both;
   background: white;
-  min-height: 110px;
+  height: 110px; //Firefox fix
 `;
 //REPLCAE with SVG
 const Shape = styled.div`

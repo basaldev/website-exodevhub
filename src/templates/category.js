@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Layout, Wrapper, Header, Subline, Button, Article, SectionTitle } from 'components';
+import { Layout, Wrapper, Header, Subline, LinkHeader, Button, Article, SectionTitle } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
 import { designSystem } from 'utils/designSystem';
@@ -65,10 +65,9 @@ const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) =>
         <Header></Header>
         <Content>
 
-          <TitleHeader>
-          <SectionTitle text={'#'+category } white={category.split("")[category.length - 4]} ></SectionTitle>
-          <Button to="/categories">all categories</Button>
-          </TitleHeader>
+        <LinkHeader text={'#'+category } white={category.split("")[category.length - 4]}>
+        <Button to="/categories">all categories</Button>
+        </LinkHeader>
           <ArticleWrapper>
           {edges.map(post => (
             <Article

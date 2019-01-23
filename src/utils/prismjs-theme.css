@@ -44,10 +44,11 @@ code[class*="language-"]::mozselection {
   }
 }
 pre[class*="language-"] {
-  padding: 1em;
-  margin: .5em 0;
+  margin: 2rem 0 2rem 0;
+  padding: 1rem;
   overflow: auto;
-  background: #ffffff;
+  border:1px solid #efefef;
+  border-right: 0;
 }
 :not(pre) > code[class*="language-"] {
   padding: .1em .3em;
