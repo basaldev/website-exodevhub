@@ -3,28 +3,62 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Layout, Wrapper, Header, Subline, Article, SectionTitle } from 'components';
+import { Layout, Wrapper, Header, Subline, LinkHeader, Button, Article, SectionTitle } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
+import { designSystem } from 'utils/designSystem';
 
 const Content = styled.div`
   grid-column: 2;
   border-radius: 1rem;
-  padding: 2rem 4rem;
   background-color: ${props => props.theme.colors.bg};
   z-index: 9000;
-  margin-top: -3rem;
+  width: 70vw;
+  margin:0 auto;
   @media ${media.tablet} {
-    padding: 3rem 3rem;
+    width: auto;
   }
   @media ${media.phone} {
-    padding: 2rem 1.5rem;
+    width: auto;
   }
 `;
+const ArticleWrapper = styled.div`
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  @media ${media.tablet} {
+    flex-direction: column;
+  }
+  @media ${media.phone} {
+    flex-direction: column;
+  }
+`;
+const Meta = styled.div`
+font-family: ${designSystem.get(`type.fontFamily.mono`)};
+color: ${designSystem.color('white', 'darker')};
+text-align: right;
+margin-left: ${designSystem.spacing(6)};
+margin-bottom: ${designSystem.spacing(4)};
+
+`
+const TitleHeader = styled.div`
+grid-column: 2;
+display:block;
+clear:both;
+overflow:hidden;
+h1 {
+  display:inline-block;
+  float:left;
+}
+a {
+  transform: translateY(${designSystem.spacing(2)})
+}
+`
 
 const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) => {
   const { edges, totalCount } = allMarkdownRemark;
-  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${category}"`;
+  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'}`;
 
   return (
     <Layout>
@@ -32,9 +66,10 @@ const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) =>
         <Helmet title={`${category} | ${config.siteTitle}`} />
         <Header></Header>
         <Content>
-          <Subline sectionTitle>
-            {subline} (See <Link to="/categories">all categories</Link>)
-          </Subline>
+        <LinkHeader text={'#'+category } white={category.split("")[category.length - 4]}>
+        <Button to="/categories">all categories</Button>
+        </LinkHeader>
+          <ArticleWrapper>
           {edges.map(post => (
             <Article
               title={post.node.frontmatter.title}
@@ -43,9 +78,11 @@ const Category = ({ pageContext: { category }, data: { allMarkdownRemark } }) =>
               timeToRead={post.node.timeToRead}
               slug={post.node.fields.slug}
               category={post.node.frontmatter.category}
+              shape={post.node.frontmatter.shape}
               key={post.node.fields.slug}
             />
           ))}
+          </ArticleWrapper>
         </Content>
       </Wrapper>
     </Layout>
@@ -79,6 +116,7 @@ export const postQuery = graphql`
             title
             date(formatString: "DD.MM.YYYY")
             category
+            shape
           }
           fields {
             slug

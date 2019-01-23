@@ -7,24 +7,44 @@ const designTokens = {
     // Used with `ds.color('colorName')`
     colorPalette: {
       orange: {
-        base: '#D1651C',
+        base: '#FF5630',
+        dark: '#C72B09'
       },
-      blue: {
-        base: '#1CC6D1',
+      red: {
+        base: '#EE3B50',
+        dark: '#C91026'
       },
       yellow: {
-        base:'#D9B12E',
+        base:'#FDD758',
+        dark:'#FEC400'
       },
-      navy: {
-        base: '#302C8B',
+      green: {
+        base: '#1CD1A6',
+        dark: '#029C67'
+      },
+      blue: {
+        base: '#3B4DEE',
+        dark: '#0228A7'
       },
       pink: {
+        light: '#FEDACF',
         base: '#FFC5A5'
+      },
+      black: {
+        light: '#1A1E42',
+        base: '#000000'
+      },
+      white: {
+        light: '#F0F0F0',
+        base: '#ffffff',
+        dark: '#E7E7E7',
+        darker: '#c2c2c2',
+
       }
     },
   },
   spacing: {
-    scale: [0, 8, 16, 24, 32, 40, 50, 60],
+    scale: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
     baseline: 20,
   },
   border: {

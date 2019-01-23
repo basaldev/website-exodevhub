@@ -2,42 +2,51 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
-import { Layout, Header, Article, Wrapper, Button, SectionTitle } from 'components';
+import { Layout, Header, Article, Wrapper, Button, SectionTitle, LinkHeader } from 'components';
 import { media } from '../utils/media';
 import config from '../../config/SiteConfig';
 import { designSystem } from '../utils/designSystem';
 
 const Content = styled.div`
   grid-column: 2;
-  border-radius: 1rem;
-  padding: 2rem 2rem;
+  overflow: hidden;
+  width: 70vw;
+  margin: 0 auto;
   @media ${media.tablet} {
-    padding: 3rem 2rem;
+    width: auto;
   }
   @media ${media.phone} {
-    padding: 2rem 1.5rem;
+    width: auto;
   }
-  overflow: hidden;
 `;
 
 const ArticleWrapper = styled.div`
+  grid-column: 2;
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-between;
   @media ${media.tablet} {
     flex-direction: column;
-    padding: 3rem 2rem;
+    width: auto;
   }
   @media ${media.phone} {
     flex-direction: column;
+    width: auto;
   }
 `;
 
 
 const Hero = styled.div`
   grid-column: 2;
-  padding: 3rem 2rem 6rem 2rem;
-  text-align:center;
-  color: ${props => props.theme.colors.grey.dark};
+  padding: 3rem 0 6rem 0;
+  margin: 0 auto;
+  width: 70vw;
+  @media ${media.tablet} {
+    width: auto;
+  }
+  @media ${media.phone} {
+    width: auto;
+  }
   h1 {
     @media ${media.phone} {
       font-size: 10vw;
@@ -54,6 +63,7 @@ const Hero = styled.div`
     }
   }
 `;
+
 const SplashPage = ({
   data: {
     allMarkdownRemark: { edges: postEdges },
@@ -66,7 +76,7 @@ const SplashPage = ({
           <SectionTitle text="Coming Soon" white="S" ></SectionTitle>
           <p>
             We are currently building the website, it will be up any day now {`;)`}
-        </p>
+          </p>
         </Hero>
       </Wrapper>
     </Layout>
@@ -81,32 +91,37 @@ const IndexPage = ({
       <Wrapper>
         <Header />
         <Content>
-          <SectionTitle text="writings" white="g" ></SectionTitle>
+          <LinkHeader text={'writings'} white="g"><Button to="/categories">all categories</Button></LinkHeader>
           <ArticleWrapper>
-          {postEdges.map(post => (
-            <Article
-              title={post.node.frontmatter.title}
-              date={post.node.frontmatter.date}
-              excerpt={post.node.excerpt}
-              timeToRead={post.node.timeToRead}
-              slug={post.node.fields.slug}
-              category={post.node.frontmatter.category}
-              key={post.node.fields.slug}
-            />
-          ))}
+            {postEdges.map(post => (
+              <Article
+                title={post.node.frontmatter.title}
+                date={post.node.frontmatter.date}
+                excerpt={post.node.excerpt}
+                shape={post.node.frontmatter.shape || 'diamond'}
+                timeToRead={post.node.timeToRead}
+                slug={post.node.fields.slug}
+                category={post.node.frontmatter.category}
+                key={post.node.fields.slug}
+              />
+            ))}
           </ArticleWrapper>
         </Content>
         <Hero>
           <SectionTitle text="about" white="o" ></SectionTitle>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+            ExoDevHub provides businesses with the software tools and mindset necessary to transform themselves into exponential organizations.</p>
+            <p>
+            An <a href="https://exponentialorgs.com/">exponential organization</a> is a new breed of business proven to be capable of unlocking the abundance provided by emerging technologies and readily adaptable to a rapidly changing business environment. The term “exponential organization” has been coined for organizations whose impact (or output) is disproportionately large—at least 10x as large—compared to its peers because of the use of new organization techniques that leverage accelerating technologies.</p>
+            <p>
+            Regardless of whether your current organization is an industry leader or a smaller player, it must transform itself if it is to thrive in the face of industry disruption from unexpected external sources. New players should build agility in from the start. <a href="https://www.openexo.com/">OpenExO</a> will guide you through the process of transforming your business into an exponential one, and <strong>ExoDevHub</strong> will assist you with cutting-edge technical solutions.
         </p>
         </Hero>
       </Wrapper>
     </Layout>
   );
 
-export default SplashPage;
+export default IndexPage;
 
 IndexPage.propTypes = {
   data: PropTypes.shape({
@@ -118,7 +133,7 @@ IndexPage.propTypes = {
 
 export const IndexQuery = graphql`
   query IndexQuery {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 4) {
       edges {
         node {
           fields {
@@ -128,6 +143,7 @@ export const IndexQuery = graphql`
             title
             date(formatString: "DD.MM.YYYY")
             category
+            shape
           }
           excerpt(pruneLength: 200)
           timeToRead

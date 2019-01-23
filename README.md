@@ -67,6 +67,11 @@ This starter uses Gatsby's built-in date formatter in the GraphQL queries. If yo
 date(formatString: "DD.MM.YYYY")
 ```
 
+### Add fields
+
+to add a field edit the `static/admin/config` once added to this config it will show in the WYSWIG
+AND in graphql queries under frontmatter :D
+
 ### Building your site
 
 ```

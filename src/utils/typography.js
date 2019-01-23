@@ -14,6 +14,9 @@ const typography = new Typography({
     h2: {
       fontFamily: ['Noto Sans', 'sans-serif'].join(','),
     },
+    h1: {
+      marginBottom: `3.5rem`
+    }
   })
 });
 

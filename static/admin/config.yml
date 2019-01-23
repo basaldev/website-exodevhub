@@ -12,9 +12,9 @@ collections:
     create: true
     fields:
       - { name: date, label: Date, widget: datetime }
-      - { name: img, label: Image, widget: image}
       - { name: title, label: Title }
       - { name: category, label: Category }
+      - { name: shape, label: Shape }
       - { name: body, label: Body, widget: markdown }
       - { name: author, label: Author, widget: markdown }
   - name: people

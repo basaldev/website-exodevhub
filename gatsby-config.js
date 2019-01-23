@@ -29,7 +29,37 @@ module.exports = {
               rel: 'nofollow noopener noreferrer',
             },
           },
-          'gatsby-remark-prismjs',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: "language-",
+              inlineCodeMarker: null,
+              aliases: { js: 'javascript'},
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-emojis',
+            options: {
+              // Deactivate the plugin globally (default: true)
+              active : true,
+              // Add a custom css class
+              class  : 'emoji-icon',
+              // Select the size (available size: 16, 24, 32, 64)
+              size   : 64,
+              // Add custom styles
+              styles : {
+                fontFamily: 'initial',
+                display      : 'inline',
+                margin       : '0',
+                'margin-top' : '1px',
+                position     : 'relative',
+                top          : '5px',
+                width        : '25px'
+              }
+            }
+          },
           'gatsby-remark-autolink-headers',
         ],
       },
