@@ -45,10 +45,10 @@ code[class*="language-"]::mozselection {
 }
 pre[class*="language-"] {
   margin: 2rem 0 2rem 0;
-  padding: 1rem;
+  padding: 2rem 1rem;
   overflow: auto;
   border:1px solid #efefef;
-  border-right: 0;
+  background: #fafafa;
 }
 :not(pre) > code[class*="language-"] {
   padding: .1em .3em;
@@ -94,7 +94,6 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string {
   color: #ff5630;
-  background: #ffffff;
 }
 .token.atrule,
 .token.attr-value,

@@ -15,7 +15,7 @@ const Content = styled.article`
   border-radius: 1rem;
   padding: 2rem 4rem;
   z-index: 9000;
-  max-width: 75vw;
+  max-width: 55vw;
   margin:0 auto;
   @media ${media.tablet} {
     padding: 3rem 3rem;
@@ -44,9 +44,8 @@ const Title = styled.h2`
 `;
 
 const PostContent = styled.div`
-padding: 2rem;
+padding: 2rem 0;
 margin-top: ${designSystem.spacing(6)};
-border: 5px solid ${designSystem.color('black')};
 `;
 
 const Post = ({ pageContext: { slug, prev, next }, data: { markdownRemark: postNode } }) => {

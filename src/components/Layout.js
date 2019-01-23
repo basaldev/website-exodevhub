@@ -68,6 +68,7 @@ const GlobalStyle = createGlobalStyle`
     background: ${designSystem.color('white')};
     font-size: 1.2rem;
     padding: ${designSystem.spacing(4)};
+    border: 1px solid #efefef;
   }
 
   blockquote:before {
@@ -78,6 +79,7 @@ const GlobalStyle = createGlobalStyle`
     width: 6px;
     top:0px;
     left: 0px;
+
   }
   label {
     margin-bottom: .5rem;
