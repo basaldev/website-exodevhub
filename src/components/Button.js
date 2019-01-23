@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { designSystem } from 'utils/designSystem';
+import { Link } from 'gatsby';
 
-const Button = styled.button`
-  background: ${props => props.theme.colors.primary};
+const Button = styled(Link)`
+  background: ${designSystem.color('yellow')};
   border: none;
   display: inline-flex;
   align-items: center;

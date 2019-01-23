@@ -42,10 +42,10 @@ const Header = ({children}) => (
   <Wrapper>
     <Content>
       <Link to="/"><img src={config.siteLogo} /></Link>
-      {/* <Dropdown>
+      <Dropdown>
         <Button>socials</Button>
-        <Button>socials</Button>
-      </Dropdown> */}
+        <Button to="http://twitter.com">twitter</Button>
+      </Dropdown>
       {children}
     </Content>
   </Wrapper>

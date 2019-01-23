@@ -29,7 +29,16 @@ module.exports = {
               rel: 'nofollow noopener noreferrer',
             },
           },
-          'gatsby-remark-prismjs',
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              classPrefix: "language-",
+              inlineCodeMarker: null,
+              aliases: { js: 'javascript'},
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            },
+          }
           'gatsby-remark-autolink-headers',
         ],
       },

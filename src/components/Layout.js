@@ -7,6 +7,7 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import { SEO } from 'components';
 import theme from '../../config/Theme';
 import { media } from '../utils/media';
+import { designSystem } from '../utils/designSystem';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -33,13 +34,21 @@ const GlobalStyle = createGlobalStyle`
       font-size: 14px;
     }
   }
+  a:visited;
   a {
-    color: ${theme.colors.grey.dark};
+    color: ${designSystem.color('blue')};
     text-decoration: none;
-    transition: all ${theme.transitions.normal};
   }
   a:hover {
-    opacity: 0.8;
+    opacity:1;
+    color: ${designSystem.color('blue')};
+
+  }
+  h1 a,
+  h4 a,
+  h3 a,
+  h2 a {
+    color: inherit;
   }
   h1, h2, h3, h4 {
     text-transform: uppercase;
@@ -54,17 +63,21 @@ const GlobalStyle = createGlobalStyle`
       1px 1px 0 #000;
   }
   blockquote {
-    font-style: italic;
     position: relative;
+    margin-left: 0;
+    background: ${designSystem.color('white')};
+    font-size: 1.2rem;
+    padding: ${designSystem.spacing(4)};
   }
 
   blockquote:before {
     content: "";
     position: absolute;
-    background: ${theme.colors.primary};
+    background: ${designSystem.color('red')};
     height: 100%;
     width: 6px;
-    margin-left: -1.6rem;
+    top:0px;
+    left: 0px;
   }
   label {
     margin-bottom: .5rem;

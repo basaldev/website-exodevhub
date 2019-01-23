@@ -29,44 +29,44 @@ Let’s compare the options for dealing with cross-cutting concerns in React usi
 A [higher-order component](https://reactjs.org/docs/higher-order-components.html) (HOC) is a widely-used pattern in React to reuse component logic, by wrapping the component around a target component and passing data to it via its props. In other words, a higher-order component is a function that takes your target component as an argument, and returns a the target component with additional data and functionality.
 
 The following simple example shows a higher-order component that tracks the mouse position in a web app.
-
-    function withMousePosition(WrappedComponent) {
-      return class extends Component {
-        constructor(props) {
-          super(props);
-          this.state = { x: 0, y: 0 };
-        }
-
-        componentDidMount() {
-          window.addEventListener("mousemove", this.handleMouseMove);
-        }
-
-        componentWillUnmount() {
-          window.removeEventListener("mousemove", this.handleMouseMove);
-        }
-
-        handleMouseMove = event => {
-          this.setState({
-            x: event.clientX,
-            y: event.clientY
-          });
-        };
-
-        render() {
-          return (
-    				<WrappedComponent
-    					{...this.props}
-    					mousePosition={this.state}
-    				/>
-    			);
-        }
-      };
+```js
+function withMousePosition(WrappedComponent) {
+  return class extends Component {
+    constructor(props) {
+      super(props);
+      this.state = { x: 0, y: 0 };
     }
 
+    componentDidMount() {
+      window.addEventListener("mousemove", this.handleMouseMove);
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener("mousemove", this.handleMouseMove);
+    }
+
+    handleMouseMove = event => {
+      this.setState({
+        x: event.clientX,
+        y: event.clientY
+      });
+    };
+
+    render() {
+      return (
+        <WrappedComponent
+          {...this.props}
+          mousePosition={this.state}
+        />
+      );
+    }
+  };
+}
+```
 In the wrapped class component above, the mouse position is obtained via the [mousemove event API](https://developer.mozilla.org/en-US/docs/Web/Events/mousemove) provided by browser windows. We set up an event listener and update the state which holds the mouse position coordinates. The class encapsulates the functionality, and now we can share it with other components.
 
 So, using the higher-order component pattern, the function `withMousePosition` takes any target component as an argument, and returns it with all its existing props plus one additional prop: the `mousePosition` coordinates.
-
+```js
     function App(props) {
       const { x, y } = props.mousePosition;
 
@@ -82,17 +82,17 @@ So, using the higher-order component pattern, the function `withMousePosition` t
     }
 
     const AppWithMousePosition = withMousePosition(App);
-
+```
 In this example we have shared the `mousePosition` coordinate data with a presentational `App` component. The dynamic mouse position is displayed in an orange paragraph:
-
+```js
     <p style={{ background: "orange" }}>
     	The current mouse position is ({x}, {y})
     </p>
-
+```
 The wrapped `AppWithMousePosition` component can then be rendered to the `DOM`:
-
+```js
     ReactDOM.render(<AppWithMousePosition />, document.getElementById("root"));
-
+```
 Try the HOC approach for yourself in the following [CodeSandbox](https://codesandbox.io/s/43z216n6y9):
 
 [https://codesandbox.io/s/43z216n6y9](https://codesandbox.io/s/43z216n6y9)
@@ -102,7 +102,7 @@ Try the HOC approach for yourself in the following [CodeSandbox](https://codesan
 A [render prop](https://reactjs.org/docs/render-props.html) is a way of sharing code between React components using a prop whose value is a function. The prop is often called `render`, thus the terminology “render prop”.
 
 Let’s see how our mouse position example introduced earlier looks when implemented using a render prop:
-
+```js
     class MousePosition extends Component {
       constructor(props) {
         super(props);
@@ -135,11 +135,11 @@ Let’s see how our mouse position example introduced earlier looks when impleme
         );
       }
     }
-
+```
 The stateful logic for the mouse position is the same as we used in the higher-order component earlier.
 
 The difference between the HOC method and this render props method is that we now specify a function prop called `render` within the render method of the class component, which takes the state of the component as an argument, and renders it as a child of the class component:
-
+```js
     render() {
     	return (
     		<div
@@ -150,7 +150,7 @@ The difference between the HOC method and this render props method is that we no
         </div>
       );
     }
-
+```
 Note that the terminology “function as child” is also used when referring to this pattern.
 
 Now, we can wrap any target component with this `MousePosition` component, and dynamically render the mouse position by passing it in via the `render` prop. This is a dynamic way of sharing stateful logic, compared with the statically defined higher-order component.
@@ -158,7 +158,7 @@ Now, we can wrap any target component with this `MousePosition` component, and d
 > As an aside, for more details regarding the pros and cons of higher-order components and render props, please see [this excellent article](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) by Michael Jackson, the co-author of React Router.
 
 Returning to our example, we can now render a presentational `App` component by composing the `MousePosition` component within it. We render the dynamic mouse position within a sky-blue `<p>` element, which is passed via a function in the `render` prop:
-
+```js
     function App() {
       return (
         <div className="App">
@@ -174,7 +174,7 @@ Returning to our example, we can now render a presentational `App` component by 
         </div>
       );
     }
-
+```
 To summarize, the behavior associated with listening for `mousemove` events and storing the mouse position coordinates has been encapsulated in the `MousePosition` component, and can be used flexibly in any other component, via this “render props” pattern. This is an example of a composable component that has reusable, shareable state logic.
 
 Try the render props approach for yourself in the following [CodeSandbox](https://codesandbox.io/s/rjprzkj29p):
@@ -184,7 +184,7 @@ Try the render props approach for yourself in the following [CodeSandbox](https:
 ## React Hooks
 
 Now, let’s look at how “hooks” could be used to achieve the goal of reusing stateful logic within your apps, using the very same mouse position example:
-
+```js
     function useMousePosition() {
       const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -205,7 +205,7 @@ Now, let’s look at how “hooks” could be used to achieve the goal of reusin
 
       return mousePosition;
     }
-
+```
 Note that we have created a “[custom hook](https://reactjs.org/docs/hooks-custom.html)” here called `useMousePosition`. It is a function component, not a class component, but it does encapsulate state!
 
 For our mouse position example, we are using two different React hooks within the body of our custom hook function:

@@ -7,7 +7,7 @@ module.exports = {
   siteLanguage: 'en', // Language Tag on <html> element
   siteBanner: '/social/banner.jpg', // Your image for og:image tag. You can find it in the /static folder
   favicon: 'src/favicon.png', // Your image for favicons. You can find it in the /src folder
-  siteDescription: '', // Your site description
+  siteDescription: 'An Internet and software company working towards an experiential future', // Your site description
   author: 'Exodevhub Team', // Author for schemaORGJSONLD
   siteLogo: '/social/logo.svg', // Image for schemaORGJSONLD
 
@@ -18,7 +18,7 @@ module.exports = {
 
   // Manifest and Progress color
   // See: https://developers.google.com/web/fundamentals/web-app-manifest/
-  themeColor: '#000000',
+  themeColor: '#ffffff',
   backgroundColor: '#000000',
 
   // Settings for typography.js

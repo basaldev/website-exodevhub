@@ -33,6 +33,7 @@ const Title = styled.h2`
   font-size: ${designSystem.fontSize('s')}px;
   border: ${designSystem.get('border.width')}px solid;
   display:table;
+  width: 100%;
   & a {
     padding: 0 ${designSystem.spacing(3)};
     vertical-align:middle;
@@ -98,22 +99,23 @@ const Excerpt = styled.p`
 
 const Meta = styled.div`
 font-family: ${designSystem.get(`type.fontFamily.mono`)};
+color: ${designSystem.color('white', 'darker')};
 float:right;
 clear:both;
 display:block;
-opacity: 0.3;
+text-align: right;
+margin-left: ${designSystem.spacing(6)};
 `
 
 const Article = ({ title, date, excerpt, slug, timeToRead, category, shape }) => {
   const firstChar = title.charAt(0);
   return (
     <Post>
-
       <ShapeFence>
       <Shape type={shape}></Shape>
       <Meta>
-        <span>{date} &mdash; {timeToRead} Min Read</span>
-        <Link to={`/categories/${kebabCase(category)}`}> - In{' '} #{category}</Link>
+        <span>{date} &mdash; {timeToRead} Min Read - In{' '} </span>
+        <Link to={`/categories/${kebabCase(category)}`}> #{category}</Link>
       </Meta>
       <Title>
         <Link to={slug}>{title}</Link>

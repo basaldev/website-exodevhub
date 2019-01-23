@@ -20,6 +20,9 @@ const ArticleWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  @media ${media.tablet} {
+    flex-direction: column;
+  }
   @media ${media.phone} {
     flex-direction: column;
   }

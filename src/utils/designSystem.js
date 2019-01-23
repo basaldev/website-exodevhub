@@ -37,7 +37,9 @@ const designTokens = {
       white: {
         light: '#F0F0F0',
         base: '#ffffff',
-        dark: '#E7E7E7'
+        dark: '#E7E7E7',
+        darker: '#c2c2c2',
+
       }
     },
   },
