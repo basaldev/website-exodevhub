@@ -5,7 +5,9 @@ import { lastIndexOf } from 'lodash';
 const SectionTitle = ({ text, white }) => {
   const title = text.split("");
   const index = lastIndexOf(title, white);
-  return (<h1>{title.splice(0,index)}<span className="white">{white}</span>{title.splice(1,index)}</h1>);
+  const start = Object.assign([], title.splice(0,index));
+  title.splice(0,1); //the white
+  return (<h1>{start}<span className="white">{white}</span>{title}</h1>);
 };
 
 export default SectionTitle;
