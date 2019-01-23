@@ -7,7 +7,8 @@ const Wrapper = styled.div`
   grid-gap: 32px;
   padding: 0 1rem;
   @media ${media.phone} {
-    grid-gap: 16px;
+    grid-gap: 0;
+    grid-template-columns: 1fr;
   }
 `;
 

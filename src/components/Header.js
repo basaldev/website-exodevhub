@@ -5,6 +5,7 @@ import { designSystem } from 'utils/designSystem';
 import { Button } from 'components';
 import { Link } from 'gatsby';
 import config from '../../config/SiteConfig';
+import { media } from '../utils/media';
 
 const button = `
 border: none;
@@ -49,6 +50,9 @@ const Dropdown = styled.div`
     background: ${designSystem.color('black')};
     color: ${designSystem.color('white')};
   }
+@media ${media.phone} {
+  right:0;
+}
 `
 const Wrapper = styled.header`
   grid-column: 2;
@@ -62,15 +66,20 @@ const Content = styled.div`
 const FakeButton = styled.span`
   ${button}
   background: ${designSystem.color('yellow')};
-
 `
+const Logo = styled.img`
+@media ${media.phone} {
+  width: 55vw;
+}
+`
+
 const onHover = (e) => {
   return e.target.href = `mailto:info@exodevhub.com`;
 }
 const Header = ({children}) => (
   <Wrapper>
     <Content>
-      <Link to="/"><img src={config.siteLogo} /></Link>
+      <Link to="/"><Logo src={config.siteLogo} /></Link>
       <Dropdown>
         <FakeButton>socials</FakeButton>
         <a target="_blank" href={`http://twitter.com/${config.userTwitter}`}>twitter</a>

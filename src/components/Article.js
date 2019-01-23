@@ -38,6 +38,9 @@ const Title = styled.h2`
     padding: 0 ${designSystem.spacing(3)};
     vertical-align:middle;
     display: table-cell;
+    @media ${media.phone} {
+    padding: ${designSystem.spacing(3)};
+    }
   }
   clear:both;
   background: white;
@@ -105,6 +108,9 @@ clear:both;
 display:block;
 text-align: right;
 margin-left: ${designSystem.spacing(6)};
+@media ${media.phone} {
+  margin-left:${designSystem.spacing(9)};
+}
 `
 
 const Article = ({ title, date, excerpt, slug, timeToRead, category, shape }) => {

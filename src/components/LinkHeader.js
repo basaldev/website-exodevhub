@@ -16,6 +16,11 @@ h1 {
   margin: 0;
 }
 margin-bottom: 3.5rem; //from h1
+@media ${media.phone} {
+  h1{
+    font-size: 2.25rem;
+  }
+}
 `
 const ButtonWrapper = styled.div`
   transform: translateY(${designSystem.spacing(2)});

@@ -9,7 +9,6 @@ import { designSystem } from '../utils/designSystem';
 
 const Content = styled.div`
   grid-column: 2;
-  border-radius: 1rem;
   @media ${media.tablet} {}
   @media ${media.phone} {}
   overflow: hidden;
