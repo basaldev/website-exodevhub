@@ -64,6 +64,9 @@ const FakeButton = styled.span`
   background: ${designSystem.color('yellow')};
 
 `
+const onHover = (e) => {
+  return e.target.href = `mailto:info@exodevhub.com`;
+}
 const Header = ({children}) => (
   <Wrapper>
     <Content>
@@ -71,6 +74,8 @@ const Header = ({children}) => (
       <Dropdown>
         <FakeButton>socials</FakeButton>
         <a target="_blank" href={`http://twitter.com/${config.userTwitter}`}>twitter</a>
+        <a onMouseOver={onHover} href="mailto:#@exodevhub.com">Email</a>
+
       </Dropdown>
       {children}
     </Content>

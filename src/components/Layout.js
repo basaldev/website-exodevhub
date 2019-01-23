@@ -99,8 +99,13 @@ const GlobalStyle = createGlobalStyle`
 const Footer = styled.footer`
   text-align: center;
   padding: 3rem 0;
+  opacity:1;
+  color: ${designSystem.color('white', 'darker')};
   span {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+  }
+  small {
+    opacity: 0.4;
   }
 `;
 
@@ -120,8 +125,8 @@ const Layout = ({ children }) => (
           <GlobalStyle />
           {children}
           <Footer>
-            ExO Lever Asia 合同会社 &copy;{data.site.buildTime.split('.')[2]} All rights reserved. <br />
-            <span>Last build: {data.site.buildTime}</span>
+            ExO Lever Asia <span>合同会社</span> <br />&copy;{data.site.buildTime.split('.')[2]} All Rights Reserved. <br />
+            <small>Last build: {data.site.buildTime}</small>
           </Footer>
         </React.Fragment>
       </ThemeProvider>
