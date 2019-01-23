@@ -13,7 +13,6 @@ import { designSystem } from '../utils/designSystem';
 const Content = styled.div`
   grid-column: 2;
   border-radius: 1rem;
-  padding: 2rem 0rem;
   z-index: 9000;
   width: 70vw;
   margin:0 auto;
