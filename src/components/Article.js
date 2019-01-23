@@ -70,7 +70,7 @@ const Shape = styled.div`
       overflow:hidden;
       transform: rotate(45deg);
       left: 24px;
-      top: ${designSystem.spacing(1)};
+      top: 6px;
       width: 110px;
       height: 110px;
       background: ${designSystem.color('blue')}

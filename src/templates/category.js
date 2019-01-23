@@ -14,10 +14,8 @@ const Content = styled.div`
   background-color: ${props => props.theme.colors.bg};
   z-index: 9000;
   @media ${media.tablet} {
-    padding: 3rem 3rem;
   }
   @media ${media.phone} {
-    padding: 2rem 1.5rem;
   }
 `;
 const ArticleWrapper = styled.div`

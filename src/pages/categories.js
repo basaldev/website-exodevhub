@@ -18,10 +18,8 @@ const Content = styled.div`
   z-index: 9000;
   margin-top: -3rem;
   @media ${media.tablet} {
-    padding: 3rem 3rem;
   }
   @media ${media.phone} {
-    padding: 2rem 1.5rem;
   }
 `;
 

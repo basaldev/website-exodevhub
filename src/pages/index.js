@@ -65,7 +65,7 @@ const SplashPage = ({
           <SectionTitle text="Coming Soon" white="S" ></SectionTitle>
           <p>
             We are currently building the website, it will be up any day now {`;)`}
-        </p>
+          </p>
         </Hero>
       </Wrapper>
     </Layout>
@@ -80,26 +80,30 @@ const IndexPage = ({
       <Wrapper>
         <Header />
         <Content>
-        <LinkHeader text={'writings'} white="g"><Button to="/categories">all categories</Button></LinkHeader>
+          <LinkHeader text={'writings'} white="g"><Button to="/categories">all categories</Button></LinkHeader>
           <ArticleWrapper>
-          {postEdges.map(post => (
-            <Article
-              title={post.node.frontmatter.title}
-              date={post.node.frontmatter.date}
-              excerpt={post.node.excerpt}
-              shape={post.node.frontmatter.shape || 'diamond'}
-              timeToRead={post.node.timeToRead}
-              slug={post.node.fields.slug}
-              category={post.node.frontmatter.category}
-              key={post.node.fields.slug}
-            />
-          ))}
+            {postEdges.map(post => (
+              <Article
+                title={post.node.frontmatter.title}
+                date={post.node.frontmatter.date}
+                excerpt={post.node.excerpt}
+                shape={post.node.frontmatter.shape || 'diamond'}
+                timeToRead={post.node.timeToRead}
+                slug={post.node.fields.slug}
+                category={post.node.frontmatter.category}
+                key={post.node.fields.slug}
+              />
+            ))}
           </ArticleWrapper>
         </Content>
         <Hero>
           <SectionTitle text="about" white="o" ></SectionTitle>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+            ExoDevHub provides businesses with the software tools and mindset necessary to transform themselves into exponential organizations.</p>
+            <p>
+            An <a href="https://exponentialorgs.com/">exponential organization</a> is a new breed of business proven to be capable of unlocking the abundance provided by emerging technologies and readily adaptable to a rapidly changing business environment. The term “exponential organization” has been coined for organizations whose impact (or output) is disproportionately large—at least 10x as large—compared to its peers because of the use of new organization techniques that leverage accelerating technologies.</p>
+            <p>
+            Regardless of whether your current organization is an industry leader or a smaller player, it must transform itself if it is to thrive in the face of industry disruption from unexpected external sources. New players should build agility in from the start. <a href="https://www.openexo.com/">OpenExO</a> will guide you through the process of transforming your business into an exponential one, and <strong>ExoDevHub</strong> will assist you with cutting-edge technical solutions.
         </p>
         </Hero>
       </Wrapper>
@@ -118,7 +122,7 @@ IndexPage.propTypes = {
 
 export const IndexQuery = graphql`
   query IndexQuery {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }, limit: 4) {
       edges {
         node {
           fields {
