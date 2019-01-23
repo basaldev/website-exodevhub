@@ -38,7 +38,7 @@ module.exports = {
               showLineNumbers: true,
               noInlineHighlight: false,
             },
-          }
+          },
           'gatsby-remark-autolink-headers',
         ],
       },
