@@ -218,7 +218,7 @@ The `useState` hook lets us add React state to function components, without havi
 The `useEffect` hook lets you perform side effects in function components. Examples of side effects are getting data from an API, listening for browser events, and manually changing the DOM. The `useEffect` hook carries out the same tasks as the lifecycle methods `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` combined do in class components.
 
 `useEffect` takes a callback function (called the “effect”) as its first argument, and runs it after each render of the component. In our example, the effect is to set up the `mousemove` event listener after the first render when the component is mounted. The returned callback from the effect, if specified, serves to “clean up” before the component is unmounted. In our example, we are removing the event listener when we unmount.
-
+```js
     useEffect(() => {
       window.addEventListener("mousemove", handleMouseMove);
 
@@ -226,7 +226,7 @@ The `useEffect` hook lets you perform side effects in function components. Examp
         window.removeEventListener("mousemove", handleMouseMove);
       };
     }, []);
-
+```
 Within the effect callback, we are setting up a `mousemove` event listener called `handleMouseMove`, which itself calls `setMousePosition` with the updated mouse coordinates whenever the user moves the mouse.
 
 The second argument to the `useEffect` function hook, if specified, is an **array of specific state values** that the effect will run on whenever the value updates. That is, the effect will run on each re-render of the component triggered by updates to those specific state values. If **no array** is specified, then the default behavior is to re-render the component and fire the effect whenever any of the state values updates.
@@ -236,7 +236,7 @@ In our example, we are passing an **empty array** `[]`, which means that the eff
 Our `useMousePosition` custom hook completely replicates the behavior of the class components used in the HOC and render-props patterns earlier. It fully encapsulates the behavior we need in a **very compact**, **easy-to-understand**, and **reusable** way.
 
 Now, we can share this dynamic mouse position functionality in any other component. Let’s call our custom hook `useMousePosition` in our presentational `App` component:
-
+```js
     function App() {
       const { x, y } = useMousePosition();
 
@@ -250,7 +250,7 @@ Now, we can share this dynamic mouse position functionality in any other compone
         </div>
       );
     }
-
+```
 Here, we are rendering the dynamic mouse coordinates in a pale green `<p>` tag.
 
 Try the hooks approach for yourself in a [CodeSandbox](https://codesandbox.io/s/548z479m0n):

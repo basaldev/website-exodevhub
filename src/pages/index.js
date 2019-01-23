@@ -9,9 +9,15 @@ import { designSystem } from '../utils/designSystem';
 
 const Content = styled.div`
   grid-column: 2;
-  @media ${media.tablet} {}
-  @media ${media.phone} {}
   overflow: hidden;
+  width: 70vw;
+  margin: 0 auto;
+  @media ${media.tablet} {
+    width: auto;
+  }
+  @media ${media.phone} {
+    width: auto;
+  }
 `;
 
 const ArticleWrapper = styled.div`
@@ -21,9 +27,11 @@ const ArticleWrapper = styled.div`
   justify-content: space-between;
   @media ${media.tablet} {
     flex-direction: column;
+    width: auto;
   }
   @media ${media.phone} {
     flex-direction: column;
+    width: auto;
   }
 `;
 
@@ -31,7 +39,14 @@ const ArticleWrapper = styled.div`
 const Hero = styled.div`
   grid-column: 2;
   padding: 3rem 0 6rem 0;
-  color: ${props => props.theme.colors.grey.dark};
+  margin: 0 auto;
+  width: 70vw;
+  @media ${media.tablet} {
+    width: auto;
+  }
+  @media ${media.phone} {
+    width: auto;
+  }
   h1 {
     @media ${media.phone} {
       font-size: 10vw;
@@ -40,14 +55,11 @@ const Hero = styled.div`
   p {
     font-size: 1rem;
     margin-top: -1rem;
-    width: 45%;
     @media ${media.phone} {
       font-size: 1rem;
-
     }
     @media ${media.tablet} {
       font-size: 1rem;
-      width: 100%;
     }
   }
 `;
