@@ -9,4 +9,15 @@ import Subline from './Subline';
 import Wrapper from './Wrapper';
 import LinkHeader from './LinkHeader';
 
-export { Article, LinkHeader, Button, Header, Layout, PrevNext, SectionTitle, SEO, Subline, Wrapper };
+export {
+  Article,
+  LinkHeader,
+  Button,
+  Header,
+  Layout,
+  PrevNext,
+  SectionTitle,
+  SEO,
+  Subline,
+  Wrapper
+};

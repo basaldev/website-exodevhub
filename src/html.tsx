@@ -1,7 +1,15 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react';
 
-export default class HTML extends React.Component {
+interface Props {
+  htmlAttributes: object;
+  headComponents: any[];
+  bodyAttributes: object;
+  preBodyComponents: any[];
+  body: string;
+  postBodyComponents: any[];
+}
+
+export default class HTML extends React.Component<Props, {}> {
   render() {
     return (
       <html {...this.props.htmlAttributes}>
@@ -14,12 +22,26 @@ export default class HTML extends React.Component {
           />
 
           {this.props.headComponents}
-          <link rel="preload" crossOrigin="anonymous" href="/fonts/BigJohnPRO-Bold.woff2" as="font"></link>
-          <link rel="preload" crossOrigin="anonymous" href="/fonts/BigJohnPRO-Bold.woff" as="font"></link>
-          <link rel="preload" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700" rel="stylesheet"></link>
+          <link
+            rel="preload"
+            crossOrigin="anonymous"
+            href="/fonts/BigJohnPRO-Bold.woff2"
+            as="font"
+          />
+          <link
+            rel="preload"
+            crossOrigin="anonymous"
+            href="/fonts/BigJohnPRO-Bold.woff"
+            as="font"
+          />
+          <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700"
+            rel="stylesheet"
+          />
         </head>
         <body {...this.props.bodyAttributes}>
-        <style>{`
+          <style>{`
           body {
             opacity: 0;
             font-display:block;
@@ -38,15 +60,6 @@ export default class HTML extends React.Component {
           {this.props.postBodyComponents}
         </body>
       </html>
-    )
+    );
   }
-}
-
-HTML.propTypes = {
-  htmlAttributes: PropTypes.object,
-  headComponents: PropTypes.array,
-  bodyAttributes: PropTypes.object,
-  preBodyComponents: PropTypes.array,
-  body: PropTypes.string,
-  postBodyComponents: PropTypes.array,
 }
