@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { designSystem } from 'utils/designSystem';
+import { designSystem } from '../utils/designSystem';
 import { Link } from 'gatsby';
 
 const Button = styled(Link)`
@@ -21,4 +21,5 @@ const Button = styled(Link)`
     outline: none;
   }
 `;
+
 export default Button;

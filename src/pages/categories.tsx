@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { Link, graphql } from 'gatsby';
 import styled from 'styled-components';
 import kebabCase from 'lodash/kebabCase';
-import { Layout, Wrapper, Header, LinkHeader,Button } from 'components';
+import { Layout, Wrapper, Header, LinkHeader, Button } from '../components';
 import { media } from '../utils/media';
 
 import config from '../../config/SiteConfig';
@@ -15,7 +14,7 @@ const Content = styled.div`
   border-radius: 1rem;
   z-index: 9000;
   width: 70vw;
-  margin:0 auto;
+  margin: 0 auto;
   @media ${media.tablet} {
     width: auto;
   }
@@ -28,26 +27,38 @@ const Title = styled.span`
   position: relative;
   font-family: ${designSystem.get('type.fontFamily.mono')};
   font-size: ${designSystem.fs('l')}px;
-  clear:both;
+  clear: both;
   width: 100%;
-  display:block;
+  display: block;
 `;
+
+interface Props {
+  data: {
+    allMarkdownRemark: {
+      group: any[];
+    }
+  };
+}
 
 const Category = ({
   data: {
-    allMarkdownRemark: { group },
-  },
-}) => (
+    allMarkdownRemark: { group }
+  }
+}: Props) => (
   <Layout>
     <Wrapper>
       <Helmet title={`Categories | ${config.siteTitle}`} />
-      <Header></Header>
+      <Header />
       <Content>
-      <LinkHeader text={'Categories'} white="o"><Button to="/categories">all categories</Button></LinkHeader>
+        <LinkHeader text={'Categories'} white="o">
+          <Button to="/categories">all categories</Button>
+        </LinkHeader>
         {group.map(category => (
           <Title key={category.fieldValue}>
-            <Link to={`/categories/${kebabCase(category.fieldValue)}`}>#{category.fieldValue}</Link> (
-            {category.totalCount})
+            <Link to={`/categories/${kebabCase(category.fieldValue)}`}>
+              #{category.fieldValue}
+            </Link>{' '}
+            ({category.totalCount})
           </Title>
         ))}
       </Content>
@@ -56,14 +67,6 @@ const Category = ({
 );
 
 export default Category;
-
-Category.propTypes = {
-  data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
-      group: PropTypes.array.isRequired,
-    }),
-  }).isRequired,
-};
 
 export const postQuery = graphql`
   query CategoriesPage {
