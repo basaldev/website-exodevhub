@@ -90,7 +90,4 @@ module.exports = {
     'gatsby-plugin-netlify',
     'gatsby-plugin-typescript',
   ],
-  mapping: {
-    'MarkdownRemark.frontmatter.author': `AuthorYaml`,
-  },
 }

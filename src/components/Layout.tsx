@@ -4,7 +4,6 @@ import React, { ReactNode } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 
-import { SEO } from './'
 import theme from '../../config/Theme'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
@@ -125,7 +124,6 @@ const Layout = ({ children }: Props) => (
     render={data => (
       <ThemeProvider theme={theme}>
         <React.Fragment>
-          <SEO />
           <GlobalStyle />
           {children}
           <Footer>
