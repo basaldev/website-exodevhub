@@ -43,28 +43,6 @@ const ArticleWrapper = styled.div`
   }
 `
 
-const Meta = styled.div`
-  font-family: ${designSystem.get(`type.fontFamily.mono`)};
-  color: ${designSystem.color('white', 'darker')};
-  text-align: right;
-  margin-left: ${designSystem.spacing(6)};
-  margin-bottom: ${designSystem.spacing(4)};
-`
-
-const TitleHeader = styled.div`
-  grid-column: 2;
-  display: block;
-  clear: both;
-  overflow: hidden;
-  h1 {
-    display: inline-block;
-    float: left;
-  }
-  a {
-    transform: translateY(${designSystem.spacing(2)});
-  }
-`
-
 interface Props {
   pageContext: {
     category: string
@@ -81,8 +59,7 @@ const Category = ({
   pageContext: { category },
   data: { allMarkdownRemark },
 }: Props) => {
-  const { edges, totalCount } = allMarkdownRemark
-  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'}`
+  const { edges } = allMarkdownRemark
 
   return (
     <Layout>

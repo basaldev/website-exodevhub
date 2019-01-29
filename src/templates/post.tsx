@@ -64,8 +64,8 @@ const PostContent = styled.div`
 interface Props {
   pageContext: {
     slug: string
-    next: object
-    prev: object
+    next: object | null
+    prev: object | null
   }
   data: {
     markdownRemark: object

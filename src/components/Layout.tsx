@@ -129,8 +129,9 @@ const Layout = ({ children }: Props) => (
           <GlobalStyle />
           {children}
           <Footer>
-            ExO Lever Asia <span>合同会社</span> <br />
-            &copy;{data.site.buildTime.split('.')[2]} All Rights Reserved.{' '}
+            ExO Lever Asia <span>合同会社</span>
+            <br />
+            &copy;&nbsp;{new Date().getFullYear()}.&nbsp;All Rights Reserved.
             <br />
             <small>Last build: {data.site.buildTime}</small>
           </Footer>
