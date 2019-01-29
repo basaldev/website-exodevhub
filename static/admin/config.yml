@@ -22,9 +22,9 @@ collections:
     folder: people
     create: true
     fields:
-      - { name: img, label: Image, widget: image}
-      - { name: title, label: Title }
+      - { name: img, label: Image, widget: image }
+      - { name: name, label: Name }
+      - { name: position, label: Position }
+      - { name: bio, label: Bio }
       - { name: twitter, label: Twitter }
       - { name: github, label: Github }
-
-
