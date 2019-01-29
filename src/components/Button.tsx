@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import { designSystem } from '../utils/designSystem';
-import { Link } from 'gatsby';
+import styled from 'styled-components'
+import { Link } from 'gatsby'
+
+import { designSystem } from '../utils/designSystem'
 
 const Button = styled(Link)`
   background: ${designSystem.color('yellow')};
@@ -20,6 +21,6 @@ const Button = styled(Link)`
   &:focus {
     outline: none;
   }
-`;
+`
 
-export default Button;
+export default Button

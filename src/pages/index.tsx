@@ -1,6 +1,7 @@
-import React from 'react';
-import { graphql } from 'gatsby';
-import styled from 'styled-components';
+import React from 'react'
+import { graphql } from 'gatsby'
+import styled from 'styled-components'
+
 import {
   Layout,
   Header,
@@ -8,9 +9,9 @@ import {
   Wrapper,
   Button,
   SectionTitle,
-  LinkHeader
-} from '../components';
-import { media } from '../utils/media';
+  LinkHeader,
+} from '../components'
+import { media } from '../utils/media'
 
 const Content = styled.div`
   grid-column: 2;
@@ -23,7 +24,7 @@ const Content = styled.div`
   @media ${media.phone} {
     width: auto;
   }
-`;
+`
 
 const ArticleWrapper = styled.div`
   grid-column: 2;
@@ -38,7 +39,7 @@ const ArticleWrapper = styled.div`
     flex-direction: column;
     width: auto;
   }
-`;
+`
 
 const Hero = styled.div`
   grid-column: 2;
@@ -66,20 +67,20 @@ const Hero = styled.div`
       font-size: 1rem;
     }
   }
-`;
+`
 
 interface Props {
   data: {
     allMarkdownRemark: {
-      edges: any[];
+      edges: any[]
     }
   }
 }
 
 const SplashPage = ({
   data: {
-    allMarkdownRemark: { edges: postEdges }
-  }
+    allMarkdownRemark: { edges: postEdges },
+  },
 }: Props) => (
   <Layout>
     <Wrapper>
@@ -93,12 +94,12 @@ const SplashPage = ({
       </Hero>
     </Wrapper>
   </Layout>
-);
+)
 
 const IndexPage = ({
   data: {
-    allMarkdownRemark: { edges: postEdges }
-  }
+    allMarkdownRemark: { edges: postEdges },
+  },
 }) => (
   <Layout>
     <Wrapper>
@@ -151,9 +152,9 @@ const IndexPage = ({
       </Hero>
     </Wrapper>
   </Layout>
-);
+)
 
-export default IndexPage;
+export default IndexPage
 
 export const IndexQuery = graphql`
   query IndexQuery {
@@ -178,4 +179,4 @@ export const IndexQuery = graphql`
       }
     }
   }
-`;
+`

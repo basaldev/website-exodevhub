@@ -1,13 +1,14 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { Link, graphql } from 'gatsby';
-import styled from 'styled-components';
-import kebabCase from 'lodash/kebabCase';
-import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components';
-import { media } from '../utils/media';
-import config from '../../config/SiteConfig';
-import '../utils/prismjs-theme.css';
-import { designSystem } from '../utils/designSystem';
+import React from 'react'
+import Helmet from 'react-helmet'
+import { Link, graphql } from 'gatsby'
+import styled from 'styled-components'
+import kebabCase from 'lodash/kebabCase'
+
+import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components'
+import { media } from '../utils/media'
+import config from '../../config/SiteConfig'
+import '../utils/prismjs-theme.css'
+import { designSystem } from '../utils/designSystem'
 
 const Content = styled.article`
   grid-column: 2;
@@ -28,11 +29,11 @@ const Content = styled.article`
   h2 {
     text-transform: capitalize;
   }
-`;
+`
 
 const Grid = styled.div`
   justify-items: center;
-`;
+`
 
 const Title = styled.h2`
   margin-bottom: 1rem;
@@ -45,7 +46,7 @@ const Title = styled.h2`
     font-size: ${designSystem.fs('m')}px;
     line-height: 1.2;
   }
-`;
+`
 
 const PostContent = styled.div`
   padding: 2rem 0;
@@ -58,24 +59,24 @@ const PostContent = styled.div`
       font-size: ${designSystem.fs('s')}px;
     }
   }
-`;
+`
 
 interface Props {
   pageContext: {
-    slug: string;
-    next: object;
-    prev: object;
-  },
+    slug: string
+    next: object
+    prev: object
+  }
   data: {
-    markdownRemark: object;
-  },
+    markdownRemark: object
+  }
 }
 
 const Post = ({
   pageContext: { slug, prev = null, next = null },
-  data: { markdownRemark: postNode }
+  data: { markdownRemark: postNode },
 }: Props) => {
-  const post = postNode.frontmatter;
+  const post = postNode.frontmatter
 
   return (
     <Layout>
@@ -98,10 +99,10 @@ const Post = ({
         </Content>
       </Wrapper>
     </Layout>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
 
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
@@ -116,4 +117,4 @@ export const postQuery = graphql`
       timeToRead
     }
   }
-`;
+`

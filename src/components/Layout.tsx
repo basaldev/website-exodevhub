@@ -1,12 +1,13 @@
 /* eslint no-unused-expressions:0 */
 
-import React, { ReactNode } from 'react';
-import { StaticQuery, graphql } from 'gatsby';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { SEO } from 'components';
-import theme from '../../config/Theme';
-import { media } from '../utils/media';
-import { designSystem } from '../utils/designSystem';
+import React, { ReactNode } from 'react'
+import { StaticQuery, graphql } from 'gatsby'
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
+
+import { SEO } from './'
+import theme from '../../config/Theme'
+import { media } from '../utils/media'
+import { designSystem } from '../utils/designSystem'
 
 const GlobalStyle = createGlobalStyle`
 
@@ -93,12 +94,12 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
-`;
+`
 
 const Footer = styled.footer`
   text-align: center;
   padding: 3rem 0;
-  opacity:1;
+  opacity: 1;
   color: ${designSystem.color('white', 'darker')};
   span {
     font-size: 0.9rem;
@@ -106,10 +107,10 @@ const Footer = styled.footer`
   small {
     opacity: 0.4;
   }
-`;
+`
 
 interface Props {
-  children: ReactNode,
+  children: ReactNode
 }
 
 const Layout = ({ children }: Props) => (
@@ -128,13 +129,15 @@ const Layout = ({ children }: Props) => (
           <GlobalStyle />
           {children}
           <Footer>
-            ExO Lever Asia <span>合同会社</span> <br />&copy;{data.site.buildTime.split('.')[2]} All Rights Reserved. <br />
+            ExO Lever Asia <span>合同会社</span> <br />
+            &copy;{data.site.buildTime.split('.')[2]} All Rights Reserved.{' '}
+            <br />
             <small>Last build: {data.site.buildTime}</small>
           </Footer>
         </React.Fragment>
       </ThemeProvider>
     )}
   />
-);
+)
 
-export default Layout;
+export default Layout

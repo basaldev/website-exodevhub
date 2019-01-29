@@ -1,18 +1,19 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { graphql } from 'gatsby';
-import styled from 'styled-components';
+import React from 'react'
+import Helmet from 'react-helmet'
+import { graphql } from 'gatsby'
+import styled from 'styled-components'
+
 import {
   Layout,
   Wrapper,
   Header,
   LinkHeader,
   Button,
-  Article
-} from '../components';
-import { media } from '../utils/media';
-import config from '../../config/SiteConfig';
-import { designSystem } from '../utils/designSystem';
+  Article,
+} from '../components'
+import { media } from '../utils/media'
+import config from '../../config/SiteConfig'
+import { designSystem } from '../utils/designSystem'
 
 const Content = styled.div`
   grid-column: 2;
@@ -27,7 +28,7 @@ const Content = styled.div`
   @media ${media.phone} {
     width: auto;
   }
-`;
+`
 
 const ArticleWrapper = styled.div`
   grid-column: 2;
@@ -40,7 +41,7 @@ const ArticleWrapper = styled.div`
   @media ${media.phone} {
     flex-direction: column;
   }
-`;
+`
 
 const Meta = styled.div`
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
@@ -48,7 +49,7 @@ const Meta = styled.div`
   text-align: right;
   margin-left: ${designSystem.spacing(6)};
   margin-bottom: ${designSystem.spacing(4)};
-`;
+`
 
 const TitleHeader = styled.div`
   grid-column: 2;
@@ -62,26 +63,26 @@ const TitleHeader = styled.div`
   a {
     transform: translateY(${designSystem.spacing(2)});
   }
-`;
+`
 
 interface Props {
   pageContext: {
-    category: string;
-  };
+    category: string
+  }
   data: {
     allMarkdownRemark: {
-      edges: any[];
-      totalCount: number;
-    };
-  };
+      edges: any[]
+      totalCount: number
+    }
+  }
 }
 
 const Category = ({
   pageContext: { category },
-  data: { allMarkdownRemark }
+  data: { allMarkdownRemark },
 }: Props) => {
-  const { edges, totalCount } = allMarkdownRemark;
-  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'}`;
+  const { edges, totalCount } = allMarkdownRemark
+  const subline = `${totalCount} post${totalCount === 1 ? '' : 's'}`
 
   return (
     <Layout>
@@ -112,10 +113,10 @@ const Category = ({
         </Content>
       </Wrapper>
     </Layout>
-  );
-};
+  )
+}
 
-export default Category;
+export default Category
 
 export const postQuery = graphql`
   query CategoryPage($category: String!) {
@@ -141,4 +142,4 @@ export const postQuery = graphql`
       }
     }
   }
-`;
+`

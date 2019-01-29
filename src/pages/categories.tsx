@@ -1,13 +1,13 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { Link, graphql } from 'gatsby';
-import styled from 'styled-components';
-import kebabCase from 'lodash/kebabCase';
-import { Layout, Wrapper, Header, LinkHeader, Button } from '../components';
-import { media } from '../utils/media';
+import React from 'react'
+import Helmet from 'react-helmet'
+import { Link, graphql } from 'gatsby'
+import styled from 'styled-components'
+import kebabCase from 'lodash/kebabCase'
 
-import config from '../../config/SiteConfig';
-import { designSystem } from '../utils/designSystem';
+import { Layout, Wrapper, Header, LinkHeader, Button } from '../components'
+import { media } from '../utils/media'
+import config from '../../config/SiteConfig'
+import { designSystem } from '../utils/designSystem'
 
 const Content = styled.div`
   grid-column: 2;
@@ -21,7 +21,7 @@ const Content = styled.div`
   @media ${media.phone} {
     width: auto;
   }
-`;
+`
 
 const Title = styled.span`
   position: relative;
@@ -30,20 +30,20 @@ const Title = styled.span`
   clear: both;
   width: 100%;
   display: block;
-`;
+`
 
 interface Props {
   data: {
     allMarkdownRemark: {
-      group: any[];
+      group: any[]
     }
-  };
+  }
 }
 
 const Category = ({
   data: {
-    allMarkdownRemark: { group }
-  }
+    allMarkdownRemark: { group },
+  },
 }: Props) => (
   <Layout>
     <Wrapper>
@@ -64,9 +64,9 @@ const Category = ({
       </Content>
     </Wrapper>
   </Layout>
-);
+)
 
-export default Category;
+export default Category
 
 export const postQuery = graphql`
   query CategoriesPage {
@@ -77,4 +77,4 @@ export const postQuery = graphql`
       }
     }
   }
-`;
+`
