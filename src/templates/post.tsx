@@ -90,6 +90,7 @@ const Post = ({
             </Link>
           </Subline>
           <Title>{post.title}</Title>
+          <div>By: {post.author}</div>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
           <PrevNext prev={prev} next={next} />
         </Content>
@@ -109,6 +110,7 @@ export const postQuery = graphql`
         title
         date(formatString: "YYYY-MM-DD")
         category
+        author
       }
       timeToRead
     }
