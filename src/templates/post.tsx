@@ -31,10 +31,6 @@ const Content = styled.article`
   }
 `
 
-const Grid = styled.div`
-  justify-items: center;
-`
-
 const Title = styled.h2`
   margin-bottom: 1rem;
   font-weight: bold;
