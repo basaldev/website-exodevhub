@@ -126,6 +126,7 @@ const Article = ({
   category,
   shape,
 }: Props) => {
+  console.log('DATE', date)
   return (
     <Post>
       <ShapeFence>

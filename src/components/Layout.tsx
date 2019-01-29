@@ -118,7 +118,7 @@ const Layout = ({ children }: Props) => (
     query={graphql`
       query LayoutQuery {
         site {
-          buildTime(formatString: "DD.MM.YYYY")
+          buildTime(formatString: "YYYY-MM-DD")
         }
       }
     `}

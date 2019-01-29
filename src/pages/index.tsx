@@ -150,7 +150,7 @@ export const IndexQuery = graphql`
           }
           frontmatter {
             title
-            date(formatString: "DD.MM.YYYY")
+            date(formatString: "YYYY-MM-DD")
             category
             shape
           }
