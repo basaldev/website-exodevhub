@@ -77,30 +77,11 @@ interface Props {
   }
 }
 
-const SplashPage = ({
-  data: {
-    allMarkdownRemark: { edges: postEdges },
-  },
-}: Props) => (
-  <Layout>
-    <Wrapper>
-      <Header />
-      <Hero>
-        <SectionTitle text="Coming Soon" white="S" />
-        <p>
-          We are currently building the website, it will be up any day now{' '}
-          {`;)`}
-        </p>
-      </Hero>
-    </Wrapper>
-  </Layout>
-)
-
 const IndexPage = ({
   data: {
     allMarkdownRemark: { edges: postEdges },
   },
-}) => (
+}: Props) => (
   <Layout>
     <Wrapper>
       <Header />
