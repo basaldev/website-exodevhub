@@ -64,7 +64,16 @@ interface Props {
     prev: object | null
   }
   data: {
-    markdownRemark: object
+    markdownRemark: {
+      html: string
+      timeToRead: number
+      frontmatter: {
+        title: string
+        category: string
+        date: string
+        author: string
+      }
+    }
   }
 }
 
