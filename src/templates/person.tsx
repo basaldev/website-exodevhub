@@ -6,7 +6,7 @@ interface Props {
     markdownRemark: {
       frontmatter: {
         image: string
-        name: string
+        title: string
         position: string
         bio: string
         twitter: string
