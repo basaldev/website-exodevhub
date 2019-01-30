@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import { designSystem } from '../utils/designSystem';
+import styled from 'styled-components'
+
+import { designSystem } from '../utils/designSystem'
 
 const Subline = styled.div`
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
@@ -11,6 +12,6 @@ const Subline = styled.div`
   a {
     float: right;
   }
-`;
+`
 
-export default Subline;
+export default Subline

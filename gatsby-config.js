@@ -1,6 +1,6 @@
-const config = require('./config/SiteConfig');
+const config = require('./config/SiteConfig')
 
-const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
+const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix
 
 module.exports = {
   pathPrefix: config.pathPrefix,
@@ -32,9 +32,9 @@ module.exports = {
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
-              classPrefix: "language-",
+              classPrefix: 'language-',
               inlineCodeMarker: null,
-              aliases: { js: 'javascript'},
+              aliases: { js: 'javascript' },
               showLineNumbers: true,
               noInlineHighlight: false,
             },
@@ -43,22 +43,22 @@ module.exports = {
             resolve: 'gatsby-remark-emojis',
             options: {
               // Deactivate the plugin globally (default: true)
-              active : true,
+              active: true,
               // Add a custom css class
-              class  : 'emoji-icon',
+              class: 'emoji-icon',
               // Select the size (available size: 16, 24, 32, 64)
-              size   : 64,
+              size: 64,
               // Add custom styles
-              styles : {
+              styles: {
                 fontFamily: 'initial',
-                display      : 'inline',
-                margin       : '0',
-                'margin-top' : '1px',
-                position     : 'relative',
-                top          : '5px',
-                width        : '25px'
-              }
-            }
+                display: 'inline',
+                margin: '0',
+                'margin-top': '1px',
+                position: 'relative',
+                top: '5px',
+                width: '25px',
+              },
+            },
           },
           'gatsby-remark-autolink-headers',
         ],
@@ -90,4 +90,4 @@ module.exports = {
     'gatsby-plugin-netlify',
     'gatsby-plugin-typescript',
   ],
-};
+}

@@ -1,17 +1,17 @@
-import React from 'react';
-import Helmet from 'react-helmet';
-import { Link, graphql } from 'gatsby';
-import styled from 'styled-components';
-import kebabCase from 'lodash/kebabCase';
-import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components';
-import { media } from '../utils/media';
-import config from '../../config/SiteConfig';
-import '../utils/prismjs-theme.css';
-import { designSystem } from '../utils/designSystem';
+import React from 'react'
+import Helmet from 'react-helmet'
+import { Link, graphql } from 'gatsby'
+import styled from 'styled-components'
+import kebabCase from 'lodash/kebabCase'
+
+import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components'
+import { media } from '../utils/media'
+import config from '../../config/SiteConfig'
+import '../utils/prismjs-theme.css'
+import { designSystem } from '../utils/designSystem'
 
 const Content = styled.article`
   grid-column: 2;
-  border-radius: 1rem;
   overflow: hidden;
   padding: 2rem 4rem;
   z-index: 9000;
@@ -28,11 +28,7 @@ const Content = styled.article`
   h2 {
     text-transform: capitalize;
   }
-`;
-
-const Grid = styled.div`
-  justify-items: center;
-`;
+`
 
 const Title = styled.h2`
   margin-bottom: 1rem;
@@ -45,7 +41,7 @@ const Title = styled.h2`
     font-size: ${designSystem.fs('m')}px;
     line-height: 1.2;
   }
-`;
+`
 
 const PostContent = styled.div`
   padding: 2rem 0;
@@ -58,24 +54,40 @@ const PostContent = styled.div`
       font-size: ${designSystem.fs('s')}px;
     }
   }
-`;
+`
+const Author = styled.small`
+  border: 3px solid ${designSystem.color("black")};
+  padding: ${designSystem.spacing(1)};
+  font-weight:bold;
+  display:inline-block;
+  font-family: ${designSystem.get(`type.fontFamily.mono`)};
+`
 
 interface Props {
   pageContext: {
-    slug: string;
-    next: object;
-    prev: object;
-  },
+    slug: string
+    next: object | null
+    prev: object | null
+  }
   data: {
-    markdownRemark: object;
-  },
+    markdownRemark: {
+      html: string
+      timeToRead: number
+      frontmatter: {
+        title: string
+        category: string
+        date: string
+        author: string
+      }
+    }
+  }
 }
 
 const Post = ({
   pageContext: { slug, prev = null, next = null },
-  data: { markdownRemark: postNode }
+  data: { markdownRemark: postNode },
 }: Props) => {
-  const post = postNode.frontmatter;
+  const post = postNode.frontmatter
 
   return (
     <Layout>
@@ -93,15 +105,18 @@ const Post = ({
             </Link>
           </Subline>
           <Title>{post.title}</Title>
+          <div>
+          <Author>{post.author}</Author>
+          </div>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
           <PrevNext prev={prev} next={next} />
         </Content>
       </Wrapper>
     </Layout>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
 
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
@@ -110,10 +125,11 @@ export const postQuery = graphql`
       excerpt
       frontmatter {
         title
-        date(formatString: "DD.MM.YYYY")
+        date(formatString: "YYYY-MM-DD")
         category
+        author
       }
       timeToRead
     }
   }
-`;
+`

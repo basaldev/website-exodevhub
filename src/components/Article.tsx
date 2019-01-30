@@ -1,11 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'gatsby';
-import kebabCase from 'lodash/kebabCase';
-import { designSystem } from '../utils/designSystem';
-import { media } from '../utils/media';
+import React from 'react'
+import styled from 'styled-components'
+import { Link } from 'gatsby'
+import kebabCase from 'lodash/kebabCase'
 
-const shapeSize = 120;
+import { designSystem } from '../utils/designSystem'
+import { media } from '../utils/media'
+
+const shapeSize = 120
 
 const Post = styled.article`
   flex: 45% 0 0;
@@ -20,7 +21,7 @@ const Post = styled.article`
     width: auto;
     margin-right: 0;
   }
-`;
+`
 
 const Title = styled.h2`
   position: relative;
@@ -42,7 +43,7 @@ const Title = styled.h2`
   clear: both;
   background: white;
   height: 110px; //Firefox fix
-`;
+`
 
 // TODO: Replace with SVG
 const Shape = styled.div`
@@ -58,14 +59,14 @@ const Shape = styled.div`
         return `
       overflow:hidden;
       background: ${designSystem.color('pink')}
-     `;
+     `
       case 'corner':
         return `
       overflow:hidden;
       top: -5px;
       border-radius: 100% 0 0 0;
       background: ${designSystem.color('orange')}
-     `;
+     `
       case 'diamond':
         return `
       overflow:hidden;
@@ -75,29 +76,23 @@ const Shape = styled.div`
       width: 110px;
       height: 110px;
       background: ${designSystem.color('blue')}
-     `;
+     `
       default:
       case 'circle':
         return `
       overflow:hidden;
       border-radius: 100%;
       background: ${designSystem.color('green')}
-     `;
+     `
     }
   }};
-`;
+`
 
 const ShapeFence = styled.div`
   padding-left: ${designSystem.spacing(5)};
   position: relative;
   clear: both;
-`;
-
-const Excerpt = styled.p`
-  grid-column: -1 / 1;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-`;
+`
 
 const Meta = styled.div`
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
@@ -110,16 +105,16 @@ const Meta = styled.div`
   @media ${media.phone} {
     margin-left: ${designSystem.spacing(10)};
   }
-`;
+`
 
 interface Props {
-  title: string;
-  date: string;
-  excerpt: string;
-  slug: string;
-  timeToRead: number;
-  category: string;
-  shape: string;
+  title: string
+  date: string
+  excerpt: string
+  slug: string
+  timeToRead: number
+  category: string
+  shape: string
 }
 
 const Article = ({
@@ -131,6 +126,7 @@ const Article = ({
   category,
   shape,
 }: Props) => {
+  console.log('DATE', date)
   return (
     <Post>
       <ShapeFence>
@@ -146,7 +142,7 @@ const Article = ({
         </Title>
       </ShapeFence>
     </Post>
-  );
-};
+  )
+}
 
-export default Article;
+export default Article

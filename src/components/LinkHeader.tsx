@@ -1,8 +1,9 @@
-import styled from 'styled-components';
-import React, { ReactNode } from 'react';
-import { Button, SectionTitle } from './';
-import { designSystem } from '../utils/designSystem';
-import { media } from '../utils/media';
+import styled from 'styled-components'
+import React, { ReactNode } from 'react'
+
+import { SectionTitle } from './'
+import { designSystem } from '../utils/designSystem'
+import { media } from '../utils/media'
 
 const TitleHeader = styled.div`
   grid-column: 2;
@@ -20,7 +21,7 @@ const TitleHeader = styled.div`
       font-size: 2.25rem;
     }
   }
-`;
+`
 const ButtonWrapper = styled.div`
   transform: translateY(${designSystem.spacing(2)});
   margin-left: ${designSystem.spacing(2)};
@@ -29,12 +30,12 @@ const ButtonWrapper = styled.div`
     margin: 0;
     transform: unset;
   }
-`;
+`
 
 interface Props {
-  text: string;
-  white: string;
-  children: ReactNode;
+  text: string
+  white: string
+  children: ReactNode
 }
 
 const LinkHeader = ({ text, white, children }: Props) => {
@@ -43,7 +44,7 @@ const LinkHeader = ({ text, white, children }: Props) => {
       <SectionTitle text={text} white={white} />
       <ButtonWrapper>{children}</ButtonWrapper>
     </TitleHeader>
-  );
-};
+  )
+}
 
-export default LinkHeader;
+export default LinkHeader

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-  htmlAttributes: object;
-  headComponents: any[];
-  bodyAttributes: object;
-  preBodyComponents: any[];
-  body: string;
-  postBodyComponents: any[];
+  htmlAttributes: object
+  headComponents: any[]
+  bodyAttributes: object
+  preBodyComponents: any[]
+  body: string
+  postBodyComponents: any[]
 }
 
 export default class HTML extends React.Component<Props, {}> {
@@ -60,6 +60,6 @@ export default class HTML extends React.Component<Props, {}> {
           {this.props.postBodyComponents}
         </body>
       </html>
-    );
+    )
   }
 }

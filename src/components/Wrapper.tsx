@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import { media } from '../utils/media';
+import styled from 'styled-components'
+
+import { media } from '../utils/media'
 
 const Wrapper = styled.div`
   display: grid;
@@ -10,6 +11,6 @@ const Wrapper = styled.div`
     grid-gap: 0;
     grid-template-columns: 1fr;
   }
-`;
+`
 
-export default Wrapper;
+export default Wrapper
