@@ -12,7 +12,6 @@ import { designSystem } from '../utils/designSystem'
 
 const Content = styled.article`
   grid-column: 2;
-  border-radius: 1rem;
   overflow: hidden;
   padding: 2rem 4rem;
   z-index: 9000;
@@ -55,6 +54,13 @@ const PostContent = styled.div`
       font-size: ${designSystem.fs('s')}px;
     }
   }
+`
+const Author = styled.small`
+  border: 3px solid ${designSystem.color("black")};
+  padding: ${designSystem.spacing(1)};
+  font-weight:bold;
+  display:inline-block;
+  font-family: ${designSystem.get(`type.fontFamily.mono`)};
 `
 
 interface Props {
@@ -99,7 +105,9 @@ const Post = ({
             </Link>
           </Subline>
           <Title>{post.title}</Title>
-          <div>By: {post.author}</div>
+          <div>
+          <Author>{post.author}</Author>
+          </div>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
           <PrevNext prev={prev} next={next} />
         </Content>

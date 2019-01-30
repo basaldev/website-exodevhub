@@ -256,7 +256,7 @@ Here, we are rendering the dynamic mouse coordinates in a pale green `<p>` tag.
 
 Try the hooks approach for yourself in a [CodeSandbox](https://codesandbox.io/s/548z479m0n):
 
-[https://codesandbox.io/s/548z479m0n](https://codesandbox.io/s/548z479m0n)
+<iframe src="https://codesandbox.io/embed/548z479m0n" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Summary
 
