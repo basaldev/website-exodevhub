@@ -1,5 +1,5 @@
-// ./tokens/index.js
-import DesignSystem from 'design-system-utils'
+// ./tokens/index.ts
+import DesignSystem from 'design-system-utils';
 
 // your design tokens object goes here, see below for further details
 const designTokens = {
@@ -15,8 +15,8 @@ const designTokens = {
         dark: '#C91026'
       },
       yellow: {
-        base:'#FDD758',
-        dark:'#FEC400'
+        base: '#FDD758',
+        dark: '#FEC400'
       },
       green: {
         base: '#1CD1A6',
@@ -38,14 +38,13 @@ const designTokens = {
         light: '#F0F0F0',
         base: '#ffffff',
         dark: '#E7E7E7',
-        darker: '#c2c2c2',
-
+        darker: '#c2c2c2'
       }
-    },
+    }
   },
   spacing: {
     scale: [0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80],
-    baseline: 20,
+    baseline: 20
   },
   border: {
     width: 3
@@ -59,7 +58,7 @@ const designTokens = {
       m: '28',
       l: '36',
       xl: '44',
-      xxl: '52',
+      xxl: '52'
     },
 
     fontFamily: {
@@ -67,17 +66,17 @@ const designTokens = {
         '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans"',
       sans: '"Noto Sans CJK JP", Helvetica, Arial, sans-serif',
       serif: '"Big John PRO", Times, serif',
-      mono: '"Roboto Mono", "Courier New", monospace',
+      mono: '"Roboto Mono", "Courier New", monospace'
     },
     lineHeight: {
-      headings: 1.1,
+      headings: 1.1
     },
     fontWeight: {
       normal: 300, // Useful to set here if using anything other than `normal`
       bold: 'bold', // Useful to set here when bold webfonts come as 400 font-weight.
-      headings: 'bold', // instead of browser default, bold
-    },
-  },
-}
+      headings: 'bold' // instead of browser default, bold
+    }
+  }
+};
 
 export const designSystem = new DesignSystem(designTokens);

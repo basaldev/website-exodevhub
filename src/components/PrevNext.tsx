@@ -1,7 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Link } from 'gatsby';
+import React from 'react'
+import styled from 'styled-components'
+import { Link } from 'gatsby'
 
 const Wrapper = styled.div`
   display: flex;
@@ -12,7 +11,7 @@ const Wrapper = styled.div`
     align-items: center;
   }
   justify-items: center;
-`;
+`
 
 const Prev = styled.div`
   span {
@@ -20,7 +19,7 @@ const Prev = styled.div`
     font-size: 0.8rem;
     color: ${props => props.theme.colors.grey.light};
   }
-`;
+`
 
 const Next = styled.div`
   margin-left: auto;
@@ -30,9 +29,14 @@ const Next = styled.div`
     font-size: 0.8rem;
     color: ${props => props.theme.colors.grey.light};
   }
-`;
+`
 
-const PrevNext = ({ next, prev }) => (
+interface Props {
+  next: object | null
+  prev: object | null
+}
+
+const PrevNext = ({ next = null, prev = null }: Props) => (
   <Wrapper>
     {prev && (
       <Prev>
@@ -48,16 +52,6 @@ const PrevNext = ({ next, prev }) => (
       </Next>
     )}
   </Wrapper>
-);
+)
 
-export default PrevNext;
-
-PrevNext.propTypes = {
-  next: PropTypes.object,
-  prev: PropTypes.object,
-};
-
-PrevNext.defaultProps = {
-  next: null,
-  prev: null,
-};
+export default PrevNext

@@ -1,13 +1,12 @@
 /* eslint no-unused-expressions:0 */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { SEO } from 'components';
-import theme from '../../config/Theme';
-import { media } from '../utils/media';
-import { designSystem } from '../utils/designSystem';
+import React, { ReactNode } from 'react'
+import { StaticQuery, graphql } from 'gatsby'
+import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
+
+import theme from '../../config/Theme'
+import { media } from '../utils/media'
+import { designSystem } from '../utils/designSystem'
 
 const GlobalStyle = createGlobalStyle`
 
@@ -94,12 +93,12 @@ const GlobalStyle = createGlobalStyle`
       outline: none;
     }
   }
-`;
+`
 
 const Footer = styled.footer`
   text-align: center;
   padding: 3rem 0;
-  opacity:1;
+  opacity: 1;
   color: ${designSystem.color('white', 'darker')};
   span {
     font-size: 0.9rem;
@@ -107,35 +106,37 @@ const Footer = styled.footer`
   small {
     opacity: 0.4;
   }
-`;
+`
 
-const Layout = ({ children }) => (
+interface Props {
+  children: ReactNode
+}
+
+const Layout = ({ children }: Props) => (
   <StaticQuery
     query={graphql`
       query LayoutQuery {
         site {
-          buildTime(formatString: "DD.MM.YYYY")
+          buildTime(formatString: "YYYY-MM-DD")
         }
       }
     `}
     render={data => (
       <ThemeProvider theme={theme}>
         <React.Fragment>
-          <SEO />
           <GlobalStyle />
           {children}
           <Footer>
-            ExO Lever Asia <span>合同会社</span> <br />&copy;{data.site.buildTime.split('.')[2]} All Rights Reserved. <br />
+            ExO Lever Asia <span>合同会社</span>
+            <br />
+            &copy;&nbsp;{new Date().getFullYear()}.&nbsp;All Rights Reserved.
+            <br />
             <small>Last build: {data.site.buildTime}</small>
           </Footer>
         </React.Fragment>
       </ThemeProvider>
     )}
   />
-);
+)
 
-export default Layout;
-
-Layout.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
-};
+export default Layout

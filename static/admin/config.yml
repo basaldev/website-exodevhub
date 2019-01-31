@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: exodevhub/exodevhub-website
+  repo: exodevhub/website-exodevhub
 
 media_folder: static/assets
 public_folder: assets
@@ -16,15 +16,16 @@ collections:
       - { name: category, label: Category }
       - { name: shape, label: Shape }
       - { name: body, label: Body, widget: markdown }
-      - { name: author, label: Author, widget: markdown }
-  - name: people
-    label: People
-    folder: people
-    create: true
-    fields:
-      - { name: img, label: Image, widget: image}
-      - { name: title, label: Title }
-      - { name: twitter, label: Twitter }
-      - { name: github, label: Github }
-
-
+      - {
+          name: author,
+          label: Author,
+          widget: select,
+          options:
+            [
+              'Alex King',
+              'Luke Helg',
+              'Shinsuke Marty Yamada',
+              'Tom Bowden',
+              'Adam Muñoz',
+            ],
+        }

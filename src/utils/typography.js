@@ -12,14 +12,13 @@ const typography = new Typography({
   headerWeight: 700,
   overrideStyles: ({ adjustFontSizeTo, rhythm }, options, styles) => ({
     h2: {
-      fontFamily: ['Noto Sans', 'sans-serif'].join(','),
+      fontFamily: ['Noto Sans', 'sans-serif'].join(',')
     },
     h1: {
       marginBottom: `3.5rem`
     }
   })
 });
-
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== 'production') {
