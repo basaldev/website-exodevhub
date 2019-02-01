@@ -3,6 +3,7 @@ date: 2019-01-30T09:04:31.645Z
 title: 'Web Components: Understanding Attributes and Properties'
 category: web-components
 shape: diamond
+type: post
 author: Alex King
 ---
 

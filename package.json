@@ -50,6 +50,7 @@
   "scripts": {
     "start": "npm run dev",
     "build": "gatsby build",
+    "now-build": "gatsby build",
     "dev": "gatsby develop -o",
     "serve": "gatsby build && gatsby serve",
     "lint": "yarn run lint:md && yarn run lint:js:fix",

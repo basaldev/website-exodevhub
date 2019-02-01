@@ -1,23 +1,69 @@
 const path = require('path')
 const _ = require('lodash')
 
+function createSlug(node, key, createNodeField) {
+  if (
+    Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
+    Object.prototype.hasOwnProperty.call(node.frontmatter, key)
+  ) {
+  createNodeField({ node, name: 'slug', value: `/${_.kebabCase(node.frontmatter[key])}`})
+}
+}
+function createPostType(postType, rawQuery, component, createPage, contextCallback){
+  let result  = []
+
+        _.each(rawQuery, edge => {
+            if(_.get(edge, 'node.frontmatter.type') === postType){
+              result = result.concat(edge);
+            }
+        })
+        result = _.uniq(result)
+        result.forEach((edge, index) => {
+          const extraContext = contextCallback(result, index) || {};
+
+          createPage({
+            path: edge.node.fields.slug,
+            component,
+            context: {
+              slug: edge.node.fields.slug,
+              ...extraContext
+            },
+          })
+        })
+}
+function createTaxonomy(name, postType, rawQuery, component, createPage, contextCallback) {
+  let result = []
+
+  _.each(rawQuery, edge => {
+    if (_.get(edge, 'node.frontmatter.type') === postType && edge.node.frontmatter[name]) {
+      result = result.concat(edge.node.frontmatter[name])
+    }
+  })
+
+  result = _.uniq(result)
+
+  result.forEach((single, index) => {
+    const extraContext = contextCallback(result, index) || {};
+    createPage({
+      path: `/${name}/${_.kebabCase(single)}`,
+      component,
+      context: {
+        single,
+        ...extraContext
+      },
+    })
+  })
+}
+
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
-  let slug
   if (node.internal.type === 'MarkdownRemark') {
-    if (
-      Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, 'slug')
-    ) {
-      slug = `/${_.kebabCase(node.frontmatter.slug)}`
-    }
-    if (
-      Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
-      Object.prototype.hasOwnProperty.call(node.frontmatter, 'title')
-    ) {
-      slug = `/${_.kebabCase(node.frontmatter.title)}`
-    }
-    createNodeField({ node, name: 'slug', value: slug })
+    const slugFields = [
+      'slug',
+      'title',
+      'fullName'
+    ];
+    _.map(slugFields, key => createSlug(node, key, createNodeField))
   }
 }
 
@@ -39,6 +85,7 @@ exports.createPages = ({ graphql, actions }) => {
                 frontmatter {
                   title
                   category
+                  type
                 }
               }
             }
@@ -49,27 +96,24 @@ exports.createPages = ({ graphql, actions }) => {
           console.log(result.errors)
           reject(result.errors)
         }
+        const results = result.data.posts.edges;
 
-        const posts = result.data.posts.edges
-
-        posts.forEach((edge, index) => {
-          const next = index === 0 ? null : posts[index - 1].node
-          const prev = index === posts.length - 1 ? null : posts[index + 1].node
-
-          createPage({
-            path: edge.node.fields.slug,
-            component: postPage,
-            context: {
-              slug: edge.node.fields.slug,
-              prev,
-              next,
-            },
-          })
-        })
-
+        createPostType('post', results, postPage, createPage, (r, i) => {
+          return {
+            next: i === 0 ? null : r[i - 1].node,
+            prev: i === r.length - 1 ? null : r[i + 1].node
+          }
+        });
+        createPostType('person', results, path.resolve(`src/templates/person.tsx`), createPage, (r, i) => {
+          return {}
+        });
+        // WIP
+        // createTaxonomy('category', 'post', results, categoryPage, createPage, (r, i) => {
+        //   return {}
+        // });
         let categories = []
 
-        _.each(posts, edge => {
+        _.each(results, edge => {
           if (_.get(edge, 'node.frontmatter.category')) {
             categories = categories.concat(edge.node.frontmatter.category)
           }

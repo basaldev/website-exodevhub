@@ -120,7 +120,7 @@ export default Post
 
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    markdownRemark(fields: { slug: { eq: $slug }}, frontmatter:{ type:{eq: "post"} }) {
       html
       excerpt
       frontmatter {

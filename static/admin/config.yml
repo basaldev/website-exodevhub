@@ -29,3 +29,10 @@ collections:
               'Adam Muñoz',
             ],
         }
+
+- name: people
+  label: People
+  create: true
+  fields:
+    - { name: Full Name, label: fullName }
+    - { name: type, label: type, default:"post" }

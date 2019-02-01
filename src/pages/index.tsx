@@ -141,6 +141,7 @@ export const IndexQuery = graphql`
   query IndexQuery {
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
+      filter:{frontmatter:{type:{eq: "post"}}}
       limit: 4
     ) {
       edges {
