@@ -13,8 +13,19 @@ collections:
     fields:
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
+      - { name: banner, label: banner, widget: image }
       - { name: category, label: Category }
-      - { name: shape, label: Shape }
+      - { name: shape,
+        label: Shape,
+        widget: select,
+        options:
+          [
+            'square',
+            'corner',
+            'diamond',
+            'circle',
+          ],
+      }
       - { name: body, label: Body, widget: markdown }
       - {
           name: author,
