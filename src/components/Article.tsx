@@ -97,6 +97,7 @@ const ShapeFence = styled.div`
 const Meta = styled.div`
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
   color: ${designSystem.color('white', 'darker')};
+  font-size: ${designSystem.fontSize('xxs')}px;
   float: right;
   clear: both;
   display: block;
