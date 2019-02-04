@@ -104,9 +104,7 @@ exports.createPages = ({ graphql, actions }) => {
             prev: i === r.length - 1 ? null : r[i + 1].node
           }
         });
-        createPostType('person', results, path.resolve(`src/templates/person.tsx`), createPage, (r, i) => {
-          return {}
-        });
+        createPostType('person', results, path.resolve(`src/templates/person.tsx`), createPage, (r, i) =>  {});
         // WIP
         // createTaxonomy('category', 'post', results, categoryPage, createPage, (r, i) => {
         //   return {}
