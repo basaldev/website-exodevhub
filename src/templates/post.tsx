@@ -55,13 +55,27 @@ const PostContent = styled.div`
     }
   }
 `
-const Author = styled.small`
-  border: 3px solid ${designSystem.color("black")};
+// TODO: replace with grommet
+const outlineButton = `
   padding: ${designSystem.spacing(1)};
   font-weight:bold;
   display:inline-block;
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
+`;
+const Author = styled.small`
+${outlineButton}
+border: 3px solid ${designSystem.color("black")};
+margin-right: ${designSystem.spacing(1)};
 `
+const Discuss = styled.a`
+  ${outlineButton}
+  font-size: 14.4px;
+  border: 3px solid ${designSystem.color("blue")};
+  &:hover {
+    background: ${designSystem.color("blue")};
+    color: ${designSystem.color("white")};
+  }
+`;
 
 interface Props {
   pageContext: {
@@ -88,7 +102,7 @@ const Post = ({
   data: { markdownRemark: postNode },
 }: Props) => {
   const post = postNode.frontmatter
-
+  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${document.location.pathname}&src=typd`;
   return (
     <Layout>
       <Wrapper>
@@ -107,8 +121,11 @@ const Post = ({
           <Title>{post.title}</Title>
           <div>
           <Author>{post.author}</Author>
+          <Discuss target="_blank" href={twitterDicuss}>Discuss on twitter</Discuss>
           </div>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
+          <Discuss target="_blank" href={twitterDicuss}>Discuss on twitter</Discuss>
+
           <PrevNext prev={prev} next={next} />
         </Content>
       </Wrapper>

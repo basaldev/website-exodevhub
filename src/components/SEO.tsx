@@ -28,7 +28,7 @@ const SEO = (props: Props) => {
     const postMeta = postNode.frontmatter
     title = postMeta.title // eslint-disable-line prefer-destructuring
     description = postNode.excerpt
-    image = postMeta.banner
+    image = postMeta.banner || config.siteBanner
     postURL = config.siteUrl + realPrefix + postPath
   } else {
     title = config.siteTitle
