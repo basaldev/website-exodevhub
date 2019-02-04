@@ -52,6 +52,7 @@ const designTokens = {
   type: {
     baseFontSize: '22',
     sizes: {
+      xxs: '14',
       xs: '16',
       s: '20',
       base: '22',
