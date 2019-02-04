@@ -15,7 +15,7 @@ collections:
       - { name: title, label: Title }
       - { name: banner, label: banner, widget: image }
       - { name: category, label: Category }
-       - { name: shape,
+      - { name: shape,
         label: Shape,
         widget: select,
         options:
