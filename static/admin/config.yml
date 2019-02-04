@@ -14,6 +14,7 @@ collections:
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
       - { name: banner, label: banner, widget: image }
+      - { name: type, label: type, default:"post" }
       - { name: category, label: Category }
       - { name: shape,
         label: Shape,
@@ -46,4 +47,7 @@ collections:
   create: true
   fields:
     - { name: Full Name, label: fullName }
-    - { name: type, label: type, default:"post" }
+    - { name: type, label: type, default:"person" }
+    - { name: github, label: github }
+    - { name: twitter, label: twitter }
+

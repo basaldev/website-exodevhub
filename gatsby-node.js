@@ -112,11 +112,11 @@ exports.createPages = ({ graphql, actions }) => {
         let categories = []
 
         _.each(results, edge => {
-          if (_.get(edge, 'node.frontmatter.category')) {
-            categories = categories.concat(edge.node.frontmatter.category)
+          if (!_.isNull(_.get(edge, 'node.frontmatter.category'))) {
+              categories = categories.concat(edge.node.frontmatter.category)
           }
         })
-
+        console.log(categories)
         categories = _.uniq(categories)
 
         categories.forEach(category => {
