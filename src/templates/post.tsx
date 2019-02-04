@@ -103,7 +103,7 @@ const Post = ({
   data: { markdownRemark: postNode },
 }: Props) => {
   const post = postNode.frontmatter
-  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${document.location.pathname}&src=typd`;
+  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
   return (
     <Layout>
       <Wrapper>
