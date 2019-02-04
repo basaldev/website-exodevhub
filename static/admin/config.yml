@@ -16,16 +16,16 @@ collections:
       - { name: category, label: Category }
       - { name: shape, label: Shape }
       - { name: body, label: Body, widget: markdown }
-      - {
-          name: author,
-          label: Author,
-          widget: select,
-          options:
-            [
-              'Alex King',
-              'Luke Helg',
-              'Shinsuke Marty Yamada',
-              'Tom Bowden',
-              'Adam Muñoz',
-            ],
-        }
+      - { name: banner, label: social-banner, widget: image }
+      - { name: author,
+        label: Author,
+        widget: select,
+        options:
+          [
+            'Alex King',
+            'Luke Helg',
+            'Shinsuke Marty Yamada',
+            'Tom Bowden',
+            'Adam Muñoz',
+          ],
+      }
