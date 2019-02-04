@@ -91,6 +91,7 @@ interface Props {
         title: string
         category: string
         date: string
+        banner: string
         author: string
       }
     }
@@ -145,6 +146,7 @@ export const postQuery = graphql`
         date(formatString: "YYYY-MM-DD")
         category
         author
+        banner
       }
       timeToRead
     }
