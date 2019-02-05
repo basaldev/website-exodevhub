@@ -59,7 +59,6 @@ const Category = ({
   data: { allMarkdownRemark },
 }: Props) => {
   const { edges } = allMarkdownRemark
-
   return (
     <Layout>
       <Wrapper>

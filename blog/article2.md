@@ -1,8 +1,10 @@
 ---
 date: 2019-01-30T09:04:31.645Z
 title: 'Web Components: Understanding Attributes and Properties'
+banner: /assets/social-lit-elements.png
 category: web-components
-shape: diamond
+type: post
+shape: corner
 author: Alex King
 ---
 

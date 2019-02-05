@@ -44,7 +44,9 @@ const Category = ({
   data: {
     allMarkdownRemark: { group },
   },
-}: Props) => (
+}: Props) => {
+  console.log(group)
+  return (
   <Layout>
     <Wrapper>
       <Helmet title={`Categories | ${config.siteTitle}`} />
@@ -64,13 +66,13 @@ const Category = ({
       </Content>
     </Wrapper>
   </Layout>
-)
+)}
 
 export default Category
 
 export const postQuery = graphql`
   query CategoriesPage {
-    allMarkdownRemark {
+    allMarkdownRemark(filter: { frontmatter: { type: { eq: "post" } } }) {
       group(field: frontmatter___category) {
         fieldValue
         totalCount

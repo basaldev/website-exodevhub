@@ -6,6 +6,9 @@ const designTokens = {
   colors: {
     // Used with `ds.color('colorName')`
     colorPalette: {
+      grid: {
+        base: '/texture/grid.svg'
+      },
       orange: {
         base: '#FF5630',
         dark: '#C72B09'

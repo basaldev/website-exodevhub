@@ -19,6 +19,13 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'people',
+        path: `${__dirname}/people`,
+      },
+    },
+    {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
@@ -86,7 +93,6 @@ module.exports = {
         icon: config.favicon,
       },
     },
-    'gatsby-plugin-offline',
     'gatsby-plugin-netlify',
     'gatsby-plugin-typescript',
   ],
