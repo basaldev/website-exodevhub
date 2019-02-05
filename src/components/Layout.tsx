@@ -53,6 +53,12 @@ const GlobalStyle = createGlobalStyle`
     text-transform: uppercase;
     color: ${theme.colors.grey.dark};
   }
+  @media ${media.phone} {
+    h1 {
+      font-size: 2.25rem;
+    }
+  }
+
   h1 span.white {
     color:white
     text-shadow:
