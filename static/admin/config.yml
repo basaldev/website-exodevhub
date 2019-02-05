@@ -46,7 +46,7 @@ collections:
     folder: people
     create: true
     fields:
-      - { name: Full Name, label: fullName }
+      - { name: fullName, label: FullName }
       - { name: type, label: type, default:"person" }
       - { name: github, label: github }
       - { name: twitter, label: twitter }
