@@ -2,27 +2,28 @@
 date: 2019-01-30T09:04:31.645Z
 title: 'Web Components: Understanding Attributes and Properties'
 banner: /assets/social-lit-elements.png
-category: web-components
 type: post
+category: web-components
 shape: corner
 author: Alex King
 ---
-
-When working with component libraries there is a blending of Javascript Properties and HTML Attributes that can make it confusing to understand what they really are and how they work. This can be a problem later on so here is a breakdown.
+When working with component libraries there is a blending of Javascript Properties and HTML Attributes that can make it confusing to understand what they really are and how they work. This can be a problem later on so here is a breakdown. 
 
 **HTML elements have attributes.** Theses are strings that can be passed into an HTML Tag.
+
 ```html
     <img src="https://picsum.photos/200/300" />
 ```
+
 This is because a HTML Document is only a string until it is coupled with a DOM.
 
-*The Document Object Model (DOM) represents that same document ... The DOM is an object-oriented representation of the web page, which can be modified with a scripting language such as JavaScript. - MDN*
+_The Document Object Model (DOM) represents that same document ... The DOM is an object-oriented representation of the web page, which can be modified with a scripting language such as JavaScript. - MDN_
 
-When you request a tag using Javascript, it will return an `Element` Object from the DOM; with this Javascript object, you can change the *attributes* of the HTML element but you can also set properties of the object itself which don't have visible representation in the document.
+When you request a tag using Javascript, it will return an `Element` Object from the DOM; with this Javascript object, you can change the _attributes_ of the HTML element but you can also set properties of the object itself which don't have visible representation in the document.
 
 Properties can be complex data like arrays, functions or other objects; This is especially useful when storing data related to a node.
 
-*Try it yourself in your browser console.*
+_Try it yourself in your browser console._
 
 ```js
 $0 //will return the selected element in chrome/firefox/safari
@@ -51,7 +52,7 @@ imgTag.srcset = ['https://picsum.photos/320/320 320w',
 imgTag.srcset; //"https://picsum.photos/320/320 320w,https://picsum.photos/480/320 480w,https://picsum.photos/640/320 640w"
 ```
 
-This Image Element's Class has a property handlers for `srcset` which ***reflect*** it has attributes and set the property as well.
+This Image Element's Class has a property handlers for `srcset` which _**reflect**_ it has attributes and set the property as well.
 
 For the most part this isn't a problem but it's helpful to understand this relationship because it will help you build better more reusable Web Components.
 
@@ -222,6 +223,7 @@ customElements.define('cool-beans', BeanList);
 ```
 
 In the above example you, no attribute is created on the element only properties and you a set them using a range of framework including native HTML. Have a play.
+
 <!-- <iframe width="100%" height="600" src="https://glitch.com/embed/#!/embed/article-example-attributes?path=src/index.ts&previewSize=33" frameborder="0" allowfullscreen></iframe> -->
 
 One Caveat is that some frameworks don't pass properties correctly to Web Components yet. A  list of compatible frameworks can be [found here](https://custom-elements-everywhere.com/)
