@@ -67,6 +67,7 @@ const FakeButton = styled.span`
   background: ${designSystem.color('yellow')};
 `
 const Logo = styled.img`
+  display:inline;
   @media ${media.phone} {
     width: 55vw;
   }

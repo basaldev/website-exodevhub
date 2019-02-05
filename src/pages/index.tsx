@@ -13,6 +13,7 @@ import {
   Person,
   DiscordWidget
 } from '../components'
+import { sortBy } from 'lodash';
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
 const discordLink = `https://discord.gg/kYn4NjR`;
@@ -132,7 +133,8 @@ const IndexPage = ({
         posts = postType.edges;
         break;
       case 'person':
-        people = postType.edges;
+        debugger
+        people =  postType.edges;
         break;
     }
   })
@@ -165,8 +167,8 @@ const IndexPage = ({
           {people.map(post => (
             <Person
               {...post.node.frontmatter }
-              slug={post.node.slug}
-              key={post.node.slug}
+              slug={post.node.fields.slug}
+              key={post.node.fields.slug}
             />
           ))}
           <SignUpCommunity >

@@ -68,8 +68,8 @@ const DiscordWidget = class Welcome extends React.Component {
         <span>Online</span> <Online>{online.length}</Online>
       </Widget>
       <UserWrapper>
-      {this.state.members.map(user => {
-          return <User src={user.avatar_url} alt={user.name} />
+      {this.state.members.slice(0, 10).map(user => {
+          return <User src={user.avatar_url} key={user.username} alt={user.username} />
         })}
       </UserWrapper>
       </>
