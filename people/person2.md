@@ -2,7 +2,7 @@
 fullName: '"Marty" Shinsuke'
 type: person
 github: yamoo
-image: '/assets/marty.jpg'
+image: /assets/marty.png
 twitter: exomarty
 ---
 
