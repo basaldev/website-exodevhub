@@ -49,5 +49,6 @@ collections:
       - { name: fullName, label: FullName }
       - { name: type, label: type, default:"person" }
       - { name: github, label: github }
+      - { name: image, label: image, widget: image }
       - { name: twitter, label: twitter }
 
