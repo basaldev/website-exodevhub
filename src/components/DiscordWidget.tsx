@@ -32,11 +32,13 @@ const Online = styled.span`
 `;
 const User = styled.img`
   border-radius: 100%;
-  margin: ${designSystem.spacing(1)};
+  margin: 0 ${designSystem.spacing(1)} ${designSystem.spacing(1)} ${designSystem.spacing(1)};
   width: ${designSystem.spacing(4)};
   height: ${designSystem.spacing(4)};
 `
-
+const UserWrapper = styled.div`
+  margin: ${designSystem.spacing(1)};
+`
 const DiscordWidget = class Welcome extends React.Component {
   super(){
   }
@@ -65,10 +67,13 @@ const DiscordWidget = class Welcome extends React.Component {
       <Widget>
         <span>Online</span> <Online>{online.length}</Online>
       </Widget>
+      <UserWrapper>
       {this.state.members.map(user => {
           return <User src={user.avatar_url} alt={user.name} />
         })}
+      </UserWrapper>
       </>
+
     )
   }
 }
