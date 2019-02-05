@@ -92,9 +92,16 @@ const Header = ({ children }: Props) => (
         <a target="_blank" href={`http://twitter.com/${config.userTwitter}`}>
           twitter
         </a>
+        <a target="_blank" href={`https://medium.com/${config.medium}`}>
+          Medium
+        </a>
+        <a target="_blank" href={`${config.discord}`}>
+          discord
+        </a>
         <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
           Email
         </a>
+
       </Dropdown>
       {children}
     </Content>

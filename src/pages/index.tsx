@@ -11,11 +11,13 @@ import {
   SectionTitle,
   LinkHeader,
   Person,
-  DiscordWidget
+  DiscordWidget,
+  SEO
 } from '../components'
 import { media } from '../utils/media'
-import { designSystem } from '../utils/designSystem'
-const discordLink = `https://discord.gg/kYn4NjR`;
+import { designSystem } from '../utils/designSystem';
+import config from '../../config/SiteConfig';
+
 const Content = styled.div`
   grid-column: 2;
   width: 70vw;
@@ -141,6 +143,7 @@ const IndexPage = ({
   })
   return (
     <Layout>
+      <SEO />
       <Wrapper>
         <Header />
         <Content>
@@ -171,7 +174,7 @@ const IndexPage = ({
             />
           ))}
           <SignUpCommunity >
-            <a href={discordLink}>Join the community</a>
+            <a href={config.discord}>Join the community</a>
             <DiscordWidget />
           </SignUpCommunity>
           </PeopleWrapper>

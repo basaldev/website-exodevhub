@@ -14,6 +14,8 @@ module.exports = {
 
   // siteFBAppID: '123456789', // Facebook App ID - Optional
   userTwitter: '@exodevhub', // Twitter Username - Optional
+  medium: '@exodevhub', // Twitter Username - Optional
+  discord: 'https://discord.gg/kYn4NjR',
   ogSiteName: 'exodevhub', // Facebook Site Name - Optional
   ogLanguage: 'en_US', // Facebook Language
 
