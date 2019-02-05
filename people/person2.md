@@ -1,8 +1,8 @@
 ---
-fullName: Marty Shinsuke
-github: yamoo
-twitter: exomarty
-image: '/assets/marty.png'
+fullName: '"Marty" Shinsuke'
 type: person
-date: 2019-01-20T09:04:31.645Z
+github: yamoo
+image: '/assets/marty.jpg'
+twitter: exomarty
 ---
+

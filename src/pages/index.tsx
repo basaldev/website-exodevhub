@@ -27,7 +27,7 @@ const Content = styled.div`
     width: auto;
   }
   @media ${media.phone} {
-    width: auto;
+    width: 100%;
   }
 `
 
@@ -56,7 +56,7 @@ const PeopleWrapper = styled.div`
 
   }
   @media ${media.phone} {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `
 
@@ -161,8 +161,6 @@ const IndexPage = ({
               />
             ))}
           </ArticleWrapper>
-        </Content>
-        <Content>
           <SectionTitle text={'community'} white="u" />
           <PeopleWrapper>
           {people.map(post => (

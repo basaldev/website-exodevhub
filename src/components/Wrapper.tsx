@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   padding: 0 1rem;
   @media ${media.phone} {
     grid-gap: 0;
-    grid-template-columns: 1fr;
+    grid-template-columns: 0fr 100% 0fr;
   }
 `
 
