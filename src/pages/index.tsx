@@ -13,15 +13,16 @@ import {
   Person,
   DiscordWidget
 } from '../components'
-import { sortBy } from 'lodash';
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
 const discordLink = `https://discord.gg/kYn4NjR`;
 const Content = styled.div`
   grid-column: 2;
-  // overflow: hidden;
   width: 70vw;
   margin: 0 auto;
+  @media ${media.smallLaptop} {
+    width: 80vw;
+  }
   @media ${media.tablet} {
     width: auto;
   }
@@ -49,6 +50,7 @@ const PeopleWrapper = styled.div`
   display: grid;
   grid-gap: 32px;
   grid-template-columns: repeat(6, 1fr);
+
   @media ${media.tablet} {
     grid-template-columns: repeat(4, 1fr);
 
