@@ -41,13 +41,13 @@ collections:
               'Adam Muñoz',
             ],
         }
-
-- name: people
-  label: People
-  create: true
-  fields:
-    - { name: Full Name, label: fullName }
-    - { name: type, label: type, default:"person" }
-    - { name: github, label: github }
-    - { name: twitter, label: twitter }
+  - name: people
+    label: People
+    folder: blog
+    create: true
+    fields:
+      - { name: Full Name, label: fullName }
+      - { name: type, label: type, default:"person" }
+      - { name: github, label: github }
+      - { name: twitter, label: twitter }
 
