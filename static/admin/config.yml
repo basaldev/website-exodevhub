@@ -43,7 +43,7 @@ collections:
         }
   - name: people
     label: People
-    folder: blog
+    folder: people
     create: true
     fields:
       - { name: Full Name, label: fullName }
