@@ -47,7 +47,10 @@ const DiscordWidget = class Welcome extends React.Component {
   }
   async getMembers(){
     const thisComponent = this;
-    fetch('https://discordapp.com/api/guilds/542136882369265675/widget.json')
+    fetch('https://discordapp.com/api/guilds/542136882369265675/widget.json', {
+      mode: "cors",
+      cache: "force-cache",
+    })
     .then(function(response) {
       return response.text()
     }).then(function(body) {
