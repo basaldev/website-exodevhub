@@ -10,11 +10,12 @@ import {
   Button,
   SectionTitle,
   LinkHeader,
-  Person
+  Person,
+  DiscordWidget
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
-
+const discordLink = `https://discord.gg/kYn4NjR`;
 const Content = styled.div`
   grid-column: 2;
   // overflow: hidden;
@@ -159,16 +160,18 @@ const IndexPage = ({
           </ArticleWrapper>
         </Content>
         <Content>
-          <SectionTitle text="community" white="u" />
+          <SectionTitle text={'community'} white="u" />
           <PeopleWrapper>
           {people.map(post => (
             <Person
               {...post.node.frontmatter }
               slug={post.node.slug}
+              key={post.node.slug}
             />
           ))}
           <SignUpCommunity >
-            <Link to={`#discord`}>Join the community</Link>
+            <a href={discordLink}>Join the community</a>
+            <DiscordWidget />
           </SignUpCommunity>
           </PeopleWrapper>
           <Hero>
