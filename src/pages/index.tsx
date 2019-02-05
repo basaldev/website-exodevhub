@@ -133,7 +133,6 @@ const IndexPage = ({
         posts = postType.edges;
         break;
       case 'person':
-        debugger
         people =  postType.edges;
         break;
     }
