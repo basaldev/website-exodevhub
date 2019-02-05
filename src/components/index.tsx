@@ -8,6 +8,10 @@ import SEO from './SEO'
 import Subline from './Subline'
 import Wrapper from './Wrapper'
 import LinkHeader from './LinkHeader'
+import Person from './Person'
+import DiscordWidget from './DiscordWidget'
+
+
 
 export {
   Article,
@@ -20,4 +24,6 @@ export {
   SEO,
   Subline,
   Wrapper,
+  Person,
+  DiscordWidget
 }

@@ -86,7 +86,6 @@ module.exports = {
         icon: config.favicon,
       },
     },
-    'gatsby-plugin-offline',
     'gatsby-plugin-netlify',
     'gatsby-plugin-typescript',
   ],

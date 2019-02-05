@@ -14,6 +14,7 @@ collections:
       - { name: date, label: Date, widget: datetime }
       - { name: title, label: Title }
       - { name: banner, label: banner, widget: image }
+      - { name: type, label: type, default:"post" }
       - { name: category, label: Category }
       - { name: shape,
         label: Shape,
@@ -27,15 +28,26 @@ collections:
           ],
       }
       - { name: body, label: Body, widget: markdown }
-      - { name: author,
-        label: Author,
-        widget: select,
-        options:
-          [
-            'Alex King',
-            'Luke Helg',
-            'Shinsuke Marty Yamada',
-            'Tom Bowden',
-            'Adam Muñoz',
-          ],
-      }
+      - {
+          name: author,
+          label: Author,
+          widget: select,
+          options:
+            [
+              'Alex King',
+              'Luke Helg',
+              'Shinsuke Marty Yamada',
+              'Tom Bowden',
+              'Adam Muñoz',
+            ],
+        }
+
+- name: people
+  label: People
+  create: true
+  fields:
+    - { name: Full Name, label: fullName }
+    - { name: type, label: type, default:"person" }
+    - { name: github, label: github }
+    - { name: twitter, label: twitter }
+

@@ -4,6 +4,8 @@
   "version": "2.0.0",
   "author": "LekoArts <hello@lekoarts.de>",
   "dependencies": {
+    "@ant-design/icons": "^1.1.16",
+    "@ant-design/icons-react": "^1.1.2",
     "@types/lodash": "^4.14.120",
     "@types/react": "^16.7.21",
     "@types/react-dom": "^16.0.11",
@@ -11,6 +13,7 @@
     "@types/styled-components": "^4.1.6",
     "babel-plugin-styled-components": "^1.8.0",
     "design-system-utils": "^1.2.0",
+    "fetch": "^1.1.0",
     "gatsby": "^2.0.37",
     "gatsby-plugin-catch-links": "^2.0.6",
     "gatsby-plugin-lodash": "^3.0.2",
@@ -50,6 +53,7 @@
   "scripts": {
     "start": "npm run dev",
     "build": "gatsby build",
+    "now-build": "gatsby build",
     "dev": "gatsby develop -o",
     "serve": "gatsby build && gatsby serve",
     "lint": "yarn run lint:md && yarn run lint:js:fix",
