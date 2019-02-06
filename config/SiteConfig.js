@@ -12,9 +12,9 @@ module.exports = {
   author: 'ExoDevHub Team', // Author for schemaORGJSONLD
   siteLogo: '/social/logo.svg', // Image for schemaORGJSONLD
 
-  // siteFBAppID: '123456789', // Facebook App ID - Optional
   userTwitter: '@exodevhub', // Twitter Username - Optional
-  medium: 'exodevhub', // Twitter Username - Optional
+  medium: 'exodevhub',
+  devto: 'exodevhub',
   discord: 'https://discord.gg/kYn4NjR',
   ogSiteName: 'exodevhub', // Facebook Site Name - Optional
   ogLanguage: 'en_US', // Facebook Language

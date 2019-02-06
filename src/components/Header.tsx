@@ -98,6 +98,9 @@ const Header = ({ children }: Props) => (
         <a target="_blank" href={`${config.discord}`}>
           discord
         </a>
+        <a target="_blank" href={`https://medium.com/${config.devto}`}>
+          dev.to
+        </a>
         <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
           Email
         </a>
