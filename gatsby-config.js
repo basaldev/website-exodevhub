@@ -106,6 +106,15 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-plugin-offline',
     {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: {
+        id: "UA-133300815-1",
+        // Include GTM in development.
+        // Defaults to false meaning GTM will only be loaded in production.
+        includeInDevelopment: false,
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-133300815-1",
