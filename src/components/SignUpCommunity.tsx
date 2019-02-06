@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 const SignUpCommunity = () => {
   return (
     <Wrapper>
-      <a href={config.discord}>Join the community</a>
+      <a rel="noopener" target="_blank" href={config.discord}>Join the community</a>
       <DiscordWidget />
     </Wrapper>
   )

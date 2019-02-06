@@ -62,14 +62,14 @@ const Category = ({
   const { edges } = allMarkdownRemark;
   const seoNode = {
     frontmatter: {
-      title: `Category: ${category}`,
+      title: `Category: ${category} | ${config.siteTitle}`,
     }
   }
   return (
     <Layout>
         <SEO postPath={`/${category}`} postNode={seoNode} postSEO />
       <Wrapper>
-        <Helmet title={`${category} | ${config.siteTitle}`} />
+        <Helmet title={`${seoNode.frontmatter.title}`} />
         <Header />
         <Content>
           <LinkHeader
