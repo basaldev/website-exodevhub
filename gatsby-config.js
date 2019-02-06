@@ -91,9 +91,18 @@ module.exports = {
         theme_color: config.themeColor,
         display: 'standalone',
         icon: config.favicon,
+        orientation: "portrait"
       },
     },
-    'gatsby-plugin-netlify',
+    {
+      resolve: `gatsby-plugin-netlify`,
+      options: {
+        mergeSecurityHeaders: true, // boolean to turn off the default security headers
+        mergeLinkHeaders: true, // boolean to turn off the default gatsby js headers
+        mergeCachingHeaders: true, // boolean to turn off the default caching headers
+        generateMatchPathRewrites: true, // boolean to turn off automatic creation of redirect rules for client only paths
+      },
+    },
     'gatsby-plugin-typescript',
     'gatsby-plugin-offline',
     {
@@ -108,9 +117,6 @@ module.exports = {
         respectDNT: true,
         // Enables Google Optimize using your container Id
         optimizeId: "GTM-5R9ZWRH",
-        // Any additional create only fields (optional)
-        sampleRate: 5,
-        siteSpeedSampleRate: 10,
         cookieDomain: "www.exodevhub.com/",
       },
     },
