@@ -11,9 +11,6 @@ interface Props {
 
 export default class HTML extends React.Component<Props, {}> {
   render() {
-    if(screen){
-      screen.lockOrientation('portrait');
-    }
     return (
       <html {...this.props.htmlAttributes}>
         <head>
