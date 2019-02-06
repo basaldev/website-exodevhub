@@ -85,7 +85,7 @@ const Header = ({ children }: Props) => (
   <Wrapper>
     <Content>
       <Link to="/">
-        <Logo src={config.siteLogo} />
+        <Logo alt="Exo Devhub" src={config.siteLogo} />
       </Link>
       <Dropdown>
         <FakeButton>socials</FakeButton>
