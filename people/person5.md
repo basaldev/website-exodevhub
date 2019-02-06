@@ -2,6 +2,6 @@
 fullName: Tom Bowden
 github: bowdentom
 twitter: TomRBowden
-image: '/assets/tom.png'
+image: '/assets/tom.jpg'
 type: person
 ---
