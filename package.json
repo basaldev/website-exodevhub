@@ -16,6 +16,7 @@
     "fetch": "^1.1.0",
     "gatsby": "^2.0.37",
     "gatsby-plugin-catch-links": "^2.0.6",
+    "gatsby-plugin-google-analytics": "^2.0.13",
     "gatsby-plugin-lodash": "^3.0.2",
     "gatsby-plugin-manifest": "^2.0.17",
     "gatsby-plugin-netlify": "^2.0.3",
