@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
 
-import { Layout, Wrapper, Header, LinkHeader, Button } from '../components'
+import { Layout, Wrapper, Header, LinkHeader, Button, SEO } from '../components'
 import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import { designSystem } from '../utils/designSystem'
@@ -45,10 +45,16 @@ const Category = ({
     allMarkdownRemark: { group },
   },
 }: Props) => {
+  const seoNode = {
+    frontmatter: {
+      title: `Categories | ${config.siteTitle}`
+    }
+  }
   return (
   <Layout>
+    <SEO postPath={`/categories`} postNode={seoNode} postSEO />
     <Wrapper>
-      <Helmet title={`Categories | ${config.siteTitle}`} />
+      <Helmet title={seoNode.frontmatter.title} />
       <Header />
       <Content>
         <LinkHeader text={'Categories'} white="o">

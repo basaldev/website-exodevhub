@@ -63,7 +63,6 @@ const Category = ({
   const seoNode = {
     frontmatter: {
       title: `Category: ${category}`,
-      date: ''
     }
   }
   return (
