@@ -2,10 +2,11 @@
 date: 2019-01-16T09:04:31.645Z
 title: 'React Hooks: Making it easier to compose, reuse, and share React code'
 banner: /assets/social-hocks.png
-category: react
 type: post
+category: react
 shape: diamond
 medium: https://medium.com/exodevhub/react-hooks-making-it-easier-to-compose-reuse-and-share-react-code-328f3bb49b16
+authorLink: Tom Bowden
 author: Tom Bowden
 ---
 
