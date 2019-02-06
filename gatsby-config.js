@@ -95,5 +95,6 @@ module.exports = {
     },
     'gatsby-plugin-netlify',
     'gatsby-plugin-typescript',
+    'gatsby-plugin-offline',
   ],
 }
