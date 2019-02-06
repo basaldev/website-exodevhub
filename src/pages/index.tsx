@@ -44,6 +44,7 @@ const ArticleWrapper = styled.div`
   }
   @media ${media.phone} {
     flex-direction: column;
+    padding-bottom: ${designSystem.spacing(4)};
     width: auto;
   }
 `
@@ -62,18 +63,20 @@ const PeopleWrapper = styled.div`
   }
 `
 
-const Hero = styled.div`
+const Section = styled.div`
   grid-column: 2;
-  padding: 3rem 0 6rem 0;
+  padding: ${designSystem.spacing(4)} 0  ${designSystem.spacing(5)};
   @media ${media.tablet} {
     width: auto;
   }
   @media ${media.phone} {
     width: auto;
+    padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(4)};
   }
   h1 {
     @media ${media.phone} {
       font-size: 10vw;
+      margin:  ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
     }
   }
   p {
@@ -164,6 +167,7 @@ const IndexPage = ({
               />
             ))}
           </ArticleWrapper>
+          <Section>
           <SectionTitle text={'community'} white="u" />
           <PeopleWrapper>
           {people.map(post => (
@@ -178,7 +182,9 @@ const IndexPage = ({
             <DiscordWidget />
           </SignUpCommunity>
           </PeopleWrapper>
-          <Hero>
+          </Section>
+
+          <Section>
           <SectionTitle text="about" white="o" />
           <p>
             ExoDevHub provides businesses with the software tools and mindset
@@ -204,7 +210,7 @@ const IndexPage = ({
             <strong>ExoDevHub</strong> will assist you with cutting-edge technical
             solutions.
         </p>
-        </Hero>
+        </Section>
         </Content>
 
       </Wrapper>
