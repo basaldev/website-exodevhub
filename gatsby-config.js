@@ -91,6 +91,7 @@ module.exports = {
         theme_color: config.themeColor,
         display: 'standalone',
         icon: config.favicon,
+        orientation: "portrait"
       },
     },
     'gatsby-plugin-netlify',
@@ -108,9 +109,6 @@ module.exports = {
         respectDNT: true,
         // Enables Google Optimize using your container Id
         optimizeId: "GTM-5R9ZWRH",
-        // Any additional create only fields (optional)
-        sampleRate: 5,
-        siteSpeedSampleRate: 10,
         cookieDomain: "www.exodevhub.com/",
       },
     },
