@@ -161,6 +161,7 @@ export const postQuery = graphql`
         category
         author
         banner
+        medium
       }
       timeToRead
     }
