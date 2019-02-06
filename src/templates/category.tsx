@@ -68,7 +68,7 @@ const Category = ({
   }
   return (
     <Layout>
-        <SEO postPath={category} postNode={seoNode} postSEO />
+        <SEO postPath={`/${category}`} postNode={seoNode} postSEO />
       <Wrapper>
         <Helmet title={`${category} | ${config.siteTitle}`} />
         <Header />
