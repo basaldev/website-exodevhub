@@ -10,7 +10,7 @@ import Wrapper from './Wrapper'
 import LinkHeader from './LinkHeader'
 import Person from './Person'
 import DiscordWidget from './DiscordWidget'
-
+import SignUpCommunity from './SignUpCommunity'
 
 
 export {
@@ -25,5 +25,6 @@ export {
   Subline,
   Wrapper,
   Person,
-  DiscordWidget
+  DiscordWidget,
+  SignUpCommunity
 }

@@ -11,11 +11,13 @@ import {
   SectionTitle,
   LinkHeader,
   Person,
-  DiscordWidget
+  SignUpCommunity,
+  SEO
 } from '../components'
 import { media } from '../utils/media'
-import { designSystem } from '../utils/designSystem'
-const discordLink = `https://discord.gg/kYn4NjR`;
+import { designSystem } from '../utils/designSystem';
+import config from '../../config/SiteConfig';
+
 const Content = styled.div`
   grid-column: 2;
   width: 70vw;
@@ -42,6 +44,7 @@ const ArticleWrapper = styled.div`
   }
   @media ${media.phone} {
     flex-direction: column;
+    padding-bottom: ${designSystem.spacing(4)};
     width: auto;
   }
 `
@@ -60,18 +63,20 @@ const PeopleWrapper = styled.div`
   }
 `
 
-const Hero = styled.div`
+const Section = styled.div`
   grid-column: 2;
-  padding: 3rem 0 6rem 0;
+  padding: ${designSystem.spacing(4)} 0  ${designSystem.spacing(5)};
   @media ${media.tablet} {
     width: auto;
   }
   @media ${media.phone} {
     width: auto;
+    padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(4)};
   }
   h1 {
     @media ${media.phone} {
       font-size: 10vw;
+      margin:  ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
     }
   }
   p {
@@ -85,34 +90,34 @@ const Hero = styled.div`
     }
   }
 `
-const SignUpCommunity = styled.div`
-  grid-column: auto;
-  grid-row: auto;
-  clear: both;
-  width: 100%;
-  font-family: ${designSystem.get(`type.fontFamily.mono`)};
-  border: ${designSystem.get('border.width')}px solid;
-  margin-right: ${designSystem.spacing(4)};
-  background: url(${designSystem.color('grid')});
-  background-repeat:repeat;
-  background-size: 19px;
-  position: relative;
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  & a {
-    overflow:hidden;
-    width: 80%;
-    background: ${designSystem.color('black')};
-    color: ${designSystem.color('white')};
-    text-align:center;
-    padding: ${designSystem.spacing(1)};
-    &:hover {
-      color: ${designSystem.color('blue')};
-    }
-  }
-  `
+// const SignUpCommunity = styled.div`
+//   grid-column: auto;
+//   grid-row: auto;
+//   clear: both;
+//   width: 100%;
+//   font-family: ${designSystem.get(`type.fontFamily.mono`)};
+//   border: ${designSystem.get('border.width')}px solid;
+//   margin-right: ${designSystem.spacing(4)};
+//   background: url(${designSystem.color('grid')});
+//   background-repeat:repeat;
+//   background-size: 19px;
+//   position: relative;
+//   display:flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   & a {
+//     overflow:hidden;
+//     width: 80%;
+//     background: ${designSystem.color('black')};
+//     color: ${designSystem.color('white')};
+//     text-align:center;
+//     padding: ${designSystem.spacing(1)};
+//     &:hover {
+//       color: ${designSystem.color('blue')};
+//     }
+//   }
+//   `
 
 interface Props {
   data: {
@@ -141,6 +146,7 @@ const IndexPage = ({
   })
   return (
     <Layout>
+      <SEO />
       <Wrapper>
         <Header />
         <Content>
@@ -161,6 +167,7 @@ const IndexPage = ({
               />
             ))}
           </ArticleWrapper>
+          <Section>
           <SectionTitle text={'community'} white="u" />
           <PeopleWrapper>
           {people.map(post => (
@@ -170,12 +177,11 @@ const IndexPage = ({
               key={post.node.fields.slug}
             />
           ))}
-          <SignUpCommunity >
-            <a href={discordLink}>Join the community</a>
-            <DiscordWidget />
-          </SignUpCommunity>
+          <SignUpCommunity />
           </PeopleWrapper>
-          <Hero>
+          </Section>
+
+          <Section>
           <SectionTitle text="about" white="o" />
           <p>
             ExoDevHub provides businesses with the software tools and mindset
@@ -201,7 +207,7 @@ const IndexPage = ({
             <strong>ExoDevHub</strong> will assist you with cutting-edge technical
             solutions.
         </p>
-        </Hero>
+        </Section>
         </Content>
 
       </Wrapper>

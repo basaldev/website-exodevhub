@@ -95,5 +95,24 @@ module.exports = {
     },
     'gatsby-plugin-netlify',
     'gatsby-plugin-typescript',
+    'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-133300815-1",
+        // Puts tracking script in the head instead of the body
+        head: false,
+        // Setting this parameter is optional
+        anonymize: true,
+        // Setting this parameter is also optional
+        respectDNT: true,
+        // Enables Google Optimize using your container Id
+        optimizeId: "GTM-5R9ZWRH",
+        // Any additional create only fields (optional)
+        sampleRate: 5,
+        siteSpeedSampleRate: 10,
+        cookieDomain: "www.exodevhub.com/",
+      },
+    },
   ],
 }
