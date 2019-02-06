@@ -45,7 +45,6 @@ const Category = ({
     allMarkdownRemark: { group },
   },
 }: Props) => {
-  console.log(group)
   return (
   <Layout>
     <Wrapper>

@@ -15,7 +15,8 @@ collections:
       - { name: title, label: Title }
       - { name: banner, label: banner, widget: image }
       - { name: medium, label: Medium URL }
-      - { name: type, label: type, default:"post" }
+      - { name: type, widget: "hidden", label: type, default:"post" }
+
       - { name: category, label: Category }
       - { name: shape,
         label: Shape,
@@ -48,7 +49,7 @@ collections:
     create: true
     fields:
       - { name: fullName, label: FullName }
-      - { name: type, label: type, default:"person" }
+      - { name: type, widget: "hidden", label: type, default:"person" }
       - { name: github, label: github }
       - { name: image, label: image, widget: image }
       - { name: twitter, label: twitter }
