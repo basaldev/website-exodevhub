@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
 
-import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components'
+import { Layout, Wrapper, Header, Subline, SEO, PrevNext, SignUpCommunity } from '../components'
 import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
@@ -61,22 +61,34 @@ const outlineButton = `
   font-weight:bold;
   display:inline-block;
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
+  font-size: ${designSystem.fs(`xs`)}px;
 `;
-const Author = styled.small`
+const Author = styled.span`
 ${outlineButton}
 border: 3px solid ${designSystem.color("black")};
 margin-right: ${designSystem.spacing(1)};
 `
+// MAKE A COMPONENT IN GROMMET
 const Discuss = styled.a`
   ${outlineButton}
-  font-size: 14.4px;
   border: 3px solid ${designSystem.color("blue")};
+margin-right: ${designSystem.spacing(1)};
   &:hover {
     background: ${designSystem.color("blue")};
     color: ${designSystem.color("white")};
   }
 `;
-
+const Clap = styled.a`
+  ${outlineButton}
+  font-size: 14.4px;
+  color: ${designSystem.color("green")};
+  border: 3px solid;
+  &:hover {
+    background: ${designSystem.color("green")};
+    color: ${designSystem.color("white")};
+    border: 3px solid ${designSystem.color("green")};
+  }
+`;
 interface Props {
   pageContext: {
     slug: string
@@ -104,6 +116,8 @@ const Post = ({
 }: Props) => {
   const post = postNode.frontmatter
   const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
+  const MediumClap = post.medium ? <Clap target="_blank" href={post.medium}>Clap on Medium</Clap> : undefined;
+
   return (
     <Layout>
       <Wrapper>
@@ -123,10 +137,10 @@ const Post = ({
           <div>
           <Author>{post.author}</Author>
           <Discuss target="_blank" href={twitterDicuss}>Discuss on twitter</Discuss>
+          {MediumClap}
           </div>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
           <Discuss target="_blank" href={twitterDicuss}>Discuss on twitter</Discuss>
-
           <PrevNext prev={prev} next={next} />
         </Content>
       </Wrapper>
