@@ -3,11 +3,12 @@ date: 2019-01-30T09:04:31.645Z
 title: 'Web Components: Understanding Attributes and Properties'
 banner: /assets/social-lit-elements.png
 type: post
+medium: https://medium.com/exodevhub/web-components-understanding-attributes-and-properties-5b8606b90a2
 category: web-components
 shape: corner
 author: Alex King
 ---
-When working with component libraries there is a blending of Javascript Properties and HTML Attributes that can make it confusing to understand what they really are and how they work. This can be a problem later on so here is a breakdown. 
+When working with component libraries there is a blending of Javascript Properties and HTML Attributes that can make it confusing to understand what they really are and how they work. This can be a problem later on so here is a breakdown.
 
 **HTML elements have attributes.** Theses are strings that can be passed into an HTML Tag.
 
