@@ -9,22 +9,25 @@ interface Props {
   postBodyComponents: any[]
 }
 
-function googleSeo(){
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-133300815-1');
+const googleSeo = () => {
+  if(typeof window !== 'undefined'){
+    eval(`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-133300815-1');
+    `)
+  }
+
 }
 
 export default class HTML extends React.Component<Props, {}> {
   render() {
+    googleSeo();
     return (
       <html {...this.props.htmlAttributes}>
         <head>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133300815-1"></script>
-          <script>
-            googleSeo();
-          </script>
 
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
