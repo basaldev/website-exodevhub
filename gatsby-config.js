@@ -105,5 +105,10 @@ module.exports = {
     },
     'gatsby-plugin-typescript',
     'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-google-tagmanager`,
+      options: { id: "GTM-WSXQZ7S",
+    },
+    },
   ],
 }
