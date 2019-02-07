@@ -9,21 +9,20 @@ interface Props {
   postBodyComponents: any[]
 }
 
-const googleSeo = () => {
-  if(typeof window !== 'undefined'){
-    eval(`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-133300815-1');
-    `)
-  }
+// const googleSeo = () => {
+//   if(typeof window !== 'undefined'){
+//     eval(`
+//     window.dataLayer = window.dataLayer || [];
+//     function gtag(){dataLayer.push(arguments);}
+//     gtag('js', new Date());
+//     gtag('config', 'UA-133300815-1');
+//     `)
+//   }
 
-}
+// }
 
 export default class HTML extends React.Component<Props, {}> {
   render() {
-    googleSeo();
     return (
       <html {...this.props.htmlAttributes}>
         <head>
