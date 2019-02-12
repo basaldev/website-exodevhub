@@ -10,9 +10,6 @@ authorLink: Tom Bowden
 author: Tom Bowden
 ---
 
-> ⚠️ **Warning**
-[React Hooks](https://reactjs.org/docs/hooks-intro.html) are an upcoming feature in React, currently (January 2019) in **alpha** (React v16.7.0-alpha).
-
 Hooks are an upcoming feature in React that enable you to use state and many other React features without writing a class. This has some important ramifications for the future of React code, especially with regard to how components will be composed.
 
 The motivation for hooks, as provided by the [official documentation](https://reactjs.org/docs/hooks-intro.html) from the Facebook React team, is that hooks solve some problems that they have encountered over five years of writing and maintaining React components. These problems are:
