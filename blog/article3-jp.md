@@ -21,17 +21,17 @@ ReduxがSPAに持たらす「シンプルさ」とは何でしょうか。Redux�
 
 ここで特筆したい点は、Reducerはステートを変更するのではなく、新たにステートを生成するということです。この新たに生成されたステートは変更前のステートから独立しており、生成後も一つ前のステートは変更されないということを意味しています。これによりアプリケーションがどのような状態変化を遂げてきたのか、時系列で追いやすくなります。このような生成後変更できないデータのことを一般的には**イミュータブル（不変の）**と呼ばれています。
 
-<iframe style="border: none;" width="100%" height="270" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FZuYrwj8KzLbycZlQK5TlNU%2Fstate-transition%3Fnode-id%3D0%253A1" ></iframe>
+<iframe style="border: none;" width="100%" height="270" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FZuYrwj8KzLbycZlQK5TlNU%2Fstate-transition%3Fnode-id%3D0%253A1"></iframe>
 
 ## イミュータブルなデータ
 
 本題に入る前にJavaScriptにおけるイミュータブルなデータについて少し触れておきたいと思います。文字列や数値、真偽値などのプリミティブ型のデータは、生成した後変更することはできません。それに対し、オブジェクトや配列といった参照型のデータは生成後にデータを変更することができます。これらのデータは**ミュータブル（無常の）**と呼ばれています。
 
-<iframe src="https://runkit.com/e?name=a7c21d09-ef38-42b3-997a-6c478547d5fc&base64source=dmFyIGEgPSAxOwp2YXIgYiA9IHsgazogMSB9Owp2YXIgYyA9IFsxXTsKCmEgPSAyOyAvLyB0aGlzIGlzIG5vdCBjaGFuZ2luZyAxIGJ1dCBjcmVhdGluZyAyIG5ld2x5IGFuZCByZS1hc3NpZ25pbmcgdG8gYQpiLmsgPSAyOyAvLyBjYW4gY2hhbmdlIGEgcHJvcGVydHkKYy5wdXNoKDIpOyAvLyBjYW4gYWRkIG5ldyB2YWx1ZQpjb25zb2xlLmxvZyhiKTsKY29uc29sZS5sb2coYyk7&minHeight=231&fixedHeight=371&location=&title=&oembed=true"  width="100%" height="270"></iframe>
+<iframe src="https://runkit.com/e?name=a7c21d09-ef38-42b3-997a-6c478547d5fc&base64source=dmFyIGEgPSAxOwp2YXIgYiA9IHsgazogMSB9Owp2YXIgYyA9IFsxXTsKCmEgPSAyOyAvLyB0aGlzIGlzIG5vdCBjaGFuZ2luZyAxIGJ1dCBjcmVhdGluZyAyIG5ld2x5IGFuZCByZS1hc3NpZ25pbmcgdG8gYQpiLmsgPSAyOyAvLyBjYW4gY2hhbmdlIGEgcHJvcGVydHkKYy5wdXNoKDIpOyAvLyBjYW4gYWRkIG5ldyB2YWx1ZQpjb25zb2xlLmxvZyhiKTsKY29uc29sZS5sb2coYyk7&minHeight=231&fixedHeight=371&location=&title=&oembed=true" width="100%" height="270"></iframe>
 
 上の例を見ると、オブジェクト { k: 1 } と配列 [1] は生成後でも値が変更可能であるということが分かります。一見変数aに代入された"1"も生成後変更であるように見えますが、これは"1"を"2"に変更しているのではなく、変数aに"2"を再代入しています（変数aの値"1"は"2"で上書かれています）。
 
-<iframe src="https://runkit.com/e?name=380ae816-f895-4eda-b2ef-8771d5cf0199&base64source=dmFyIGIgPSB7IGs6IDEgfTsKdmFyIGMgPSBbMV07CgpPYmplY3QuZnJlZXplKGIpOwpPYmplY3QuZnJlZXplKGMpOwoKYi5rID0gMjsgLy8gdGhpcyBkb2Vzbid0IHdvcmsKY1swXSA9IDI7IC8vIHRoaXMgZG9lc24ndCB3b3JrCmNvbnNvbGUubG9nKGIpOwpjb25zb2xlLmxvZyhjKTs%3D&minHeight=252&fixedHeight=392&location=&title=&oembed=true"  width="100%" height="270"></iframe>
+<iframe src="https://runkit.com/e?name=380ae816-f895-4eda-b2ef-8771d5cf0199&base64source=dmFyIGIgPSB7IGs6IDEgfTsKdmFyIGMgPSBbMV07CgpPYmplY3QuZnJlZXplKGIpOwpPYmplY3QuZnJlZXplKGMpOwoKYi5rID0gMjsgLy8gdGhpcyBkb2Vzbid0IHdvcmsKY1swXSA9IDI7IC8vIHRoaXMgZG9lc24ndCB3b3JrCmNvbnNvbGUubG9nKGIpOwpjb25zb2xlLmxvZyhjKTs%3D&minHeight=252&fixedHeight=392&location=&title=&oembed=true" width="100%" height="270"></iframe>
 
 オブジェクトや配列をイミュータブルにする方法もあります。**Object.freeze()**を使用する方法です。上記の例ではObject.freeze()を使用し、オブジェクトや配列の値の変更ができないようにしています。
 
@@ -54,11 +54,7 @@ constでオブジェクト定義した際に注意すべき点は、そのオブ
 
 ここからは本題のステート管理に話を移しましょう。冒頭でご紹介したReduxを構成する重要な要素、Reducerの実装について掘り下げていきたいと思います。
 
-<<<<<<< HEAD
 <iframe style="border: none;" width="100%" height="120" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FSRSwEBJjin6hEIUu6ejkygUM%2Freducer"></iframe>
-=======
-> `state = reducer(state', action)`
->>>>>>> 2fe330c348ecfe85971933985cd9e8a0c49e4763
 
 Reducerは上記の式で表されるように、現在のステートとアクションつまり変更データを受け取りステートを更新します。実際にはReducerが返す現在のステートから独立した新たなステートを現在のステートと入れ替えることで更新が完了します。例えば、現在のステートの値をオブジェクト `{ a: 1, b: 1, c: 1 }` 、Actionをオブジェクト `{ b: 2 }` とします。Reducerは新たにステートを生成しアクションとして渡された値 2 を b にセットします。aとcは変更が無いため現在のステートから値をそのまま新しいステートにコピーします。最終的にオブジェクト `{ a: 1, b: 2, c: 1 }` が新しいステートとして返されます。最後に生成されたステートが現在のステートと入替えられ（スワップ）更新が完了します。このようにReducerはステートを更新するたびに新しいステートを生成することで、イミュータブルなステート管理を可能にします。
 
