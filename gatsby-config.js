@@ -29,6 +29,7 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
+          `gatsby-remark-mathjax`,
           {
             resolve: 'gatsby-remark-external-links',
             options: {
@@ -68,6 +69,14 @@ module.exports = {
             },
           },
           'gatsby-remark-autolink-headers',
+          {
+            resolve: `@raae/gatsby-remark-oembed`,
+            options: {
+              providers: {
+                exclude: ["Codesandbox"]
+              }
+            }
+          }
         ],
       },
     },
