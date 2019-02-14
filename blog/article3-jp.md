@@ -5,6 +5,11 @@ banner: /assets/social-immutable.png
 type: post
 medium: ''
 category: immutable
+language: ja
+languages: {
+  en: '/immutable-data-management-in-single-state-applications',
+  ja: '/spaにおけるイミュータブルなステート管理について'
+}
 shape: circle
 author: '"Marty" Shinsuke'
 ---

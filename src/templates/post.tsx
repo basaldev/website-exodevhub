@@ -13,7 +13,7 @@ import { designSystem } from '../utils/designSystem'
 const Content = styled.article`
   grid-column: 2;
   overflow: hidden;
-  padding: 2rem 4rem;
+  padding: 1rem 0rem;
   z-index: 9000;
   max-width: 55vw;
   margin: 0 auto;
@@ -89,6 +89,18 @@ const Clap = styled.a`
     border: 3px solid ${designSystem.color("green")};
   }
 `;
+const LanguageSwitcher = styled.div`
+margin-bottom: ${designSystem.spacing(2)};
+`
+const LanguageSwitch = styled(Link)`
+  margin-right: ${designSystem.spacing(2)};
+  color: ${designSystem.color("white", 'darker')};
+  &.active {
+    border-bottom: 2px dashed;
+    font-weight:bold;
+    color: ${designSystem.color("blue")};
+  }
+`
 interface Props {
   pageContext: {
     slug: string
@@ -105,6 +117,11 @@ interface Props {
         date: string
         banner: string
         author: string
+        language: string;
+        languages: {
+          en: string;
+          ja: string;
+        };
       }
     }
   }
@@ -125,6 +142,13 @@ const Post = ({
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
         <Header />
         <Content>
+          <LanguageSwitcher>
+          {Object.keys(post.languages).map(i => {
+                return <LanguageSwitch
+                          className={post.language === i ? 'active' : ''}
+                          to={post.languages[i]}>{i}</LanguageSwitch>
+              })}
+          </LanguageSwitcher>
           <Subline>
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
@@ -162,6 +186,11 @@ export const postQuery = graphql`
         author
         banner
         medium
+        language
+        languages {
+          en
+          ja
+        }
       }
       timeToRead
     }

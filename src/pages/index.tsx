@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
+import { filter} from 'lodash';
 
 import {
   Layout,
@@ -109,7 +110,9 @@ const IndexPage = ({
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
-        posts = postType.edges;
+        posts = filter(postType.edges, (o) => {
+          return o.node.frontmatter.language === 'en';
+        });
         break;
       case 'person':
         people =  postType.edges;
@@ -207,6 +210,7 @@ export const IndexQuery = graphql`
             github
             twitter
             image
+            language
             }
           	timeToRead
           }

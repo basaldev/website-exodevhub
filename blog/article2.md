@@ -5,6 +5,7 @@ banner: /assets/social-lit-elements.png
 type: post
 medium: https://medium.com/exodevhub/web-components-understanding-attributes-and-properties-5b8606b90a2
 category: web-components
+language: en
 shape: corner
 author: Alex King
 ---
