@@ -58,7 +58,6 @@ const Category = ({
       <Header />
       <Content>
         <LinkHeader text={'Categories'} white="o">
-          <Button to="/categories">all categories</Button>
         </LinkHeader>
         {group.map(category => (
           <Title key={category.fieldValue}>
