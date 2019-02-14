@@ -4,7 +4,7 @@ title: 'Immutable data management in single state applications'
 banner: /assets/social-immutable.png
 type: post
 medium: ''
-category: Immutable
+category: immutable
 shape: circle
 author: '"Marty" Shinsuke'
 ---
