@@ -17,7 +17,6 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
-import config from '../../config/SiteConfig';
 
 const Content = styled.div`
   grid-column: 2;
