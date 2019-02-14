@@ -1,15 +1,15 @@
 ---
 date: 2019-02-14T17:04:31.645Z
-title: 'Immutable data management in single state applications'
+title: Immutable data management in single state applications
 banner: /assets/social-immutable.png
+medium: >-
+  https://medium.com/exodevhub/immutable-data-management-in-single-state-applications-71d1bd84839f
 type: post
-medium: ''
-category: immutable
 language: en
-languages: {
-  en: '/immutable-data-management-in-single-state-applications',
-  ja: '/spaにおけるイミュータブルなステート管理について'
-}
+languages:
+  en: /immutable-data-management-in-single-state-applications
+  ja: /イミュータブルなアプリケーションステート管理
+category: immutable
 shape: circle
 author: '"Marty" Shinsuke'
 ---
