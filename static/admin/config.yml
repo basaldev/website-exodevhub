@@ -36,7 +36,6 @@ collections:
           ],
       }
       - { name: body, label: Body, widget: markdown }
-      - { name: authorLink, label: Author Person, widget: relation, collection: people, displayFields: fullname, valueField:twitter   }
       - {
           name: author,
           label: Author,
