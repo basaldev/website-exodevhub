@@ -16,7 +16,13 @@ collections:
       - { name: banner, label: banner, widget: image }
       - { name: medium, label: Medium URL }
       - { name: type, widget: "hidden", label: type, default:"post" }
-
+      - { name: language, label: Language, default:"en" }
+      - label: "Languages"
+        name: "languages"
+        widget: "object"
+        fields:
+          - {label: "English Slug", name: "en", widget: "string"}
+          - {label: "Japanese Slug", name: "ja", widget: "string"}
       - { name: category, label: Category }
       - { name: shape,
         label: Shape,
@@ -30,7 +36,6 @@ collections:
           ],
       }
       - { name: body, label: Body, widget: markdown }
-      - { name: authorLink, label: Author Person, widget: relation, collection: people, displayFields: fullname, valueField:fullName   }
       - {
           name: author,
           label: Author,

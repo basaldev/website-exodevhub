@@ -1,6 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
+import { filter} from 'lodash';
 
 import {
   Layout,
@@ -16,7 +17,6 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
-import config from '../../config/SiteConfig';
 
 const Content = styled.div`
   grid-column: 2;
@@ -65,7 +65,7 @@ const PeopleWrapper = styled.div`
 
 const Section = styled.div`
   grid-column: 2;
-  padding: ${designSystem.spacing(4)} 0  ${designSystem.spacing(5)};
+  padding: ${designSystem.spacing(5)} 0  ${designSystem.spacing(5)};
   @media ${media.tablet} {
     width: auto;
   }
@@ -109,7 +109,9 @@ const IndexPage = ({
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
-        posts = postType.edges;
+        posts = filter(postType.edges, (o) => {
+          return o.node.frontmatter.language === 'en';
+        });
         break;
       case 'person':
         people =  postType.edges;
@@ -207,6 +209,7 @@ export const IndexQuery = graphql`
             github
             twitter
             image
+            language
             }
           	timeToRead
           }

@@ -14,7 +14,6 @@ const Post = styled.article`
   margin-bottom: ${designSystem.spacing(10)};
   margin-right: ${designSystem.spacing(4)};
   &:last-of-type {
-    margin-right: 0;
     margin-bottom: 0;
   }
   @media ${media.phone} {
