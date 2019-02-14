@@ -86,6 +86,10 @@ const GlobalStyle = createGlobalStyle`
     left: 0px;
 
   }
+  iframe {
+    max-width: 100%;
+    border: 0px;
+  }
   label {
     margin-bottom: .5rem;
     color: ${theme.colors.grey.dark};
