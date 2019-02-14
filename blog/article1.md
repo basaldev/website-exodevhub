@@ -5,6 +5,7 @@ banner: /assets/social-hocks.png
 type: post
 category: react
 shape: diamond
+language: en
 medium: https://medium.com/exodevhub/react-hooks-making-it-easier-to-compose-reuse-and-share-react-code-328f3bb49b16
 author: Tom Bowden
 ---

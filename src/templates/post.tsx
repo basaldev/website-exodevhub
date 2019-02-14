@@ -9,11 +9,12 @@ import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
 import { designSystem } from '../utils/designSystem'
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Content = styled.article`
   grid-column: 2;
   overflow: hidden;
-  padding: 2rem 4rem;
+  padding: 1rem 0rem;
   z-index: 9000;
   max-width: 55vw;
   margin: 0 auto;
@@ -89,6 +90,7 @@ const Clap = styled.a`
     border: 3px solid ${designSystem.color("green")};
   }
 `;
+
 interface Props {
   pageContext: {
     slug: string
@@ -105,6 +107,11 @@ interface Props {
         date: string
         banner: string
         author: string
+        language: string;
+        languages: {
+          en: string;
+          ja: string;
+        };
       }
     }
   }
@@ -125,6 +132,7 @@ const Post = ({
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
         <Header />
         <Content>
+          <LanguageSwitcher languages={post.languages} selectedLanguage={post.language} />
           <Subline>
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
@@ -162,6 +170,11 @@ export const postQuery = graphql`
         author
         banner
         medium
+        language
+        languages {
+          en
+          ja
+        }
       }
       timeToRead
     }
