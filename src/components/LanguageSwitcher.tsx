@@ -22,8 +22,10 @@ const LanguageSwitch = styled(Link)`
   }
 `
 
-const LanguageSwitcher = ({ selectedLanguage, languages }: Props) => {
-
+const LanguageSwitcher = function({ selectedLanguage, languages }: Props) {
+  if(languages === null){
+    return null
+  }
   return (
     <Wrapper>
     {Object.keys(languages).map((langKey:string) => {
@@ -33,6 +35,7 @@ const LanguageSwitcher = ({ selectedLanguage, languages }: Props) => {
         })}
     </Wrapper>
   )
+  debugger
 }
 
 export default LanguageSwitcher
