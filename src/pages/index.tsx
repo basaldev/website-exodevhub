@@ -65,7 +65,7 @@ const PeopleWrapper = styled.div`
 
 const Section = styled.div`
   grid-column: 2;
-  padding: ${designSystem.spacing(4)} 0  ${designSystem.spacing(5)};
+  padding: ${designSystem.spacing(5)} 0  ${designSystem.spacing(5)};
   @media ${media.tablet} {
     width: auto;
   }

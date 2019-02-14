@@ -6,12 +6,8 @@ type: post
 category: react
 shape: diamond
 medium: https://medium.com/exodevhub/react-hooks-making-it-easier-to-compose-reuse-and-share-react-code-328f3bb49b16
-authorLink: Tom Bowden
 author: Tom Bowden
 ---
-
-> ⚠️ **Warning**
-[React Hooks](https://reactjs.org/docs/hooks-intro.html) are an upcoming feature in React, currently (January 2019) in **alpha** (React v16.7.0-alpha).
 
 Hooks are an upcoming feature in React that enable you to use state and many other React features without writing a class. This has some important ramifications for the future of React code, especially with regard to how components will be composed.
 
@@ -100,7 +96,7 @@ The wrapped `AppWithMousePosition` component can then be rendered to the `DOM`:
 ```
 Try the HOC approach for yourself in the following [CodeSandbox](https://codesandbox.io/s/43z216n6y9):
 
-[https://codesandbox.io/s/43z216n6y9](https://codesandbox.io/s/43z216n6y9)
+<iframe src="https://codesandbox.io/embed/43z216n6y9" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## Render Props
 
@@ -184,7 +180,7 @@ To summarize, the behavior associated with listening for `mousemove` events and 
 
 Try the render props approach for yourself in the following [CodeSandbox](https://codesandbox.io/s/rjprzkj29p):
 
-[https://codesandbox.io/s/rjprzkj29p](https://codesandbox.io/s/rjprzkj29p)
+<iframe src="https://codesandbox.io/embed/rjprzkj29p" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 
 ## React Hooks
 
