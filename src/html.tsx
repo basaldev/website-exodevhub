@@ -8,25 +8,13 @@ interface Props {
   body: string
   postBodyComponents: any[]
 }
-
-// const googleSeo = () => {
-//   if(typeof window !== 'undefined'){
-//     eval(`
-//     window.dataLayer = window.dataLayer || [];
-//     function gtag(){dataLayer.push(arguments);}
-//     gtag('js', new Date());
-//     gtag('config', 'UA-133300815-1');
-//     `)
-//   }
-
-// }
-
 export default class HTML extends React.Component<Props, {}> {
   render() {
     return (
       <html {...this.props.htmlAttributes}>
         <head>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133300815-1"></script>
+          <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
