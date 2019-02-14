@@ -22,7 +22,7 @@ collections:
         widget: "object"
         fields:
           - {label: "English Slug", name: "en", widget: "string"}
-          - {label: "Japanese Slug", name: "en", widget: "string"}
+          - {label: "Japanese Slug", name: "ja", widget: "string"}
       - { name: category, label: Category }
       - { name: shape,
         label: Shape,
