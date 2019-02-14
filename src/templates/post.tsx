@@ -9,6 +9,7 @@ import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
 import { designSystem } from '../utils/designSystem'
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Content = styled.article`
   grid-column: 2;
@@ -89,18 +90,7 @@ const Clap = styled.a`
     border: 3px solid ${designSystem.color("green")};
   }
 `;
-const LanguageSwitcher = styled.div`
-margin-bottom: ${designSystem.spacing(2)};
-`
-const LanguageSwitch = styled(Link)`
-  margin-right: ${designSystem.spacing(2)};
-  color: ${designSystem.color("white", 'darker')};
-  &.active {
-    border-bottom: 2px dashed;
-    font-weight:bold;
-    color: ${designSystem.color("blue")};
-  }
-`
+
 interface Props {
   pageContext: {
     slug: string
@@ -142,13 +132,7 @@ const Post = ({
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
         <Header />
         <Content>
-          <LanguageSwitcher>
-          {Object.keys(post.languages).map(i => {
-                return <LanguageSwitch
-                          className={post.language === i ? 'active' : ''}
-                          to={post.languages[i]}>{i}</LanguageSwitch>
-              })}
-          </LanguageSwitcher>
+          <LanguageSwitcher languages={post.languages} selectedLanguage={post.language} />
           <Subline>
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
