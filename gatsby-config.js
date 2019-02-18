@@ -29,7 +29,7 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
-          "gatsby-remark-embed-runkit",
+          'gatsby-remark-embed-runkit',
           `gatsby-remark-mathjax`,
           {
             resolve: 'gatsby-remark-external-links',
@@ -74,10 +74,10 @@ module.exports = {
             resolve: `@raae/gatsby-remark-oembed`,
             options: {
               providers: {
-                exclude: ["Codesandbox"]
-              }
-            }
-          }
+                exclude: ['Codesandbox'],
+              },
+            },
+          },
         ],
       },
     },
@@ -101,7 +101,7 @@ module.exports = {
         theme_color: config.themeColor,
         display: 'standalone',
         icon: config.favicon,
-        orientation: "portrait"
+        orientation: 'portrait',
       },
     },
     {
@@ -117,8 +117,7 @@ module.exports = {
     'gatsby-plugin-offline',
     {
       resolve: `gatsby-plugin-google-tagmanager`,
-      options: { id: "GTM-WSXQZ7S",
-    },
+      options: { id: 'GTM-WSXQZ7S' },
     },
   ],
 }

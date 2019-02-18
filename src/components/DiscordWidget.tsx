@@ -29,10 +29,11 @@ const Online = styled.span`
   background: ${designSystem.color('green')};
   margin: 0 ${designSystem.spacing(1)};
   padding: ${designSystem.spacing(1)};
-`;
+`
 const User = styled.img`
   border-radius: 100%;
-  margin: 0 ${designSystem.spacing(1)} ${designSystem.spacing(1)} ${designSystem.spacing(1)};
+  margin: 0 ${designSystem.spacing(1)} ${designSystem.spacing(1)}
+    ${designSystem.spacing(1)};
   width: ${designSystem.spacing(4)};
   height: ${designSystem.spacing(4)};
 `
@@ -40,43 +41,48 @@ const UserWrapper = styled.div`
   margin: ${designSystem.spacing(1)};
 `
 const DiscordWidget = class Welcome extends React.Component {
-  super(){
-  }
+  super() {}
   state = {
-    members: []
+    members: [],
   }
-  async getMembers(){
-    const thisComponent = this;
+  async getMembers() {
+    const thisComponent = this
     fetch('https://discordapp.com/api/guilds/542136882369265675/widget.json', {
-      mode: "cors",
-      cache: "force-cache",
+      mode: 'cors',
+      cache: 'force-cache',
     })
-    .then(function(response) {
-      return response.text()
-    }).then(function(body) {
-      const members = JSON.parse(body).members;
-      thisComponent.setState({
-        members
-      });
-    })
+      .then(function(response) {
+        return response.text()
+      })
+      .then(function(body) {
+        const members = JSON.parse(body).members
+        thisComponent.setState({
+          members,
+        })
+      })
   }
-  componentDidMount(){
-    this.getMembers();
+  componentDidMount() {
+    this.getMembers()
   }
-  render(){
-    const online = this.state.members.filter(user => user.status === 'online');
+  render() {
+    const online = this.state.members.filter(user => user.status === 'online')
     return (
       <>
-      <Widget>
-        <span>Online</span> <Online>{online.length}</Online>
-      </Widget>
-      <UserWrapper>
-      {online.slice(0, 10).map(user => {
-          return <User src={user.avatar_url} key={user.username} alt={user.username} />
-        })}
-      </UserWrapper>
+        <Widget>
+          <span>Online</span> <Online>{online.length}</Online>
+        </Widget>
+        <UserWrapper>
+          {online.slice(0, 10).map(user => {
+            return (
+              <User
+                src={user.avatar_url}
+                key={user.username}
+                alt={user.username}
+              />
+            )
+          })}
+        </UserWrapper>
       </>
-
     )
   }
 }

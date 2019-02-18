@@ -1,15 +1,10 @@
 import React from 'react'
-import Helmet from 'react-helmet'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import styled from 'styled-components'
-import kebabCase from 'lodash/kebabCase'
 
-import { Layout, Wrapper, Header, Subline, SEO, PrevNext } from '../components'
+import { Layout, Wrapper, Header } from '../components'
 import { media } from '../utils/media'
-import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
-import { designSystem } from '../utils/designSystem'
-
 
 const Content = styled.article`
   grid-column: 2;
@@ -46,16 +41,16 @@ interface Props {
 
 const Person = ({
   pageContext: { slug },
-  data: { markdownRemark: { frontmatter } }
+  data: {
+    markdownRemark: { frontmatter },
+  },
 }: Props) => {
-  const person = frontmatter;
+  const person = frontmatter
   return (
     <Layout>
       <Wrapper>
         <Header />
-        <Content>
-          {person.fullName}
-        </Content>
+        <Content>{person.fullName}</Content>
       </Wrapper>
     </Layout>
   )
@@ -65,7 +60,10 @@ export default Person
 
 export const postQuery = graphql`
   query PersonPage($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug }}, frontmatter:{ type:{eq: "person"} }) {
+    markdownRemark(
+      fields: { slug: { eq: $slug } }
+      frontmatter: { type: { eq: "person" } }
+    ) {
       frontmatter {
         fullName
       }

@@ -12,7 +12,6 @@ import Person from './Person'
 import DiscordWidget from './DiscordWidget'
 import SignUpCommunity from './SignUpCommunity'
 
-
 export {
   Article,
   LinkHeader,
@@ -26,5 +25,5 @@ export {
   Wrapper,
   Person,
   DiscordWidget,
-  SignUpCommunity
+  SignUpCommunity,
 }
