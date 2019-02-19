@@ -17,7 +17,7 @@ export const CONTENT_STRINGS = {
         title: 'About',
         content: [
           `
-          ExoDevHub provides businesses with the software tools and mindset
+          Exo DevHub provides businesses with the software tools and mindset
           necessary to transform themselves into exponential organizations.`,
           `
             An <a href="https://exponentialorgs.com/">exponential organization</a>
@@ -35,7 +35,7 @@ export const CONTENT_STRINGS = {
             players should build agility in from the start.
             <a href="https://www.openexo.com/">OpenExO</a> will guide you through
             the process of transforming your business into an exponential one, and
-            <strong>ExoDevHub</strong> will assist you with cutting-edge technical
+            <strong>Exo DevHub</strong> will assist you with cutting-edge technical
             solutions.
             `
         ]
@@ -43,41 +43,34 @@ export const CONTENT_STRINGS = {
     },
     ja: {
       writing: {
-        title: `書き込み`,
+        title: `writing`,
         button: `すべてのカテゴリ`
       },
       community: {
-        title: `コミュニティ`,
+        title: `Community`,
         discord: {
           button: `コミュニティに参加する`,
           subtitle: `オンライン`
         }
       },
       about: {
-        title: '約',
+        title: 'About',
         content: [
           `
-          ExoDevHubは、ソフトウェアツールと考え方を企業に提供します。
-          指数関数的な組織に変身するために必要です。`,
+          Exo DevHubはあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。
+          `,
           `
-          <a href="https://exponentialorgs.com/">指数関数的な組織</a>
-          ロックを解除することができることが証明されているビジネスの新種です。
-          新しい技術によって提供され、すぐに適応可能な豊富さ
-          急速に変化するビジネス環境。 指数関数という用語
-          影響力のある組織（または
-          出力）は、次のものと比較して不釣り合いに大きい（少なくとも10倍の大きさ）。
-          それは、新しい組織化手法を使用しているためです。
-          加速技術を活用する。
-            `,
-          ` 現在の組織が業界のリーダーであるかどうかにかかわらず
-          またはそれより小さなプレーヤー、それが成功するためには、それはそれ自身を変えなければなりません
-          予期しない外部からの業界の混乱 新しい
-          プレーヤーは最初から敏捷性を築くべきです。
-          <a href="https://www.openexo.com/"> OpenExO </a>が案内します。
-          ビジネスを指数関数的なものに変えるプロセス
-          <strong> ExoDevHub </strong>は最先端の技術をお手伝いします
-          解決策。
-            `
+          <a href="https://exponentialorgs.com/">exponential organizations</a>とは、
+          最新テクノロジーを駆使し加速度的に変化するビジネス環境に迅速に対応できる能力を持った新しいタイプの企業です。
+          「exponential organizations」という言葉は、最新技術に基づく新しい組織づくりの手法を駆使し、
+          競合他社と比べて極めて大きい（少なくとも１０倍以上の）影響を生み出す組織を意味します。
+          `,
+          ` 
+          異業種からの新規参入がもたらす予期せぬ業界変革の中組織を成長させていくためには、
+          業界リーダー規模であるか小規模プレイヤーであるかを問わず自らも変革を遂げなければなりません。
+          一方新規参入者は参入当初時から俊敏な組織を構築する必要があります。<a href="https://www.openexo.com/">OpenExO</a>は
+          変革プロセスを通し飛躍型組織へと、ExO DevHubは最新テクノロジーを用いたソリューションを提供し、あなたのビジネスをアシストします。
+          `
         ]
       }
     }
