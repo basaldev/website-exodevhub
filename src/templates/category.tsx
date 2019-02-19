@@ -10,7 +10,7 @@ import {
   LinkHeader,
   Button,
   Article,
-  SEO
+  SEO,
 } from '../components'
 import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
@@ -59,15 +59,15 @@ const Category = ({
   pageContext: { category },
   data: { allMarkdownRemark },
 }: Props) => {
-  const { edges } = allMarkdownRemark;
+  const { edges } = allMarkdownRemark
   const seoNode = {
     frontmatter: {
       title: `Category: ${category} | ${config.siteTitle}`,
-    }
+    },
   }
   return (
     <Layout>
-        <SEO postPath={`/${category}`} postNode={seoNode} postSEO />
+      <SEO postPath={`/${category}`} postNode={seoNode} postSEO />
       <Wrapper>
         <Helmet title={`${seoNode.frontmatter.title}`} />
         <Header />

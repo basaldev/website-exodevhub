@@ -40,6 +40,13 @@ const User = styled.img`
 const UserWrapper = styled.div`
   margin: ${designSystem.spacing(1)};
 `
+
+type User = {
+  avatar_url: string
+  username: string
+  status: string
+}
+
 const DiscordWidget = class Welcome extends React.Component {
   super() {}
   state = {
@@ -65,14 +72,16 @@ const DiscordWidget = class Welcome extends React.Component {
     this.getMembers()
   }
   render() {
-    const online = this.state.members.filter(user => user.status === 'online')
+    const online = this.state.members.filter(
+      (user: User) => user.status === 'online'
+    )
     return (
       <>
         <Widget>
           <span>Online</span> <Online>{online.length}</Online>
         </Widget>
         <UserWrapper>
-          {online.slice(0, 10).map(user => {
+          {online.slice(0, 10).map((user: User) => {
             return (
               <User
                 src={user.avatar_url}

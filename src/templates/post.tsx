@@ -9,7 +9,7 @@ import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
 import { designSystem } from '../utils/designSystem'
-import LanguageSwitcher from '../components/LanguageSwitcher';
+import LanguageSwitcher from '../components/LanguageSwitcher'
 
 const Content = styled.article`
   grid-column: 2;
@@ -61,33 +61,33 @@ const outlineButton = `
   display:inline-block;
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
   font-size: ${designSystem.fs(`xs`)}px;
-`;
+`
 const Author = styled.span`
 ${outlineButton}
-border: 3px solid ${designSystem.color("black")};
+border: 3px solid ${designSystem.color('black')};
 margin-right: ${designSystem.spacing(1)};
 `
 // MAKE A COMPONENT IN GROMMET
 const Discuss = styled.a`
   ${outlineButton}
-  border: 3px solid ${designSystem.color("blue")};
+  border: 3px solid ${designSystem.color('blue')};
 margin-right: ${designSystem.spacing(1)};
   &:hover {
-    background: ${designSystem.color("blue")};
-    color: ${designSystem.color("white")};
+    background: ${designSystem.color('blue')};
+    color: ${designSystem.color('white')};
   }
-`;
+`
 const Clap = styled.a`
   ${outlineButton}
   font-size: 14.4px;
-  color: ${designSystem.color("green")};
+  color: ${designSystem.color('green')};
   border: 3px solid;
   &:hover {
-    background: ${designSystem.color("green")};
-    color: ${designSystem.color("white")};
-    border: 3px solid ${designSystem.color("green")};
+    background: ${designSystem.color('green')};
+    color: ${designSystem.color('white')};
+    border: 3px solid ${designSystem.color('green')};
   }
-`;
+`
 
 interface Props {
   pageContext: {
@@ -105,23 +105,30 @@ interface Props {
         date: string
         banner: string
         author: string
-        language: string;
+        language: string
         languages: {
-          en: string;
-          ja: string;
-        };
+          en: string
+          ja: string
+        }
+        medium: string
       }
     }
   }
 }
 
 const Post = ({
-  pageContext: { slug, prev = null, next = null },
+  pageContext: { slug },
   data: { markdownRemark: postNode },
 }: Props) => {
   const post = postNode.frontmatter
-  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
-  const MediumClap = post.medium ? <Clap target="_blank" href={post.medium}>Clap on Medium</Clap> : undefined;
+  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`
+  const MediumClap = post.medium ? (
+    <Clap target="_blank" href={post.medium}>
+      Clap on Medium
+    </Clap>
+  ) : (
+    undefined
+  )
 
   return (
     <Layout>
@@ -130,7 +137,10 @@ const Post = ({
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
         <Header />
         <Content>
-          <LanguageSwitcher languages={post.languages} selectedLanguage={post.language} />
+          <LanguageSwitcher
+            languages={post.languages}
+            selectedLanguage={post.language}
+          />
           <Subline>
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
@@ -141,12 +151,16 @@ const Post = ({
           </Subline>
           <Title>{post.title}</Title>
           <div>
-          <Author>{post.author}</Author>
-          <Discuss target="_blank" href={twitterDicuss}>Discuss on twitter</Discuss>
-          {MediumClap}
+            <Author>{post.author}</Author>
+            <Discuss target="_blank" href={twitterDicuss}>
+              Discuss on twitter
+            </Discuss>
+            {MediumClap}
           </div>
           <PostContent dangerouslySetInnerHTML={{ __html: postNode.html }} />
-          <Discuss target="_blank" href={twitterDicuss}>Discuss on twitter</Discuss>
+          <Discuss target="_blank" href={twitterDicuss}>
+            Discuss on twitter
+          </Discuss>
         </Content>
       </Wrapper>
     </Layout>
@@ -157,7 +171,10 @@ export default Post
 
 export const postQuery = graphql`
   query postBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug }}, frontmatter:{ type:{eq: "post"} }) {
+    markdownRemark(
+      fields: { slug: { eq: $slug } }
+      frontmatter: { type: { eq: "post" } }
+    ) {
       html
       excerpt
       frontmatter {

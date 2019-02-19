@@ -32,10 +32,12 @@ const LanguageSwitcher = function({ selectedLanguage, languages }: Props) {
   return (
     <Wrapper>
       {Object.keys(languages).map((langKey: string) => {
+        // @ts-ignore
+        const lang: string = languages[langKey]
         return (
           <LanguageSwitch
             className={selectedLanguage === langKey ? 'active' : ''}
-            to={languages[langKey]}
+            to={lang}
           >
             {langKey}
           </LanguageSwitch>

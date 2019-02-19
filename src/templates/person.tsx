@@ -27,7 +27,7 @@ const Content = styled.article`
 `
 
 interface Props {
-  pageContext: {
+  pageContext?: {
     slug: string
   }
   data: {
@@ -40,7 +40,6 @@ interface Props {
 }
 
 const Person = ({
-  pageContext: { slug },
   data: {
     markdownRemark: { frontmatter },
   },

@@ -8,10 +8,10 @@ interface Props {
   postNode?: {
     frontmatter: {
       title: string
-      date: string
-      banner: string
+      date?: string
+      banner?: string
     }
-    excerpt: string
+    excerpt?: string
   }
   postPath?: string
   postSEO?: boolean
