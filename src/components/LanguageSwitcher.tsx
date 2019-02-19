@@ -15,6 +15,7 @@ margin-bottom: ${designSystem.spacing(2)};
 const LanguageSwitch = styled.span`
   margin-right: ${designSystem.spacing(2)};
   color: ${designSystem.color("white", 'darker')};
+  cursor: pointer;
   &.active {
     border-bottom: 2px dashed;
     font-weight:bold;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
 import { filter} from 'lodash';
 
@@ -142,7 +142,7 @@ const IndexPage = ({
           }}
           onClick={(langKey) => {
             localStorage.setItem('language', langKey);
-            localStorage.getItem('language')
+            navigate('/');
           }}
           selectedLanguage={selectedLanguage} />
           <ArticleWrapper>
