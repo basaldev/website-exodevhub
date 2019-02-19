@@ -39,7 +39,7 @@ const User = styled.img`
 const UserWrapper = styled.div`
   margin: ${designSystem.spacing(1)};
 `
-const DiscordWidget = class Welcome extends React.Component {
+class DiscordWidget extends React.Component {
   super(){
   }
   state = {
@@ -68,7 +68,7 @@ const DiscordWidget = class Welcome extends React.Component {
     return (
       <>
       <Widget>
-        <span>Online</span> <Online>{online.length}</Online>
+        <span>{this.props.contentStrings.subtitle}</span> <Online>{online.length}</Online>
       </Widget>
       <UserWrapper>
       {online.slice(0, 10).map(user => {

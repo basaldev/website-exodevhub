@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
-
+import { navigate }  from "gatsby";
 import { Layout, Wrapper, Header, Subline, SEO } from '../components'
 import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
@@ -124,7 +124,6 @@ const Post = ({
   const post = postNode.frontmatter
   const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
   const MediumClap = post.medium ? <Clap target="_blank" href={post.medium}>Clap on Medium</Clap> : undefined;
-
   return (
     <Layout>
       <Wrapper>
@@ -132,7 +131,7 @@ const Post = ({
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
         <Header />
         <Content>
-          <LanguageSwitcher languages={post.languages} selectedLanguage={post.language} />
+          <LanguageSwitcher languages={post.languages} onClick={(langKey) => { navigate(post.languages[langKey])}} selectedLanguage={post.language} />
           <Subline>
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}

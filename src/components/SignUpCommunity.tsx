@@ -21,7 +21,6 @@ const Wrapper = styled.div`
   justify-content: center;
   & a {
     overflow:hidden;
-    width: 80%;
     background: ${designSystem.color('black')};
     color: ${designSystem.color('white')};
     text-align:center;
@@ -31,11 +30,11 @@ const Wrapper = styled.div`
     }
   }
   `
-const SignUpCommunity = () => {
+const SignUpCommunity = ({contentStrings}: {contentStrings: { button:string, subtitle: string }}) => {
   return (
     <Wrapper>
-      <a rel="noopener" target="_blank" href={config.discord}>Join the community</a>
-      <DiscordWidget />
+      <a rel="noopener" target="_blank" href={config.discord}>{contentStrings.button}</a>
+      <DiscordWidget contentStrings={contentStrings}/>
     </Wrapper>
   )
 }

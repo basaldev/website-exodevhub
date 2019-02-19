@@ -12,7 +12,7 @@ interface Props {
 const Wrapper = styled.div`
 margin-bottom: ${designSystem.spacing(2)};
 `
-const LanguageSwitch = styled(Link)`
+const LanguageSwitch = styled.span`
   margin-right: ${designSystem.spacing(2)};
   color: ${designSystem.color("white", 'darker')};
   &.active {
@@ -22,7 +22,7 @@ const LanguageSwitch = styled(Link)`
   }
 `
 
-const LanguageSwitcher = function({ selectedLanguage, languages }: Props) {
+const LanguageSwitcher = function({ selectedLanguage, languages, onClick }: Props) {
   if(languages === null){
     return null
   }
@@ -30,12 +30,12 @@ const LanguageSwitcher = function({ selectedLanguage, languages }: Props) {
     <Wrapper>
     {Object.keys(languages).map((langKey:string) => {
           return <LanguageSwitch
+                    key={langKey}
                     className={selectedLanguage === langKey ? 'active' : ''}
-                    to={languages[langKey]}>{langKey}</LanguageSwitch>
+                    onClick={(e) => onClick(langKey, e)} >{langKey}</LanguageSwitch>
         })}
     </Wrapper>
   )
-  debugger
 }
 
 export default LanguageSwitcher
