@@ -17,6 +17,7 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
+import { getLanguage, setLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 const Content = styled.div`
@@ -113,7 +114,7 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
-  let selectedLanguage: string = localStorage.getItem('language') || 'en';
+  let selectedLanguage: string = getLanguage();
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
@@ -138,7 +139,7 @@ const IndexPage = ({
             ja: true
           }}
           onClick={(langKey) => {
-            localStorage.setItem('language', langKey);
+            setLanguage(langKey);
             navigate('/');
           }}
           selectedLanguage={selectedLanguage} />
