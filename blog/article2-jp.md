@@ -12,9 +12,9 @@ languages:
 shape: corner
 author: Alex King
 ---
-ライブラリを使用してコンポーネント開発する際、Javascriptのプロパティ値とHTMLの属性値が混在することがあります。それらが実際は何であるかまたどのように機能するか理解していないと、後に不具合の原因となり得るでしょう。ここではその点を噛み砕いてお話します。
+ライブラリを使用してコンポーネント開発をする際、Javascriptのプロパティ値とHTMLの属性値が混在することがあります。それらが実際は何であるかまたどのように機能するか理解していないと、後に不具合の原因となり得るでしょう。ここではその点を噛み砕いてお話します。
 
-**HTML要素には属性値が存在します** 属性値はHTMLタグに文字列として渡すことができます。
+**HTML要素には属性値が存在します。** 属性値はHTMLタグに文字列として渡すことができます。
 
 ```html
     <img src="https://picsum.photos/200/300" />
@@ -24,9 +24,10 @@ author: Alex King
 
 _ドキュメントオブジェクトモデル（DOM）はその同じ文章…DOM はウェブページの完全なオブジェクト指向の表現で、 JavaScript のようなスクリプト言語から変更できます。 - MDNより_
 
-Javascript上でHTMLタグ要素を取得する際、JavascriptはDOM上の対応するElementオブジェクトを返します。このオブジェクトを介してHTML要素の属性値を設定することができます。同時にそのオブジェクト自体のドキュメント上は目視できないプロパティの値をセットすることも可能です。
+Javascript上でHTMLタグ要素を取得する際、JavascriptはDOM上の対応する`Element`オブジェクトを返します。このオブジェクトを介してHTML要素の属性値を設定することができます。同時にそのオブジェクト自体のドキュメント上は目視できないプロパティの値をセットすることも可能です。
 
 プロパティには配列や関数、その他オブジェクトなど複雑な値もセット可能です。特にあるデータを関連するノードに紐付けて保存しておきたい際にこの方法は便利です。
+
 _実際に試してみましょう。_
 
 ```js
@@ -50,13 +51,13 @@ $0.getAttribute('coolBeans'); // return a string "baked,black,refried"
 const imgTag = document.createElement('img'); //non rendered img tag
 imgTag.srcset = ['https://picsum.photos/320/320 320w',
 								 'https://picsum.photos/480/320 480w'
-								 'https://picsum.photos/640/320 640w']
+								 'https://picsum.photos/640/320 640w'];
 // this is going to return a real array right?
 // nope
 imgTag.srcset; //"https://picsum.photos/320/320 320w,https://picsum.photos/480/320 480w,https://picsum.photos/640/320 640w"
 ```
 
-この画像要素のクラスは`srcset`というタグ要素の属性値と同じ名前のプロパティ値を持っています。そのプロパティは設定された値を属性値にも反映します。
+この画像要素のクラスは`srcset`というタグ要素の属性値と同じ名前のプロパティ値を持っています。そのプロパティは設定された値を_**属性値にも反映**_します。
 
 ほとんどの場合おいて上記のような事象は不具合を引き起こす要因にはならないと言っていいでしょう。しかし、属性値とプロパティ値の関係を頭に入れておくと、より良い再利用可能なWebコンポーネント構築に役立ちます。
 
@@ -76,7 +77,7 @@ class BeanList extends LitElement {
 			<li>Black</li>
 		  <li>Refried</li>
 		 </ul>
-    `
+    `;
   }
 }
 customElements.define('cool-beans', BeanList);
@@ -93,14 +94,14 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
   render() {
     return html`
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -130,7 +131,7 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
 	static get properties() {
     return {
@@ -142,7 +143,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -167,7 +168,7 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
   static get properties() {
    return {
@@ -177,7 +178,7 @@ class BeanList extends LitElement {
         fromAttribute: x => x.split(','),
         toAttribute: x => x.join(),
       }
-    },
+    };
    }
   }
   render() {
@@ -185,7 +186,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -194,20 +195,20 @@ class BeanList extends LitElement {
 
 ```js
 $0 //will return the selected element in chrome/firefox/safari
-$0.setAttribute('list', ['Baked','Black','Refried','Pino'];);
+$0.setAttribute('list', ['Baked','Black','Refried','Pino']);
 $0.list = ['Baked','Black','Refried','Pino'];
 ```
 
 どちらの記述でも属性値、プロパティ値そしてHTMLコンポーネントが更新されます。
 
-`fromAttribute` と `toAttribute` はとても強力なインタフェースです。その他にも`lit-element` にはデフォルトで使用できる`Array` 型データの変換など様々なコンバーターが存在しています。詳しくはこちらをご参照ください。
+`fromAttribute` と `toAttribute` はとても強力なインタフェースです。その他にも`lit-element` にはデフォルトで使用できる`Array` 型データの変換など様々なコンバーターが存在しています。詳しくは[こちら](https://lit-element.polymer-project.org/guide/properties#conversion-type)をご参照ください。
 
 ```js
 class BeanList extends LitElement {
   static get properties() {
    return {
       list: { attribute: false },
-   }
+   };
   }
   constructor() {
     super();
@@ -218,7 +219,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((bean)=> { return html`<li><img width="50px" src="${bean.img}" /></br><caption>${bean.name}</caption></li>`})}
       </ul>
-		`
+		`;
   }
 }
 customElements.define('cool-beans', BeanList);
@@ -228,4 +229,4 @@ customElements.define('cool-beans', BeanList);
 
 <iframe width="100%" height="600" src="https://glitch.com/embed/#!/embed/article-example-attributes?path=src/index.ts&previewSize=33" frameborder="0" allowfullscreen></iframe>
 
-一点注意点として、一部のライブラリでは未だプロパティ値を正しくWebコンポーネントに反映できない場合があります。各ライブライの互換性について[はこちらで](https://custom-elements-everywhere.com/)ご確認ください。
+一点注意点として、一部のライブラリでは未だプロパティ値を正しくWebコンポーネントに反映できない場合があります。各ライブライの互換性については[こちら](https://custom-elements-everywhere.com/)でご確認ください。

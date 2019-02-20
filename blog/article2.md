@@ -51,7 +51,7 @@ Things get a little more complex when you start using a property that is already
 const imgTag = document.createElement('img'); //non rendered img tag
 imgTag.srcset = ['https://picsum.photos/320/320 320w',
 								 'https://picsum.photos/480/320 480w'
-								 'https://picsum.photos/640/320 640w']
+								 'https://picsum.photos/640/320 640w'];
 // this is going to return a real array right?
 // nope
 imgTag.srcset; //"https://picsum.photos/320/320 320w,https://picsum.photos/480/320 480w,https://picsum.photos/640/320 640w"
@@ -77,7 +77,7 @@ class BeanList extends LitElement {
 			<li>Black</li>
 		  <li>Refried</li>
 		 </ul>
-    `
+    `;
   }
 }
 customElements.define('cool-beans', BeanList);
@@ -94,14 +94,14 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
   render() {
     return html`
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -131,7 +131,7 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
 	static get properties() {
     return {
@@ -143,7 +143,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -168,7 +168,7 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
   static get properties() {
    return {
@@ -178,7 +178,7 @@ class BeanList extends LitElement {
         fromAttribute: x => x.split(','),
         toAttribute: x => x.join(),
       }
-    },
+    };
    }
   }
   render() {
@@ -186,7 +186,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -195,7 +195,7 @@ Hooray with this above example, you can now do both!
 
 ```js
 $0 //will return the selected element in chrome/firefox/safari
-$0.setAttribute('list', ['Baked','Black','Refried','Pino'];);
+$0.setAttribute('list', ['Baked','Black','Refried','Pino']);
 $0.list = ['Baked','Black','Refried','Pino'];
 ```
 
@@ -210,7 +210,7 @@ class BeanList extends LitElement {
   static get properties() {
    return {
       list: { attribute: false },
-   }
+   };
   }
   constructor() {
     super();
@@ -221,7 +221,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((bean)=> { return html`<li><caption><img src="${bean.img}" />${bean.name}</caption></li>`})}
       </ul>
-		`
+		`;
   }
 }
 customElements.define('cool-beans', BeanList);
