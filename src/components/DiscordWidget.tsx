@@ -47,7 +47,11 @@ type User = {
   status: string
 }
 
-const DiscordWidget = class Welcome extends React.Component {
+interface Props {
+  contentStrings: { subtitle: string };
+}
+
+const DiscordWidget = class Welcome extends React.Component<Props> {
   super() {}
   state = {
     members: [],
@@ -78,7 +82,7 @@ const DiscordWidget = class Welcome extends React.Component {
     return (
       <>
         <Widget>
-          <span>Online</span> <Online>{online.length}</Online>
+          <span>{this.props.contentStrings.subtitle}</span> <Online>{online.length}</Online>
         </Widget>
         <UserWrapper>
           {online.slice(0, 10).map((user: User) => {

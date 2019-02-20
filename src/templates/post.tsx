@@ -3,9 +3,10 @@ import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
-
+import { navigate }  from "gatsby";
 import { Layout, Wrapper, Header, Subline, SEO } from '../components'
-import { media } from '../utils/media'
+import { media } from '../utils/media';
+import { Language } from '../utils/language';
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
 import { designSystem } from '../utils/designSystem'
@@ -107,8 +108,8 @@ interface Props {
         author: string
         language: string
         languages: {
-          en: string
-          ja: string
+          en: boolean
+          ja: boolean
         }
         medium: string
       }
@@ -121,7 +122,7 @@ const Post = ({
   data: { markdownRemark: postNode },
 }: Props) => {
   const post = postNode.frontmatter
-  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`
+  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
   const MediumClap = post.medium ? (
     <Clap target="_blank" href={post.medium}>
       Clap on Medium
@@ -139,6 +140,7 @@ const Post = ({
         <Content>
           <LanguageSwitcher
             languages={post.languages}
+            onClick={(langKey: Language) => navigate((post.languages as any)[langKey])}
             selectedLanguage={post.language}
           />
           <Subline>

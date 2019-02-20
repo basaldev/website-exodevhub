@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash'
 
@@ -16,8 +16,10 @@ import {
   SEO,
 } from '../components'
 import { media } from '../utils/media'
-import { designSystem } from '../utils/designSystem'
-
+import { designSystem } from '../utils/designSystem';
+import { getLanguage, setLanguage } from '../utils/language';
+import { CONTENT_STRINGS } from '../utils/content-strings';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 const Content = styled.div`
   grid-column: 2;
   width: 70vw;
@@ -90,6 +92,13 @@ const Section = styled.div`
   }
 `
 
+function randomWhite(text:string){
+  const min = 0;
+  const max = text.length;
+  const rand = Math.floor(Math.random() * (+max - +min))
+  return text.substring(rand, rand+1);
+}
+
 interface Props {
   data: {
     allMarkdownRemark: {
@@ -103,29 +112,40 @@ const IndexPage = ({
     allMarkdownRemark: { group },
   },
 }: Props) => {
-  let posts: Array<{ node: any }> = []
-  let people: Array<{ node: any }> = []
+  let posts: Array<{ node: any }> = [];
+  let people: Array<{ node: any }> = [];
+  const selectedLanguage: string = getLanguage();
+  const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
-        posts = filter(postType.edges, o => {
-          return o.node.frontmatter.language === 'en'
-        })
-        break
+        posts = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
+        break;
       case 'person':
-        people = postType.edges
+        people = postType.edges;
         break
     }
-  })
+  });
   return (
     <Layout>
       <SEO />
       <Wrapper>
         <Header />
         <Content>
-          <LinkHeader text={'writings'} white="g">
-            <Button to="/categories">all categories</Button>
+          <LinkHeader text={`${wordings.writing.title}`} white={`${randomWhite(wordings.writing.title)}`}>
+            <Button to="/categories">{`${wordings.writing.button}`}</Button>
           </LinkHeader>
+          <LanguageSwitcher
+            languages={{
+              en: true,
+              ja: true
+            }}
+            onClick={(langKey: string) => {
+              setLanguage(langKey);
+              navigate('/');
+            }}
+            selectedLanguage={selectedLanguage}
+          />
           <ArticleWrapper>
             {posts.map(post => (
               <Article
@@ -141,49 +161,25 @@ const IndexPage = ({
             ))}
           </ArticleWrapper>
           <Section>
-            <SectionTitle text={'community'} white="u" />
+            <SectionTitle text={`${wordings.community.title}`} white={`${randomWhite(wordings.community.title)}`} />
             <PeopleWrapper>
               {people.map(post => (
                 <Person
-                  {...post.node.frontmatter}
+                  {...post.node.frontmatter }
                   slug={post.node.fields.slug}
                   key={post.node.fields.slug}
                 />
               ))}
-              <SignUpCommunity />
+              <SignUpCommunity contentStrings={wordings.community.discord} />
             </PeopleWrapper>
           </Section>
 
           <Section>
-            <SectionTitle text="about" white="o" />
-            <p>
-              ExO DevHub provides businesses with the software tools and mindset
-              necessary to transform themselves into exponential organizations.
-            </p>
-            <p>
-              An{' '}
-              <a href="https://exponentialorgs.com/">
-                exponential organization
-              </a>{' '}
-              is a new breed of business proven to be capable of unlocking the
-              abundance provided by emerging technologies and readily adaptable
-              to a rapidly changing business environment. The term “exponential
-              organization” has been coined for organizations whose impact (or
-              output) is disproportionately large&mdash;at least 10x as
-              large&mdash;compared to its peers because of the use of new
-              organization techniques that leverage accelerating technologies.
-            </p>
-            <p>
-              Regardless of whether your current organization is an industry
-              leader or a smaller player, it must transform itself if it is to
-              thrive in the face of industry disruption from unexpected external
-              sources. New players should build agility in from the start.{' '}
-              <a href="https://www.openexo.com/">OpenExO</a> will guide you
-              through the process of transforming your business into an
-              exponential one, and <strong>ExO DevHub</strong> will assist you
-              with cutting-edge technical solutions.
-            </p>
-          </Section>
+          <SectionTitle text={`${wordings.about.title}`} white={`${randomWhite(wordings.about.title)}`} />
+          {wordings.about.content.map((para: string, index: number) => {
+            return <p key={index} dangerouslySetInnerHTML={{ __html: para}} />
+          })}
+        </Section>
         </Content>
       </Wrapper>
     </Layout>

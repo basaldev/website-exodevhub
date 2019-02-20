@@ -1,23 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import { designSystem } from '../utils/designSystem'
-import { Link } from 'gatsby'
+import React from 'react';
+import styled from 'styled-components';
+import { designSystem } from '../utils/designSystem';
+import { Language } from '../utils/language';
 
 interface Props {
   languages: {
-    en: string
-    ja: string
-  }
-  selectedLanguage: string
+    en: boolean
+    ja: boolean
+  };
+  selectedLanguage: string;
+  onClick: (langKey: Language, e: any) => void;
 }
 
 const Wrapper = styled.div`
   margin-bottom: ${designSystem.spacing(2)};
 `
 
-const LanguageSwitch = styled(Link)`
+const LanguageSwitch = styled.span`
   margin-right: ${designSystem.spacing(2)};
   color: ${designSystem.color('white', 'darker')};
+  cursor: pointer;
   &.active {
     border-bottom: 2px dashed;
     font-weight: bold;
@@ -25,27 +27,25 @@ const LanguageSwitch = styled(Link)`
   }
 `
 
-const LanguageSwitcher = function({ selectedLanguage, languages }: Props) {
+const LanguageSwitcher = function({ selectedLanguage, languages, onClick }: Props) {
   if (languages === null) {
     return null
   }
   return (
     <Wrapper>
-      {Object.keys(languages).map((langKey: string) => {
-        // @ts-ignore
-        const lang: string = languages[langKey]
+      {Object.keys(languages).map((langKey: Language) => {
         return (
           <LanguageSwitch
+            key={langKey}
             className={selectedLanguage === langKey ? 'active' : ''}
-            to={lang}
+            onClick={(e: any) => onClick(langKey, e)}
           >
             {langKey}
           </LanguageSwitch>
-        )
+        );
       })}
     </Wrapper>
   )
-  debugger
 }
 
 export default LanguageSwitcher
