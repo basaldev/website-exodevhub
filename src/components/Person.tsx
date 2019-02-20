@@ -1,12 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
-import { GithubOutline, TwitterOutline } from '@ant-design/icons';
+import { GithubOutline, TwitterOutline } from '@ant-design/icons'
 import AntdIcon from '@ant-design/icons-react'
 import { designSystem } from '../utils/designSystem'
 import { media } from '../utils/media'
-AntdIcon.add(GithubOutline, TwitterOutline);
-
+AntdIcon.add(GithubOutline, TwitterOutline)
 
 const Person = styled.article`
   grid-column: auto;
@@ -37,8 +35,8 @@ const Title = styled.h2`
   color: #fff;
   font-size: ${designSystem.fontSize('xs')}px;
   background-color: ${designSystem.color('blue')};
-  display:inline-block;
-  position:absolute;
+  display: inline-block;
+  position: absolute;
   bottom: 0;
 `
 const Meta = styled.div`
@@ -46,25 +44,28 @@ const Meta = styled.div`
   font-size: ${designSystem.fontSize('xxs')}px;
   padding: ${designSystem.spacing(1)};
   a {
-    display:block;
+    display: block;
     color: ${designSystem.color('white')};
     &:hover {
-      color:${designSystem.color('yellow')};
+      color: ${designSystem.color('yellow')};
     }
   }
 `
 const ImageWrapper = styled.div`
-width: 100%;
-clear:both;
-display:block;
-min-height: 200px;
-position: relative;
-background: white;
+  width: 100%;
+  clear: both;
+  display: block;
+  min-height: 200px;
+  position: relative;
+  background: white;
 `
+type DisplayPictureProps = {
+  image: string
+}
 const DisplayPicture = styled.div`
-  background-image: url(${props => props.image});
+  background-image: url(${(props: DisplayPictureProps) => props.image});
   background-size: cover;
-  background-position:center;
+  background-position: center;
   width: 100%;
   min-height: 200px;
   transition: ease all 0.5s;
@@ -80,31 +81,29 @@ const DisplayPicture = styled.div`
 interface Props {
   fullName: string
   slug: string
-  github:string
+  github: string
   twitter: string
   image: string
 }
 
-const Article = ({
-  fullName,
-  slug,
-  github,
-  twitter,
-  image
-}: Props) => {
+const Article = ({ fullName, github, twitter, image }: Props) => {
   return (
     <Person>
-        <ImageWrapper >
+      <ImageWrapper>
         <DisplayPicture image={image} />
-          <Title>
-            <span>{fullName}</span>
-          </Title>
-        </ImageWrapper>
+        <Title>
+          <span>{fullName}</span>
+        </Title>
+      </ImageWrapper>
 
-        <Meta>
-          <a href={`//github.com/${github}`}>{github} <AntdIcon type={GithubOutline} /></a>
-          <a  href={`//twitter.com/${twitter}`}>{twitter} <AntdIcon type={TwitterOutline} /></a>
-        </Meta>
+      <Meta>
+        <a href={`//github.com/${github}`}>
+          {github} <AntdIcon type={GithubOutline} />
+        </a>
+        <a href={`//twitter.com/${twitter}`}>
+          {twitter} <AntdIcon type={TwitterOutline} />
+        </a>
+      </Meta>
     </Person>
   )
 }

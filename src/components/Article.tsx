@@ -43,7 +43,9 @@ const Title = styled.h2`
   background: white;
   height: 110px; //Firefox fix
 `
-
+type ShapeProps = {
+  type: string
+}
 // TODO: Replace with SVG
 const Shape = styled.div`
   width: ${shapeSize}px;
@@ -52,7 +54,7 @@ const Shape = styled.div`
   position: absolute;
   top: 0px;
   left: 0px;
-  ${props => {
+  ${(props: ShapeProps) => {
     switch (props.type) {
       case 'square':
         return `
@@ -117,15 +119,7 @@ interface Props {
   shape: string
 }
 
-const Article = ({
-  title,
-  date,
-  excerpt = '' /* PropTypes indicated that this props is a required string */,
-  slug,
-  timeToRead,
-  category,
-  shape,
-}: Props) => {
+const Article = ({ title, date, slug, timeToRead, category, shape }: Props) => {
   return (
     <Post>
       <ShapeFence>

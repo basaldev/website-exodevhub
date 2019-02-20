@@ -35,7 +35,7 @@ const ButtonWrapper = styled.div`
 interface Props {
   text: string
   white: string
-  children: ReactNode
+  children?: ReactNode
 }
 
 const LinkHeader = ({ text, white, children }: Props) => {

@@ -32,8 +32,22 @@ const Next = styled.div`
 `
 
 interface Props {
-  next: object | null
-  prev: object | null
+  next: {
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  } | null
+  prev: {
+    fields: {
+      slug: string
+    }
+    frontmatter: {
+      title: string
+    }
+  } | null
 }
 
 const PrevNext = ({ next = null, prev = null }: Props) => (

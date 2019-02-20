@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
 
-import { Layout, Wrapper, Header, LinkHeader, Button, SEO } from '../components'
+import { Layout, Wrapper, Header, LinkHeader, SEO } from '../components'
 import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import { designSystem } from '../utils/designSystem'
@@ -47,30 +47,30 @@ const Category = ({
 }: Props) => {
   const seoNode = {
     frontmatter: {
-      title: `Categories | ${config.siteTitle}`
-    }
+      title: `Categories | ${config.siteTitle}`,
+    },
   }
   return (
-  <Layout>
-    <SEO postPath={`/categories`} postNode={seoNode} postSEO />
-    <Wrapper>
-      <Helmet title={seoNode.frontmatter.title} />
-      <Header />
-      <Content>
-        <LinkHeader text={'Categories'} white="o">
-        </LinkHeader>
-        {group.map(category => (
-          <Title key={category.fieldValue}>
-            <Link to={`/categories/${kebabCase(category.fieldValue)}`}>
-              #{category.fieldValue}
-            </Link>{' '}
-            ({category.totalCount})
-          </Title>
-        ))}
-      </Content>
-    </Wrapper>
-  </Layout>
-)}
+    <Layout>
+      <SEO postPath={`/categories`} postNode={seoNode} postSEO />
+      <Wrapper>
+        <Helmet title={seoNode.frontmatter.title} />
+        <Header />
+        <Content>
+          <LinkHeader text={'Categories'} white="o" />
+          {group.map(category => (
+            <Title key={category.fieldValue}>
+              <Link to={`/categories/${kebabCase(category.fieldValue)}`}>
+                #{category.fieldValue}
+              </Link>{' '}
+              ({category.totalCount})
+            </Title>
+          ))}
+        </Content>
+      </Wrapper>
+    </Layout>
+  )
+}
 
 export default Category
 

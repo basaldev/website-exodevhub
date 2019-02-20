@@ -1,7 +1,7 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import styled from 'styled-components'
-import { filter} from 'lodash';
+import { filter } from 'lodash'
 
 import {
   Layout,
@@ -13,10 +13,10 @@ import {
   LinkHeader,
   Person,
   SignUpCommunity,
-  SEO
+  SEO,
 } from '../components'
 import { media } from '../utils/media'
-import { designSystem } from '../utils/designSystem';
+import { designSystem } from '../utils/designSystem'
 
 const Content = styled.div`
   grid-column: 2;
@@ -56,7 +56,6 @@ const PeopleWrapper = styled.div`
 
   @media ${media.tablet} {
     grid-template-columns: repeat(4, 1fr);
-
   }
   @media ${media.phone} {
     grid-template-columns: repeat(1, 1fr);
@@ -65,7 +64,7 @@ const PeopleWrapper = styled.div`
 
 const Section = styled.div`
   grid-column: 2;
-  padding: ${designSystem.spacing(5)} 0  ${designSystem.spacing(5)};
+  padding: ${designSystem.spacing(5)} 0 ${designSystem.spacing(5)};
   @media ${media.tablet} {
     width: auto;
   }
@@ -76,7 +75,7 @@ const Section = styled.div`
   h1 {
     @media ${media.phone} {
       font-size: 10vw;
-      margin:  ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
+      margin: ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
     }
   }
   p {
@@ -101,21 +100,21 @@ interface Props {
 
 const IndexPage = ({
   data: {
-    allMarkdownRemark: { group }
+    allMarkdownRemark: { group },
   },
 }: Props) => {
-  let posts:Array<{node:any}> = [];
-  let people: Array<{node:any}> = [];
+  let posts: Array<{ node: any }> = []
+  let people: Array<{ node: any }> = []
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
-        posts = filter(postType.edges, (o) => {
-          return o.node.frontmatter.language === 'en';
-        });
-        break;
+        posts = filter(postType.edges, o => {
+          return o.node.frontmatter.language === 'en'
+        })
+        break
       case 'person':
-        people =  postType.edges;
-        break;
+        people = postType.edges
+        break
     }
   })
   return (
@@ -142,57 +141,60 @@ const IndexPage = ({
             ))}
           </ArticleWrapper>
           <Section>
-          <SectionTitle text={'community'} white="u" />
-          <PeopleWrapper>
-          {people.map(post => (
-            <Person
-              {...post.node.frontmatter }
-              slug={post.node.fields.slug}
-              key={post.node.fields.slug}
-            />
-          ))}
-          <SignUpCommunity />
-          </PeopleWrapper>
+            <SectionTitle text={'community'} white="u" />
+            <PeopleWrapper>
+              {people.map(post => (
+                <Person
+                  {...post.node.frontmatter}
+                  slug={post.node.fields.slug}
+                  key={post.node.fields.slug}
+                />
+              ))}
+              <SignUpCommunity />
+            </PeopleWrapper>
           </Section>
 
           <Section>
-          <SectionTitle text="about" white="o" />
-          <p>
-            ExoDevHub provides businesses with the software tools and mindset
-            necessary to transform themselves into exponential organizations.
-        </p>
-          <p>
-            An <a href="https://exponentialorgs.com/">exponential organization</a>{' '}
-            is a new breed of business proven to be capable of unlocking the
-            abundance provided by emerging technologies and readily adaptable to a
-            rapidly changing business environment. The term “exponential
-            organization” has been coined for organizations whose impact (or
-            output) is disproportionately large—at least 10x as large—compared to
-            its peers because of the use of new organization techniques that
-            leverage accelerating technologies.
-        </p>
-          <p>
-            Regardless of whether your current organization is an industry leader
-            or a smaller player, it must transform itself if it is to thrive in
-            the face of industry disruption from unexpected external sources. New
-          players should build agility in from the start.{' '}
-            <a href="https://www.openexo.com/">OpenExO</a> will guide you through
-          the process of transforming your business into an exponential one, and{' '}
-            <strong>ExoDevHub</strong> will assist you with cutting-edge technical
-            solutions.
-        </p>
-        </Section>
+            <SectionTitle text="about" white="o" />
+            <p>
+              ExO DevHub provides businesses with the software tools and mindset
+              necessary to transform themselves into exponential organizations.
+            </p>
+            <p>
+              An{' '}
+              <a href="https://exponentialorgs.com/">
+                exponential organization
+              </a>{' '}
+              is a new breed of business proven to be capable of unlocking the
+              abundance provided by emerging technologies and readily adaptable
+              to a rapidly changing business environment. The term “exponential
+              organization” has been coined for organizations whose impact (or
+              output) is disproportionately large&mdash;at least 10x as
+              large&mdash;compared to its peers because of the use of new
+              organization techniques that leverage accelerating technologies.
+            </p>
+            <p>
+              Regardless of whether your current organization is an industry
+              leader or a smaller player, it must transform itself if it is to
+              thrive in the face of industry disruption from unexpected external
+              sources. New players should build agility in from the start.{' '}
+              <a href="https://www.openexo.com/">OpenExO</a> will guide you
+              through the process of transforming your business into an
+              exponential one, and <strong>ExO DevHub</strong> will assist you
+              with cutting-edge technical solutions.
+            </p>
+          </Section>
         </Content>
-
       </Wrapper>
     </Layout>
-  )}
+  )
+}
 
 export default IndexPage
 
 export const IndexQuery = graphql`
   query IndexQuery {
-  allMarkdownRemark(sort:{fields:frontmatter___type, order: DESC}) {
+    allMarkdownRemark(sort: { fields: frontmatter___type, order: DESC }) {
       group(field: frontmatter___type) {
         edges {
           node {
@@ -200,18 +202,18 @@ export const IndexQuery = graphql`
               slug
             }
             frontmatter {
-            title
-            date(formatString: "YYYY-MM-DD")
-            category
-            shape
-            type
-            fullName
-            github
-            twitter
-            image
-            language
+              title
+              date(formatString: "YYYY-MM-DD")
+              category
+              shape
+              type
+              fullName
+              github
+              twitter
+              image
+              language
             }
-          	timeToRead
+            timeToRead
           }
         }
       }

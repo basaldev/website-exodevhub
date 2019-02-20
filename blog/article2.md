@@ -6,6 +6,9 @@ type: post
 medium: https://medium.com/exodevhub/web-components-understanding-attributes-and-properties-5b8606b90a2
 category: web-components
 language: en
+languages:
+  en: /web-components-understanding-attributes-and-properties
+  ja: /webコンポーネント：属性値とプロパティ値
 shape: corner
 author: Alex King
 ---
@@ -48,7 +51,7 @@ Things get a little more complex when you start using a property that is already
 const imgTag = document.createElement('img'); //non rendered img tag
 imgTag.srcset = ['https://picsum.photos/320/320 320w',
 								 'https://picsum.photos/480/320 480w'
-								 'https://picsum.photos/640/320 640w']
+								 'https://picsum.photos/640/320 640w'];
 // this is going to return a real array right?
 // nope
 imgTag.srcset; //"https://picsum.photos/320/320 320w,https://picsum.photos/480/320 480w,https://picsum.photos/640/320 640w"
@@ -74,7 +77,7 @@ class BeanList extends LitElement {
 			<li>Black</li>
 		  <li>Refried</li>
 		 </ul>
-    `
+    `;
   }
 }
 customElements.define('cool-beans', BeanList);
@@ -91,14 +94,14 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
   render() {
     return html`
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -128,7 +131,7 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
 	static get properties() {
     return {
@@ -140,7 +143,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -165,7 +168,7 @@ class BeanList extends LitElement {
 			'Baked',
 			'Black',
 			'Refried'
-		]
+		];
   }
   static get properties() {
    return {
@@ -175,7 +178,7 @@ class BeanList extends LitElement {
         fromAttribute: x => x.split(','),
         toAttribute: x => x.join(),
       }
-    },
+    };
    }
   }
   render() {
@@ -183,7 +186,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((beanName)=> { return html`<li>${beanName}</li>`})}
       </ul>
-		`
+		`;
   }
 }
 ```
@@ -192,7 +195,7 @@ Hooray with this above example, you can now do both!
 
 ```js
 $0 //will return the selected element in chrome/firefox/safari
-$0.setAttribute('list', ['Baked','Black','Refried','Pino'];);
+$0.setAttribute('list', ['Baked','Black','Refried','Pino']);
 $0.list = ['Baked','Black','Refried','Pino'];
 ```
 
@@ -207,7 +210,7 @@ class BeanList extends LitElement {
   static get properties() {
    return {
       list: { attribute: false },
-   }
+   };
   }
   constructor() {
     super();
@@ -218,7 +221,7 @@ class BeanList extends LitElement {
       <ul>
         ${this.list.map((bean)=> { return html`<li><caption><img src="${bean.img}" />${bean.name}</caption></li>`})}
       </ul>
-		`
+		`;
   }
 }
 customElements.define('cool-beans', BeanList);
@@ -226,6 +229,6 @@ customElements.define('cool-beans', BeanList);
 
 In the above example you, no attribute is created on the element only properties and you a set them using a range of framework including native HTML. Have a play.
 
-<!-- <iframe width="100%" height="600" src="https://glitch.com/embed/#!/embed/article-example-attributes?path=src/index.ts&previewSize=33" frameborder="0" allowfullscreen></iframe> -->
+<iframe width="100%" height="600" src="https://glitch.com/embed/#!/embed/article-example-attributes?path=src/index.ts&previewSize=33" frameborder="0" allowfullscreen></iframe>
 
 One Caveat is that some frameworks don't pass properties correctly to Web Components yet. A  list of compatible frameworks can be [found here](https://custom-elements-everywhere.com/)

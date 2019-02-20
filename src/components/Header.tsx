@@ -6,6 +6,10 @@ import { designSystem } from '../utils/designSystem'
 import config from '../../config/SiteConfig'
 import { media } from '../utils/media'
 
+type ButtonProps = {
+  big: string
+}
+
 const button = `
   border: none;
   align-items: center;
@@ -15,24 +19,43 @@ const button = `
   padding: ${designSystem.spacing(2)};
   line-height: 1;
   font-family: ${designSystem.get('type.fontFamily.mono')};
-  font-size: ${props => (props.big ? '1.2rem' : '1rem')};
+  font-size: ${(props: ButtonProps) => (props.big ? '1.2rem' : '1rem')};
 `
 const Dropdown = styled.div`
-  float: right;
   position: absolute;
+  float: right;
   right: ${designSystem.spacing(2)};
   top: ${designSystem.spacing(1)};
-  & *:first-child {
-    display: block;
+
+  .sub-menu {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    margin-top: ${designSystem.spacing(2)};
+    transform: translateY(-2em);
+    z-index: -1;
+    transition: all 0.2s ease-in-out 0s, visibility 0s linear 0.2s, z-index 0s linear 0.01s;
   }
-  & * {
-    display: none;
+
+  :focus .sub-menu,
+  :focus-within .sub-menu,
+  :hover .sub-menu {
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+    transform: translateY(0%);
+    transition-delay: 0s, 0s, 0.3s; /* this removes the transition delay so the menu will be visible while the other styles transition */
   }
-  &:hover * {
-    display: block;
-  }
+
   a {
+    display: block;
     ${button}
+    margin-top: ${designSystem.spacing(1)};
+    background: ${designSystem.color('black')};
+    color: ${designSystem.color('white')};
     &:hover {
       cursor: pointer;
     }
@@ -44,15 +67,11 @@ const Dropdown = styled.div`
       color: ${designSystem.color('blue')};
     }
   }
-  a {
-    margin-top: ${designSystem.spacing(1)};
-    background: ${designSystem.color('black')};
-    color: ${designSystem.color('white')};
-  }
   @media ${media.phone} {
     right: 0;
   }
 `
+
 const Wrapper = styled.header`
   grid-column: 2;
   padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(10)} 0;
@@ -67,7 +86,7 @@ const FakeButton = styled.span`
   background: ${designSystem.color('yellow')};
 `
 const Logo = styled.img`
-  display:inline;
+  display: inline;
   @media ${media.phone} {
     width: 55vw;
   }
@@ -89,22 +108,35 @@ const Header = ({ children }: Props) => (
       </Link>
       <Dropdown>
         <FakeButton>socials</FakeButton>
-        <a rel="noopener" target="_blank" href={`http://twitter.com/${config.userTwitter}`}>
-          twitter
-        </a>
-        <a rel="noopener" target="_blank" href={`https://medium.com/${config.medium}`}>
-          Medium
-        </a>
-        <a rel="noopener" target="_blank" href={`${config.discord}`}>
-          discord
-        </a>
-        <a rel="noopener" target="_blank" href={`https://dev.to/${config.devto}`}>
-          dev.to
-        </a>
-        <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
-          Email
-        </a>
-
+        <div className="sub-menu">
+          <a
+            rel="noopener"
+            target="_blank"
+            href={`http://twitter.com/${config.userTwitter}`}
+          >
+            twitter
+          </a>
+          <a
+            rel="noopener"
+            target="_blank"
+            href={`https://medium.com/${config.medium}`}
+          >
+            Medium
+          </a>
+          <a rel="noopener" target="_blank" href={`${config.discord}`}>
+            discord
+          </a>
+          <a
+            rel="noopener"
+            target="_blank"
+            href={`https://dev.to/${config.devto}`}
+          >
+            dev.to
+          </a>
+          <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
+            Email
+          </a>
+        </div>
       </Dropdown>
       {children}
     </Content>
