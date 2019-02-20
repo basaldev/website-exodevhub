@@ -3,6 +3,10 @@ import { Link } from 'gatsby'
 
 import { designSystem } from '../utils/designSystem'
 
+type ButtonProps = {
+  big?: string
+}
+
 const Button = styled(Link)`
   background: ${designSystem.color('yellow')};
   border: none;
@@ -14,7 +18,7 @@ const Button = styled(Link)`
   padding: ${designSystem.spacing(2)};
   line-height: 1;
   font-family: ${designSystem.get('type.fontFamily.mono')};
-  font-size: ${props => (props.big ? '1.2rem' : '1rem')};
+  font-size: ${(props: ButtonProps) => (props.big ? '1.2rem' : '1rem')};
   &:hover {
     cursor: pointer;
   }

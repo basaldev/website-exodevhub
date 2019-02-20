@@ -9,7 +9,6 @@ import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
 
 const GlobalStyle = createGlobalStyle`
-
   ::selection {
     color: ${theme.colors.bg};
     background: ${theme.colors.primary};
@@ -25,7 +24,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-display:block;
     background: ${theme.colors.bg};
-    color: ${theme.default};
     font-display: swap;
     transition: 0.5s ease all;
     opacity: 1 !important;
@@ -41,7 +39,6 @@ const GlobalStyle = createGlobalStyle`
   a:hover {
     opacity:1;
     color: ${designSystem.color('blue')};
-
   }
   h1 a,
   h4 a,
@@ -58,7 +55,6 @@ const GlobalStyle = createGlobalStyle`
       font-size: 2.25rem;
     }
   }
-
   h1 span.white {
     color:white
     text-shadow:
@@ -75,7 +71,6 @@ const GlobalStyle = createGlobalStyle`
     padding: ${designSystem.spacing(4)};
     border: 1px solid #efefef;
   }
-
   blockquote:before {
     content: "";
     position: absolute;
@@ -84,7 +79,6 @@ const GlobalStyle = createGlobalStyle`
     width: 6px;
     top:0px;
     left: 0px;
-
   }
   iframe {
     max-width: 100%;
