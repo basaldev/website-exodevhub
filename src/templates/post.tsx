@@ -34,8 +34,6 @@ const Content = styled.article`
 const Title = styled.h2`
   margin-bottom: 1rem;
   font-weight: bold;
-  text-shadow: -0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000,
-    0.5px 0.5px 0 #000;
   text-transform: capitalize;
   @media ${media.phone} {
     padding: 0rem;

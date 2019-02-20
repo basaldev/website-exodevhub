@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
-import { filter} from 'lodash';
+import { filter } from 'lodash'
 
 import {
   Layout,
@@ -13,7 +13,7 @@ import {
   LinkHeader,
   Person,
   SignUpCommunity,
-  SEO
+  SEO,
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
@@ -57,7 +57,6 @@ const PeopleWrapper = styled.div`
 
   @media ${media.tablet} {
     grid-template-columns: repeat(4, 1fr);
-
   }
   @media ${media.phone} {
     grid-template-columns: repeat(1, 1fr);
@@ -66,7 +65,7 @@ const PeopleWrapper = styled.div`
 
 const Section = styled.div`
   grid-column: 2;
-  padding: ${designSystem.spacing(5)} 0  ${designSystem.spacing(5)};
+  padding: ${designSystem.spacing(5)} 0 ${designSystem.spacing(5)};
   @media ${media.tablet} {
     width: auto;
   }
@@ -77,7 +76,7 @@ const Section = styled.div`
   h1 {
     @media ${media.phone} {
       font-size: 10vw;
-      margin:  ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
+      margin: ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
     }
   }
   p {
@@ -109,22 +108,20 @@ interface Props {
 
 const IndexPage = ({
   data: {
-    allMarkdownRemark: { group }
+    allMarkdownRemark: { group },
   },
 }: Props) => {
-  let posts:Array<{node:any}> = [];
-  let people: Array<{node:any}> = [];
+  let posts: Array<{ node: any }> = [];
+  let people: Array<{ node: any }> = [];
   let selectedLanguage: string = localStorage.getItem('language') || 'en';
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
-        posts = filter(postType.edges, (o) => {
-          return o.node.frontmatter.language === selectedLanguage;
-        });
+        posts = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
         break;
       case 'person':
-        people =  postType.edges;
-        break;
+        people = postType.edges;
+        break
     }
   })
   return (
@@ -160,17 +157,17 @@ const IndexPage = ({
             ))}
           </ArticleWrapper>
           <Section>
-          <SectionTitle text={`${CONTENT_STRINGS.index[selectedLanguage].community.title}`} white={`${randomWhite(CONTENT_STRINGS.index[selectedLanguage].community.title)}`} />
-          <PeopleWrapper>
-          {people.map(post => (
-            <Person
-              {...post.node.frontmatter }
-              slug={post.node.fields.slug}
-              key={post.node.fields.slug}
-            />
-          ))}
-          <SignUpCommunity contentStrings={CONTENT_STRINGS.index[selectedLanguage].community.discord} />
-          </PeopleWrapper>
+            <SectionTitle text={`${CONTENT_STRINGS.index[selectedLanguage].community.title}`} white={`${randomWhite(CONTENT_STRINGS.index[selectedLanguage].community.title)}`} />
+            <PeopleWrapper>
+              {people.map(post => (
+                <Person
+                  {...post.node.frontmatter }
+                  slug={post.node.fields.slug}
+                  key={post.node.fields.slug}
+                />
+              ))}
+              <SignUpCommunity contentStrings={CONTENT_STRINGS.index[selectedLanguage].community.discord} />
+            </PeopleWrapper>
           </Section>
 
           <Section>
@@ -180,16 +177,16 @@ const IndexPage = ({
           })}
         </Section>
         </Content>
-
       </Wrapper>
     </Layout>
-  )}
+  )
+}
 
 export default IndexPage
 
 export const IndexQuery = graphql`
   query IndexQuery {
-  allMarkdownRemark(sort:{fields:frontmatter___type, order: DESC}) {
+    allMarkdownRemark(sort: { fields: frontmatter___type, order: DESC }) {
       group(field: frontmatter___type) {
         edges {
           node {
@@ -197,18 +194,18 @@ export const IndexQuery = graphql`
               slug
             }
             frontmatter {
-            title
-            date(formatString: "YYYY-MM-DD")
-            category
-            shape
-            type
-            fullName
-            github
-            twitter
-            image
-            language
+              title
+              date(formatString: "YYYY-MM-DD")
+              category
+              shape
+              type
+              fullName
+              github
+              twitter
+              image
+              language
             }
-          	timeToRead
+            timeToRead
           }
         }
       }
