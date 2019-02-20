@@ -8,7 +8,7 @@ category: web-components
 language: ja
 languages:
   en: /web-components-understanding-attributes-and-properties
-  ja: /webコンポーネント-属性値とプロパティ値
+  ja: /webコンポーネント：属性値とプロパティ値
 shape: corner
 author: Alex King
 ---

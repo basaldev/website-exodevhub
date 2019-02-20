@@ -8,7 +8,7 @@ category: web-components
 language: en
 languages:
   en: /web-components-understanding-attributes-and-properties
-  ja: /Webコンポーネント-属性値とプロパティ値
+  ja: /webコンポーネント：属性値とプロパティ値
 shape: corner
 author: Alex King
 ---
@@ -229,6 +229,6 @@ customElements.define('cool-beans', BeanList);
 
 In the above example you, no attribute is created on the element only properties and you a set them using a range of framework including native HTML. Have a play.
 
-<!-- <iframe width="100%" height="600" src="https://glitch.com/embed/#!/embed/article-example-attributes?path=src/index.ts&previewSize=33" frameborder="0" allowfullscreen></iframe> -->
+<iframe width="100%" height="600" src="https://glitch.com/embed/#!/embed/article-example-attributes?path=src/index.ts&previewSize=33" frameborder="0" allowfullscreen></iframe>
 
 One Caveat is that some frameworks don't pass properties correctly to Web Components yet. A  list of compatible frameworks can be [found here](https://custom-elements-everywhere.com/)
