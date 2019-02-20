@@ -1,6 +1,6 @@
-import Typography from 'typography';
+import Typography from 'typography'
 
-const config = require('../../config/SiteConfig');
+const config = require('../../config/SiteConfig')
 
 const typography = new Typography({
   title: 'Lino',
@@ -10,19 +10,19 @@ const typography = new Typography({
   headerFontFamily: [config.headerFontFamily, 'sans-serif'],
   bodyFontFamily: [config.bodyFontFamily, 'sans-serif'],
   headerWeight: 700,
-  overrideStyles: ({ adjustFontSizeTo, rhythm }, options, styles) => ({
+  overrideStyles: () => ({
     h2: {
-      fontFamily: ['Noto Sans', 'sans-serif'].join(',')
+      fontFamily: ['Noto Sans', 'sans-serif'].join(','),
     },
     h1: {
-      marginBottom: `3.5rem`
-    }
-  })
-});
+      marginBottom: `3.5rem`,
+    },
+  }),
+})
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== 'production') {
-  typography.injectStyles();
+  typography.injectStyles()
 }
 
-export default typography;
+export default typography

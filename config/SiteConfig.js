@@ -19,6 +19,8 @@ module.exports = {
   ogSiteName: 'exodevhub', // Facebook Site Name - Optional
   ogLanguage: 'en_US', // Facebook Language
 
+  siteFBAppID: '',
+
   // Manifest and Progress color
   // See: https://developers.google.com/web/fundamentals/web-app-manifest/
   themeColor: '#ffffff',

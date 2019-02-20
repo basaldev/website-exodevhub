@@ -13,8 +13,14 @@ export default class HTML extends React.Component<Props, {}> {
     return (
       <html {...this.props.htmlAttributes}>
         <head>
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133300815-1"></script>
-          <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-133300815-1"
+          />
+          <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
+            async
+          />
 
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -39,7 +45,6 @@ export default class HTML extends React.Component<Props, {}> {
           <link
             rel="preload"
             href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700"
-            rel="stylesheet"
           />
         </head>
         <body {...this.props.bodyAttributes}>

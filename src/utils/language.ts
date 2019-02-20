@@ -1,6 +1,6 @@
-type Language = 'jp' | 'en';
+export type Language = string;
 
-export function getLanguage(): string {
+export function getLanguage(): Language {
   return (typeof localStorage !== 'undefined' && localStorage.getItem('language')) || 'en';
 }
 

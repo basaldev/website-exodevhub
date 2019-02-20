@@ -5,17 +5,51 @@ import Helmet from 'react-helmet'
 import config from '../../config/SiteConfig'
 
 interface Props {
-  postNode: {
+  postNode?: {
     frontmatter: {
       title: string
-      date: string
-      banner: string
+      date?: string
+      banner?: string
     }
-    excerpt: string
+    excerpt?: string
   }
-  postPath: string
-  postSEO: boolean
+  postPath?: string
+  postSEO?: boolean
 }
+
+type SchemaOrgJSONLD = Array<{
+  '@context'?: string
+  '@type'?: string
+  '@id'?: string
+  url?: string
+  name?: string
+  alternateName?: string
+  headline?: string
+  image?: {
+    '@type': string
+    url: string
+  }
+  description?: string
+  datePublished?: string
+  dateModified?: string
+  author?: {
+    '@type': string
+    name: string
+  }
+  publisher?: {
+    '@type': string
+    name: string
+    logo: {
+      '@type': string
+      url: string
+    }
+  }
+  isPartOf?: string
+  mainEntityOfPage?: {
+    '@type': string
+    '@id': string
+  }
+}>
 
 const SEO = (props: Props) => {
   const { postNode, postPath, postSEO } = props
@@ -25,10 +59,10 @@ const SEO = (props: Props) => {
   let postURL
   const realPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix
   if (postSEO) {
-    const postMeta = postNode.frontmatter
-    title = postMeta.title // eslint-disable-line prefer-destructuring
-    description = postNode.excerpt
-    image = postMeta.banner || config.siteBanner
+    const postMeta = postNode && postNode.frontmatter
+    title = postMeta && postMeta.title // eslint-disable-line prefer-destructuring
+    description = postNode && postNode.excerpt
+    image = (postMeta ? postMeta.banner : null) || config.siteBanner
     postURL = config.siteUrl + realPrefix + postPath
   } else {
     title = config.siteTitle
@@ -37,7 +71,7 @@ const SEO = (props: Props) => {
   }
   image = config.siteUrl + realPrefix + image
   const blogURL = config.siteUrl + config.pathPrefix
-  let schemaOrgJSONLD = [
+  let schemaOrgJSONLD: SchemaOrgJSONLD = [
     {
       '@context': 'http://schema.org',
       '@type': 'WebSite',
@@ -62,8 +96,8 @@ const SEO = (props: Props) => {
           url: image,
         },
         description,
-        datePublished: postNode.frontmatter.date,
-        dateModified: postNode.frontmatter.date,
+        datePublished: postNode && postNode.frontmatter.date,
+        dateModified: postNode && postNode.frontmatter.date,
         author: {
           '@type': 'Person',
           name: config.author,

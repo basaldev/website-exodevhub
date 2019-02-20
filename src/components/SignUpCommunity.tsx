@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import config from '../../config/SiteConfig';
+import config from '../../config/SiteConfig'
 import { designSystem } from '../utils/designSystem'
 import { DiscordWidget } from '../components'
 const Wrapper = styled.div`
@@ -12,18 +12,19 @@ const Wrapper = styled.div`
   border: ${designSystem.get('border.width')}px solid;
   margin-right: ${designSystem.spacing(4)};
   background: url(${designSystem.color('grid')});
-  background-repeat:repeat;
+  background-repeat: repeat;
   background-size: 19px;
   position: relative;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   & a {
-    overflow:hidden;
+    overflow: hidden;
+    width: 80%;
     background: ${designSystem.color('black')};
     color: ${designSystem.color('white')};
-    text-align:center;
+    text-align: center;
     padding: ${designSystem.spacing(1)};
     &:hover {
       color: ${designSystem.color('blue')};

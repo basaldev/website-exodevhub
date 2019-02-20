@@ -114,7 +114,8 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
-  let selectedLanguage: string = getLanguage();
+  const selectedLanguage: string = getLanguage();
+  const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
@@ -124,25 +125,27 @@ const IndexPage = ({
         people = postType.edges;
         break
     }
-  })
+  });
   return (
     <Layout>
       <SEO />
       <Wrapper>
         <Header />
         <Content>
-          <LinkHeader text={`${CONTENT_STRINGS.index[selectedLanguage].writing.title}`} white={`${randomWhite(CONTENT_STRINGS.index[selectedLanguage].writing.title)}`}>
-            <Button to="/categories">{`${CONTENT_STRINGS.index[selectedLanguage].writing.button}`}</Button>
+          <LinkHeader text={`${wordings.writing.title}`} white={`${randomWhite(wordings.writing.title)}`}>
+            <Button to="/categories">{`${wordings.writing.button}`}</Button>
           </LinkHeader>
-          <LanguageSwitcher languages={{
-            en: true,
-            ja: true
-          }}
-          onClick={(langKey) => {
-            setLanguage(langKey);
-            navigate('/');
-          }}
-          selectedLanguage={selectedLanguage} />
+          <LanguageSwitcher
+            languages={{
+              en: true,
+              ja: true
+            }}
+            onClick={(langKey: string) => {
+              setLanguage(langKey);
+              navigate('/');
+            }}
+            selectedLanguage={selectedLanguage}
+          />
           <ArticleWrapper>
             {posts.map(post => (
               <Article
@@ -158,7 +161,7 @@ const IndexPage = ({
             ))}
           </ArticleWrapper>
           <Section>
-            <SectionTitle text={`${CONTENT_STRINGS.index[selectedLanguage].community.title}`} white={`${randomWhite(CONTENT_STRINGS.index[selectedLanguage].community.title)}`} />
+            <SectionTitle text={`${wordings.community.title}`} white={`${randomWhite(wordings.community.title)}`} />
             <PeopleWrapper>
               {people.map(post => (
                 <Person
@@ -167,13 +170,13 @@ const IndexPage = ({
                   key={post.node.fields.slug}
                 />
               ))}
-              <SignUpCommunity contentStrings={CONTENT_STRINGS.index[selectedLanguage].community.discord} />
+              <SignUpCommunity contentStrings={wordings.community.discord} />
             </PeopleWrapper>
           </Section>
 
           <Section>
-          <SectionTitle text={`${CONTENT_STRINGS.index[selectedLanguage].about.title}`} white={`${randomWhite(CONTENT_STRINGS.index[selectedLanguage].about.title)}`} />
-          {CONTENT_STRINGS.index[selectedLanguage].about.content.map((para, index) => {
+          <SectionTitle text={`${wordings.about.title}`} white={`${randomWhite(wordings.about.title)}`} />
+          {wordings.about.content.map((para: string, index: number) => {
             return <p key={index} dangerouslySetInnerHTML={{ __html: para}} />
           })}
         </Section>
