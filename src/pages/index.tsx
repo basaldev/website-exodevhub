@@ -3,6 +3,8 @@ import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash'
 
+import 'katex/dist/katex.min.css'
+
 import {
   Layout,
   Header,
