@@ -114,7 +114,7 @@ module.exports = {
       },
     },
     'gatsby-plugin-typescript',
-    'gatsby-plugin-offline',
+    `gatsby-plugin-remove-serviceworker`,
     {
       resolve: `gatsby-plugin-google-tagmanager`,
       options: { id: 'GTM-WSXQZ7S' },
