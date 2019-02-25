@@ -3,9 +3,10 @@ import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
-
+import { navigate }  from "gatsby";
 import { Layout, Wrapper, Header, Subline, SEO } from '../components'
-import { media } from '../utils/media'
+import { media } from '../utils/media';
+import { Language } from '../utils/language';
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
 import { designSystem } from '../utils/designSystem'
@@ -71,7 +72,7 @@ margin-right: ${designSystem.spacing(1)};
 const Discuss = styled.a`
   ${outlineButton}
   border: 3px solid ${designSystem.color('blue')};
-margin-right: ${designSystem.spacing(1)};
+  margin-right: ${designSystem.spacing(1)};
   &:hover {
     background: ${designSystem.color('blue')};
     color: ${designSystem.color('white')};
@@ -79,7 +80,6 @@ margin-right: ${designSystem.spacing(1)};
 `
 const Clap = styled.a`
   ${outlineButton}
-  font-size: 14.4px;
   color: ${designSystem.color('green')};
   border: 3px solid;
   &:hover {
@@ -107,8 +107,8 @@ interface Props {
         author: string
         language: string
         languages: {
-          en: string
-          ja: string
+          en: boolean
+          ja: boolean
         }
         medium: string
       }
@@ -121,7 +121,7 @@ const Post = ({
   data: { markdownRemark: postNode },
 }: Props) => {
   const post = postNode.frontmatter
-  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`
+  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
   const MediumClap = post.medium ? (
     <Clap target="_blank" href={post.medium}>
       Clap on Medium
@@ -139,6 +139,7 @@ const Post = ({
         <Content>
           <LanguageSwitcher
             languages={post.languages}
+            onClick={(langKey: Language) => navigate((post.languages as any)[langKey])}
             selectedLanguage={post.language}
           />
           <Subline>

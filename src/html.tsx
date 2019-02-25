@@ -17,10 +17,6 @@ export default class HTML extends React.Component<Props, {}> {
             async
             src="https://www.googletagmanager.com/gtag/js?id=UA-133300815-1"
           />
-          <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"
-            async
-          />
 
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />

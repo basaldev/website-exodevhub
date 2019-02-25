@@ -30,14 +30,12 @@ const Wrapper = styled.div`
       color: ${designSystem.color('blue')};
     }
   }
-`
-const SignUpCommunity = () => {
+  `
+const SignUpCommunity = ({contentStrings}: {contentStrings: { button:string, subtitle: string }}) => {
   return (
     <Wrapper>
-      <a rel="noopener" target="_blank" href={config.discord}>
-        Join the community
-      </a>
-      <DiscordWidget />
+      <a rel="noopener" target="_blank" href={config.discord}>{contentStrings.button}</a>
+      <DiscordWidget contentStrings={contentStrings}/>
     </Wrapper>
   )
 }
