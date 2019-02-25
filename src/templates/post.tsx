@@ -72,7 +72,7 @@ margin-right: ${designSystem.spacing(1)};
 const Discuss = styled.a`
   ${outlineButton}
   border: 3px solid ${designSystem.color('blue')};
-margin-right: ${designSystem.spacing(1)};
+  margin-right: ${designSystem.spacing(1)};
   &:hover {
     background: ${designSystem.color('blue')};
     color: ${designSystem.color('white')};
@@ -80,7 +80,6 @@ margin-right: ${designSystem.spacing(1)};
 `
 const Clap = styled.a`
   ${outlineButton}
-  font-size: 14.4px;
   color: ${designSystem.color('green')};
   border: 3px solid;
   &:hover {

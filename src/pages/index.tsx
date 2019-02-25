@@ -19,7 +19,6 @@ import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
 import { getLanguage, setLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
-import LanguageSwitcher from '../components/LanguageSwitcher';
 const Content = styled.div`
   grid-column: 2;
   width: 70vw;
@@ -135,17 +134,7 @@ const IndexPage = ({
           <LinkHeader text={`${wordings.writing.title}`} white={`${randomWhite(wordings.writing.title)}`}>
             <Button to="/categories">{`${wordings.writing.button}`}</Button>
           </LinkHeader>
-          <LanguageSwitcher
-            languages={{
-              en: true,
-              ja: true
-            }}
-            onClick={(langKey: string) => {
-              setLanguage(langKey);
-              navigate('/');
-            }}
-            selectedLanguage={selectedLanguage}
-          />
+
           <ArticleWrapper>
             {posts.map(post => (
               <Article

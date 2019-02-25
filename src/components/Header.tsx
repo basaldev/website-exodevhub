@@ -1,7 +1,8 @@
 import React, { ReactNode, SyntheticEvent } from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
-
+import { Link, navigate } from 'gatsby'
+import { getLanguage, setLanguage } from '../utils/language';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import { designSystem } from '../utils/designSystem'
 import config from '../../config/SiteConfig'
 import { media } from '../utils/media'
@@ -85,10 +86,26 @@ const FakeButton = styled.span`
   ${button}
   background: ${designSystem.color('yellow')};
 `
+const LogoLink = styled(Link)`
+  overflow:hidden;
+  display:inline-block;
+`
 const Logo = styled.img`
   display: inline;
+  overflow:hidden;
+  min-height: 67px;
   @media ${media.phone} {
     width: 55vw;
+  }
+`
+const LanguageSwitcherWrapper = styled.div`
+  position:absolute;
+  display:inline-block;
+  right: 160px;
+  top: ${designSystem.spacing(1)};
+  @media ${media.phone} {
+    right: 8px;
+    top: 64px;
   }
 `
 
@@ -99,13 +116,25 @@ const onHover = (e: SyntheticEvent<HTMLAnchorElement>) => {
 interface Props {
   children?: ReactNode
 }
-
 const Header = ({ children }: Props) => (
   <Wrapper>
     <Content>
-      <Link to="/">
+      <LogoLink to="/">
         <Logo alt="Exo Devhub" src={config.siteLogo} />
-      </Link>
+      </LogoLink>
+      <LanguageSwitcherWrapper>
+        <LanguageSwitcher
+              languages={{
+                en: true,
+                ja: true
+              }}
+              onClick={(langKey: string) => {
+                setLanguage(langKey);
+                navigate('/');
+              }}
+              selectedLanguage={getLanguage()}
+            />
+        </LanguageSwitcherWrapper>
       <Dropdown>
         <FakeButton>socials</FakeButton>
         <div className="sub-menu">
