@@ -22,7 +22,9 @@ Recently, the concept of state management has been taking a significant and esse
 
 What simplicity does Redux bring to Javascript applications? I'd like to focus on "Reducer" which is one of the important elements included in Redux. Reducer is the only interface using a pure function to update the state. To update the state, Reducer takes the current state and difference data called Action and generates a new state.
 
-<iframe style="border: none;" width="100%" height="120" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FSRSwEBJjin6hEIUu6ejkygUM%2Freducer"></iframe>
+$$
+state = reducer(state', action)
+$$
 
 What I specifically mention here is that Reducer doesn't update the state directly, but generates a new state. This state generated, is independent of the state before updating. This means that the previous state won't be changed after generating a new state. With that in mind, it enables us to easily trace how the state changes the application has been gone within any given time sequence. Generally, such data that cannot be changed after generation is called **"immutable"**.
 
@@ -65,7 +67,6 @@ Now, let's move onto the main topic, state management. I'm going to dig into the
 As expressed in the above expression, Reducer updates the state by receiving the current state and Action which is the actual changes. In that process, Reducer generates a new independent state not changing the current state. Let's say we have the current state as an object `{ a: 1, b: 1, c: 1 }` and Action as an object `{ b: 2 }`. Reducer generates a new state and set 2 given by Action to 'b' of the new one. Since 'a' and 'c' aren't changed, those values are copied and set to the new one as they are. As a result, object `{ a: 1, b: 2, c: 1 }` is returned as the new one. The update completes by swapping the new one with the current one. Therefore, Reducer enables us to manage our application state in an immutable way by generating a new state every time the state is updated.
 
 <iframe src="https://www.figma.com/embed?embed_host=oembed&url=https://www.figma.com/file/Qw4Fecib4UklKQZR8bKoKq7M/state?node-id=0%3A1" width="100%" height="500"></iframe>
-
 
 ## Reducer implementation example
 
