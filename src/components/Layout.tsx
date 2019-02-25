@@ -7,6 +7,9 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import theme from '../../config/Theme'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
+import { CONTENT_STRINGS } from '../utils/content-strings';
+import { getLanguage } from '../utils/language';
+
 
 const GlobalStyle = createGlobalStyle`
   ::selection {
@@ -131,11 +134,11 @@ const Layout = ({ children }: Props) => (
           <GlobalStyle />
           {children}
           <Footer>
-            ExO Lever Asia <span>合同会社</span>
+            <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].company }}></span>
             <br />
-            &copy;&nbsp;{new Date().getFullYear()}.&nbsp;All Rights Reserved.
+            <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].copyright }}></span>
             <br />
-            <small>Last build: {data.site.buildTime}</small>
+            <small>{CONTENT_STRINGS.footer[getLanguage()].build}: {data.site.buildTime}</small>
           </Footer>
         </React.Fragment>
       </ThemeProvider>
