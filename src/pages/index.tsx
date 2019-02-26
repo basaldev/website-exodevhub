@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql, navigate } from 'gatsby'
+import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash'
 
@@ -19,7 +19,7 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
-import { getLanguage, setLanguage } from '../utils/language';
+import { getLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
 const Content = styled.div`
   grid-column: 2;
