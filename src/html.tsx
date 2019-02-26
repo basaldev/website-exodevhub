@@ -40,7 +40,7 @@ export default class HTML extends React.Component<Props, {}> {
           />
           <link
             rel="preload"
-            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700|Roboto+Mono:400,700"
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700"
           />
         </head>
         <body {...this.props.bodyAttributes}>

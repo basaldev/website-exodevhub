@@ -40,7 +40,7 @@ export const CONTENT_STRINGS = {
           exponential one, and <strong>ExO DevHub</strong> will assist you
           with cutting-edge technical solutions.
           `
-        ]
+        ],
       }
     },
     ja: {
@@ -67,7 +67,7 @@ export const CONTENT_STRINGS = {
           「exponential organizations」という言葉は、最新技術に基づく新しい組織づくりの手法を駆使し、
           競合他社と比べて極めて大きい（少なくとも１０倍以上の）影響を生み出す組織を意味します。
           `,
-          ` 
+          `
           異業種からの新規参入がもたらす予期せぬ業界変革の中組織を成長させていくためには、
           業界リーダー規模であるか小規模プレイヤーであるかを問わず自らも変革を遂げなければなりません。
           一方新規参入者は参入当初時から俊敏な組織を構築する必要があります。<a href="https://www.openexo.com/">OpenExO</a>は
@@ -75,6 +75,18 @@ export const CONTENT_STRINGS = {
           `
         ]
       }
+    }
+  },
+  footer: {
+    en: {
+      company: 'ExO Lever Asia JK',
+      copyright: `&copy;&nbsp;${new Date().getFullYear()}.&nbsp;All Rights Reserved.`,
+      build: 'Last Build'
+    },
+    ja: {
+      company: 'ExO Lever Asia <span>合同会社</span>',
+      copyright: `&copy;&nbsp;${new Date().getFullYear()}.&nbsp;全著作権所有.`,
+      build: 'ピカピカが造'
     }
   }
 }
