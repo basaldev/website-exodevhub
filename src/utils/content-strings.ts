@@ -79,7 +79,7 @@ export const CONTENT_STRINGS = {
   },
   footer: {
     en: {
-      company: 'ExO Lever Asia JK',
+      company: 'ExO Lever Asia GK',
       copyright: `&copy;&nbsp;${new Date().getFullYear()}.&nbsp;All Rights Reserved.`,
       build: 'Last Build'
     },
