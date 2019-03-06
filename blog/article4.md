@@ -12,15 +12,17 @@ author: Tom Bowden
 
 # React in a Serverless World
 
-“A comparison between client-server and serverless full-stack app architectures, with working app examples”
+“A comparison between client-server and serverless full-stack app architectures, with simple app examples”
 
-> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses the recently introduced [Hooks](https://reactjs.org/docs/hooks-intro.html) in React. Backend technologies will be explained in detail, so no previous understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync are assumed.
+> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync is necessary to follow along. Full repos are available with the app examples.
 
-To clearly illustrate the differences between client-server and serverless approaches to building full-stack apps with React, let’s first start with a simple client-only app. The [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks. As a starting point, the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository was selected, some functionality was removed, and class-based components were switched out for functional components using React hooks. You can see the resulting app in the following [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp):
+We want to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, let’s build a simple client side app in React, used for both client-server (which will call “serverful” from now on) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
+
+## Client Side App Starting Point
+
+You can see the client side app that resulted from doing this in the following [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp):
 
 <iframe src="https://codesandbox.io/embed/3r6jjoljpp" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
-### Functionality of Client Side App
 
 This Todo app is a [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) app, where the user can:
 
@@ -31,276 +33,79 @@ This Todo app is a [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and
 
 For the purposes of this simple example app, some example todos were added in a `data` folder as an array of todo objects. The app state data is held in memory, and is not persisted across browser refreshes.
 
-### Basic Full-Stack App Architectures
-
 Now we have a simple client-side app starting point, there are basically two separate approaches to add data persistence for users:
 
-- _client-server architecture_, where the developer selects and deploys a backend server and a persistent data source (database), which we will refer to as a ‘serverful’ architecture
+- _serverful (client-server) architecture_, where the developer selects and deploys a backend server and a persistent data source (database)
 - _serverless architecture_, where the backend server and data source implementations are outsourced to a [BaaS](https://en.wikipedia.org/wiki/Mobile_backend_as_a_service) cloud provider
 
-We will create two full-stack apps from our client-only app — one for each architectural approach — explaining the process for each in detail, so that we can evaluate the pros and cons of each approach. In addition, we have made the choice to only use packages written in JavaScript for both the client and the server, in the interest of simplicity.
+We will create two full-stack apps from our client-only app — one for each architectural approach — explaining the process for each in detail, so that we can evaluate the pros and cons of each approach. In addition, we have chosen to only use packages written in JavaScript for both the client and the server, in the interest of simplicity.
 
 ## Approach A: Serverful Architecture
 
-Download the client-only Todo app from [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp) to code along. The following instructions are for Mac users.
+> The complete repos for this example can be found in the Github repos for the [server](https://github.com/bowdentom/todo-server-app) and the [client](https://github.com/bowdentom/todo-client-app).
 
-### Step 1: Create the skeleton folder structure
+We will use a GraphQL API for our examples, even though a simple REST API would be more than sufficient for a simple Todo app. The reason for this is that GraphQL has many advantages over REST for when additional features are added to a project, so it is an “aspirational” choice.
 
-Create a folder to house both the server code and the client app, so in your Terminal, do the following:
+For our backend, we will use [Apollo Server (v2)](https://www.apollographql.com/docs/apollo-server/), a community-maintained open-source GraphQL server, which works with many [Node.js](https://nodejs.org/en/) HTTP server frameworks. We will work with it as a [standalone](https://github.com/apollographql/apollo-server#installation-standalone) package, without integrating it with another web framework. We’ll deploy the server to Heroku.
 
-```
-$ mkdir todo-serverful && cd todo-serverful
-$ mkdir server
-```
+For our persistent data source, we will use MongoDB, a no-SQL database. Instead of using a native NodeJS driver for MondoDB, we will use Mongoose, which is an ORM for MongoDB, for simplicity. We’ll deploy the MongoDB database to [MongoDB Atlas](https://cloud.mongodb.com).
 
-Now unzip and copy the downloaded client-only Todo app into the `todo-serverful` folder and rename it `client`. This skeleton structure clarifies server/client separation of concerns.
+For handling GraphQL requests on the front-end, we will use [Apollo Client](https://www.apollographql.com/docs/react/essentials/get-started.html). Since we are using React hooks, we will _not_ use `react-apollo` React components that use the _render prop pattern_, for reasons that we explain in [this article](https://www.exodevhub.com/react-hooks-making-it-easier-to-compose-reuse-and-share-react-code). We’ll deploy the client app to Heroku as well, as a separate app to the server app.
 
-> Optionally, move the `.prettierrc` file from the client directory into the project base directory, for consistent styling, with the Terminal command `mv ../client/.prettierrc ../` (from the `server` folder).
+So, our clientful architecture will look like this:
 
-### Step 2: Third-party packages for the server
+[TODO: Image of clientful architecture]
 
-Let’s get started on the server side. In your Terminal, move into your server folder, and initialize an npm package with default options selected, and create an `index.js` file to add our server code:
+Let’s look at the backend code first.
 
-```
-$ cd server
-$ npm init --yes
-\$ touch index.js
-```
+### The GraphQL Server and Database Connection
 
-> There are countless different options for which backend server and database to select. We can either create a REST or GraghQL API. For this simple Todo app, creating a REST API would be much simpler than a GraphQL API. However, we believe GraphQL has many advantages over REST when it comes to iterative features and performance, and it also appears to be gaining popularity very quickly in not only the mobile developer community, but also the web developer community. So, we’ll use a GraphQL API for both our serverful and serverless approaches.
+The server app’s base level [`index.js` file](https://github.com/bowdentom/todo-server-app/blob/master/src/index.js) does the following:
 
-When it comes to creating a GraphQL backend server, a simple solution is provided by [Apollo](https://www.apollographql.com/). Apollo provides both server-side and client-side GraphQL packages. So, on the backend, we will use [Apollo Server (v2)](https://www.apollographql.com/docs/apollo-server/). Apollo Server is a community-maintained open-source GraphQL server, which works with many [Node.js](https://nodejs.org/en/) HTTP server frameworks. We will work with it as a [standalone](https://github.com/apollographql/apollo-server#installation-standalone) package, without integrating it with another web framework (such as Express, Koa, Hapi, etc.)
-
-We will need to install two core dependencies which are necessary for responding to GraphQL requests:
-
-```
-$ npm install apollo-server graphql
-```
-
-The `apollo-server` package helps you define the shape of your data and how to fetch it, as well as running the backend server. The `graphql` library helps you build a [schema](https://graphql.org/learn/schema/) for your data and
-to execute queries and muations on that schema.
-
-### Step 3: Code the server
-
-Now, let’s turn to getting the server working by editing the `index.js` file. We will follow a similar approach to that which is found in the Apollo “[Getting Started](https://www.apollographql.com/docs/apollo-server/getting-started.html)” documentation:
-
-```
-const { ApolloServer, gql } = require('apollo-server')
-
-const { initialTodos } = require('../client/src/data')
-
-const typeDefs = gql`
-  type Todo {
-    id: ID!
-    text: String!
-    completed: Boolean!
-  }
-
-  type Query {
-    listTodos: [Todo]
-  }
-`
-
-const resolvers = {
-  Query: {
-    listTodos: () => initialTodos,
-  },
-}
-
-const server = new ApolloServer({ typeDefs, resolvers })
-
-server.listen().then(({ url }) => console.log(`Server ready at ${url}`))
-```
-
-So, what have we done here?
-
-1. We import `ApolloServer` and the `gql` helper from the `apollo-server` package.
-2. The hardcoded `todos` array was copied from the client-side `data/index.js` file, so that we temporarily have some data to test our initial implementation of the GraphQL server.
-3. Next, we have the type definitions (`typeDefs`) for the Todo type and the root Query type, The Todo type consists of the [non-null](https://graphql.org/learn/schema/#lists-and-non-null) `id` field (itself of [scalar](https://graphql.org/learn/schema/#scalar-types) `ID` type), the non-null `text` field (scalar String type), and the non-null `completed` field (scalar Boolean type). The root `Query` consists of the `listTodos` field which yields an array of `Todo` objects. The type specifications are wrapped with `gql`, which is a template literal tag that is parsed into standard GraphQL [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (from the [`graphql-tag` package](https://github.com/apollographql/graphql-tag)).
-4. After the type definitions, we have the `resolvers`. We specify only one resolver to get us started: a [root](https://graphql.org/learn/execution/#root-fields-resolvers) `Query` resolver called `listTodos` which is a function that returns our array of hardcoded todos (same `initialTodos` as we used in our client-side app).
-5. With the `typeDefs` and `resolvers` specified, we can now create an instance of our `ApolloServer`.
-6. Finally, the `server` instance can be be launched using the `listen` method. We print out the `url` where the server can be accessed in our web browser.
-
-### Step 4: Start the server
-
-In our Terminal, start the server (from the `server` folder) with:
-
-```
-node index.js
-```
-
-You should see the following output:
-
-```
-Server ready at http://localhost:4000/
-```
-
-Visiting `http://localhost:4000/` in our web browser, we should see the GraphQL Playground explorer tool. We can test if our `listTodos` query works correctly. Enter the following request query into the left panel:
-
-```
-query {
-  listTodos {
-  	id
-    text
-    completed
-  }
-}
-```
-
-Then hit the big playback button ▶︎. You should see the following response object:
-
-```
-{
-  "data": {
-    "listTodos": [
-      {
-        "id": "asdfgh",
-        "text": "Do laundry",
-        "completed": false
-      },
-      {
-        "id": "qwerty",
-        "text": "Wash dishes",
-        "completed": true
-      },
-      {
-        "id": "zxcvbn",
-        "text": "Buy groceries",
-        "completed": false
-      }
-    ]
-  }
-}
-```
-
-OK, so we now have a working backend Apollo server.
-
-### Step 5: Improve the DX - Nodemon
-
-In order to improve our developer experience, rather than repeatedly restarting the server with `node index.js` every time we make a change to our code, let’s install the `nodemon` utility, which will monitor for changes in our server application and automatically restart the server.
-
-```
-$ npm install --save-dev nodemon
-```
-
-Also, let’s add a start script in `package.json` so that we start the server in our Terminal with `npm start`. Inside the `scripts` object, add the following line above `test`:
-
-```
-"start": "nodemon index.js",
-```
-
-### Step 6: Improve the DX - Refactor files
-
-Before we move on to adding a persistent data source (instead of using a makeshift hardcoded `initialTodos` array), let’s refactor our type definitions and resolvers into separate files, so that we can expand on them more easily and not have everything living in our server’s `index.js` file.
-
-From the `server` folder, let’s create a file for our type definitions and other [schema](https://graphql.org/learn/schema/) objects, and a file for our resolvers:
-
-```
-$ touch schema.graphql resolvers.js
-```
-
-Copy the type definitions into the schema file, so the contents of `schema.graphql` look like this:
-
-```
-type Todo {
-  id: ID!
-  text: String!
-  completed: Boolean!
-}
-
-type Query {
-  listTodos: [Todo]
-}
-```
-
-Now, we will need to access this schema within our `index.js` file. We do so by copying the contents of `schema.graphql` with a Node.js built-in utitity called `fs` (short for “file system”). Inside `index.js`, under `const { ApolloServer, gql } = require('apollo-server')`, import this utility:
-
-```
-const fs = require('fs')
-```
-
-We can now read the contents of `schema.graphql` into our `index.js` file, using the [`readFileSync` method](https://nodejs.org/api/fs.html#fs_fs_readfilesync_path_options), which takes the file path of the file to be read synchronously as the first argument, and the encoding of the file as an optional second argument:
-
-```
-fs.readFileSync('./schema.graphql', { encoding: 'utf-8' })
-```
-
-Since we specify an encoding here, the file contents get returned as a string, rather than a buffer. Now we will need to wrap the returned string in the `gql` template tag to parse it into GraphQL AST. So, we will need to use the following line within our `index.js` file (replacing the variable declaration for `typeDefs`):
-
-```
-const typeDefs = gql(fs.readFileSync('./schema.graphql', { encoding: 'utf-8' }))
-```
-
-Now, in the `resolvers.js` file, enter the following code:
-
-```
-const { initialTodos } = require('../client/src/data')
-
-const Query = {
-  listTodos: () => initialTodos,
-}
-
-module.exports = { Query }
-```
-
-We can now replace the variable declaration for `resolvers` in `index.js` with:
-
-```
-const resolvers = require('./resolvers')
-```
-
-With that, our `index.js` file should look a lot leaner:
+1. Sets up the MongoDB database connection (via Mongoose)
+2. Gets the parsed GraphQL schema type definitions and resolvers
+3. Creates and runs the Apollo GraphQL server
 
 ```
 const { ApolloServer, gql } = require('apollo-server')
 const fs = require('fs')
+const mongoose = require('mongoose')
 
-const typeDefs = gql(fs.readFileSync('./schema.graphql', { encoding: 'utf-8' }))
-const resolvers = require('./resolvers')
+// Database connection
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true })
+const database = mongoose.connection
+database.on('error', console.error.bind(console, 'connection error:'))
+database.once('open', () => console.log('We are connected to MongoDB'))
 
+// GraphQL schema types and resolvers
+const typeDefs = gql(
+  fs.readFileSync(`${__dirname}/graphql/schema.graphql`, { encoding: 'utf-8' })
+)
+const resolvers = require('./graphql/resolvers')
+
+// Apollo GraphQL server
 const server = new ApolloServer({ typeDefs, resolvers })
-
-server.listen().then(({ url }) => console.log(`Server ready at ${url}`))
+server
+  .listen({ port: process.env.PORT || 4000 })
+  .then(({ url }) => console.log(`GraphQL server ready on ${url}`))
 ```
 
-Start the backend server from the `server` folder using `npm start`, and check if everything is working as expected.
+### The GraghQL Schema
 
-### Step 7 - Expand our GraphQL schema
+A GraphQL schema describes the functionality available to the clients which connect to it. A core building block of a GraphQL schema are the type definitions. Types provide a wide range of functions:
 
-Now we have a separate file for our GraphQL schema (`schema.graphql`), we can add to it. At the moment, we just have our `Todo` and `Query` types. We will also need a `Mutation` type, detailing the functions that will create, delete, update, and toggle the completion of our todos:
+1. Define the shape of the data and the data types used
+2. Show the relationships between different types
+3. Define which data-fetching (querying) and data-manipulating (mutating) operations can be executed by the client
+4. Provide documentation for the client user (via [introspection](https://graphql.org/learn/introspection/))
 
-```
-type Mutation {
-  createTodo(input: CreateTodoInput!): Todo
-  deleteTodo(input: DeleteTodoInput!): Todo
-  updateTodo(input: UpdateTodoInput!): Todo
-  toggleCompletion(input: UpdateTodoInput!): Todo
-}
-```
+Two types within the schema are special – the `Query` and `Mutation` types. These are special because they define the _entry point_ of every GraphQL query. The GraphQL schema describes how to get data from every point in the data graph by traversing it from one point (or “node”) to another, starting at the schema entry points. Our schema has one `Query` entry point: `listTodos`, an operation that yields an array of all of the todos held in the data source. There are four `Mutation` fields which are entry points – `createTodo`, `deleteTodo`, `updateTodo`, and `toggleCompletion` – which describe all the data manipulation operations that the client can do.
 
-Each of these four mutation functions takes a non-null input, and yields data of type `Todo`. The input types `CreateTodoInput`, `DeleteTodoInput`, and `UpdateTodoInput` have not yet been specified. We will do that now using the [`input` keyword](https://graphql.org/learn/schema/#input-types):
+The input types describe the shape and data types required when the client wants to mutate data. In our schema, we define three input types: `CreateTodoInput`, `UpdateTodoInput`, and `DeleteTodoInput`.
 
-```
-input CreateTodoInput {
-  id: ID
-  text: String!
-  completed: Boolean!
-}
+Scalar types are simple tyes such as `String`, `Boolean`, and `ID`. User-defined types are made up of scalar types, such as our `Todo` type, which specifies a todo object requiring an `id` of type `ID`, some `text` of type `String`, and a `completed` flag of type `Boolean`. Square brackets around a type indicate an array, so `[Todo]` is an array of todos. The exclamation mark `!` after a type indicates that it is non-null.
 
-input DeleteTodoInput {
-  id: ID
-}
-
-input UpdateTodoInput {
-  id: ID!
-  text: String
-  completed: Boolean
-}
-```
-
-These input types specify the shape of the data that has to be input into a GraphQL mutation for the client request to the backend to work. So, to create a new todo, `text` and `completed` need to be non-null, whereas the `id` can be omitted (because we will have it added the server). To delete a todo, the client just needs to give its `id` (if null, we will ensure a no-op).
-
-With these additions, our completed `schema.graphql` file will look like this:
+Here is our entire schema, in the [`src/graphql/schema.graphql` file](https://github.com/bowdentom/todo-server-app/blob/master/src/graphql/schema.graphql):
 
 ```
 type Todo {
@@ -337,83 +142,12 @@ type Mutation {
 }
 ```
 
-### Step 8 - Add more GraphQL resolvers
+### The GraghQL Resolvers
 
-In our `resolvers.js` file, we currently only have one query resolver function:
-
-```
-const Query = {
-  listTodos: () => initialTodos,
-}
-```
-
-The `initialTodos` is an array of hard-coded todo objects. We will need to get these via our persistent data source, i.e. our database. We will make our resolvers agnostic of the choice of database, and even the way in which our backend interacts with our database. Let’s assume that we will later create a module called `db` which will contain functions for interacting with our database, for example to list our todos (`db.list`), to create new todos (`db.create`), to remove todos (`db.remove`), to update our todos (`db.update`), and to toggle the completion flag (`db.toggle`) of our todos.
-
-So, first we will create a file to contain these database interaction functions in our `server` folder:
+Let’s have a look at our resolvers, in the [`src/graphql/resolvers.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/graphql/resolvers.js) file, which are very simple:
 
 ```
-$ touch db.js
-```
-
-Now, let’s create stubs for the functions within `db.js`:
-
-```
-// TODO: Import package for interacting with our database
-
-const list = async () => {
-  // TODO: Get list of all todos from database
-}
-
-const create = async input => {
-  // TODO: Create a new todo in our database
-}
-
-const remove = async input => {
-  // TODO: Delete an existing todo in our database
-}
-
-const update = async input => {
-  // TODO: Update an existing todo in our database
-}
-
-const toggle = async input => {
-  // TODO: Toggle the completed flag of an existing todo in our database
-}
-
-module.exports = { list, create, remove, update, toggle }
-```
-
-Now that we have these stubs, we can return to our `resolvers.js` file and implement our `listTodos` resolver:
-
-```
-const db = require('./db')
-
-const Query = {
-  listTodos: () => db.list(),
-}
-
-module.exports = { Query }
-```
-
-Now, let’s add our first mutation. We will call the mutation to add a new todo `createTodo`. Now, all GraphQL resolvers receive [four arguments](https://graphql.org/learn/execution/#root-fields-resolvers):
-
-1. `obj`: The previous (parent) object, which for root queries is often not used
-2. `args`: The arguments provided to the field in the GraphQL query
-3. `context`: A value which is provided to every resolver
-4. `info`: A value which holds field-specific information relevant to the current query
-
-We will only be needing the second argument for the resolvers in our example app: the `args`, which is an object that holds the client input to our mutations. Let’s add our `createTodo` mutation to `resolvers.js`:
-
-```
-const Mutation = {
-  createTodo: (_, args) => db.create(args.input),
-}
-```
-
-Now that we know how these resolver work, we can add easily add the remaining resolvers, which we will call `deleteTodo`, `updateTodo`, and `toggleCompletion`. The completed `resolvers.js` file should look like this:
-
-```
-const db = require('./db')
+const db = require('../dataSource/db')
 
 const Query = {
   listTodos: () => db.list(),
@@ -429,114 +163,25 @@ const Mutation = {
 module.exports = { Query, Mutation }
 ```
 
-### Step 9 - Run MongoDB on your local machine
+You can think of each field in a GraphQL query as a function or method of the previous type which returns the next type. For example, as described in the GraqhQL schema, the `createTodo` field in the root `Mutation` type is a function that takes an input object and returns a `Todo`. Each field on each type is backed by a function called a _resolver_, which we explicitly specify. When a field is executed, the corresponding resolver is called to produce the next value. In our example, the `createTodo` resolver returns a value of type `Todo` (as specified by our GraphQL schema), by calling a function `create` in our data source interaction module `db` (managed by the Mongoose ORM, which will we describe in more detail soon).
 
-In the next steps, we will now remove the hardcoded todos and attach a database instead.
+Each resolver function receives four arguments (the previous `obj`, the arguments provided to the field `args`, the contextual information `context`, and field-specific information `info`). You can find [more details here](https://graphql.org/learn/execution/#root-fields-resolvers). We pass an `input` object via the mutation resolver to the Mongoose ORM via the `args` function argument, which will - as we will see later - return a new todo object of type `Todo`.
 
-> When it comes to choosing a database, there are countless options available to us. In addition, do we use native drivers for Node.js, or is it better to use an [ORM](https://en.wikipedia.org/wiki/Object-relational_mapping)? The choice will depend entirely on the requirements of your project. For our simple app, we have chosen [MongoDB](https://www.mongodb.com/what-is-mongodb), a free and open-source database which stores data in JSON-like documents, as our persistent data source, and we will interact with it through [Mongoose](https://mongoosejs.com/), a simple ORM for Node.js.
+If a field produces a scalar value like a string or number, then the execution completes. However if a field produces an object value then the query will contain another selection of fields which apply to that object. This continues until scalar values are reached. GraphQL queries always end at scalar values.
 
-Ensure you have [MongoDB installed and running](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x-tarball/) in a separate Terminal instance:
-
-```
-
-mongod
+In our example, the returned `Todo` is an object value, which contains only scalar fields (`id`, `text`, and `completed`). Resolving these is [trivial](https://graphql.org/learn/execution/#trivial-resolvers), and the Apollo server lets us omit resolvers this simple. It will assume that if a resolver is not provided for a field, then a property of the same name should be read and returned. This means that we don’t have to explicitly specify the following resolvers:
 
 ```
-
-You should see something like the following at the end of the print out: `[initandlisten] waiting for connections on port 27017`. If you do, you’ve got a local instance of MongoDB running on your Mac.
-
-### Step 10 - The Mongoose ORM
-
-First, let’s add the Mongoose package to our server:
-
-```
-
-npm install mongoose
-
-```
-
-Now, let’s set up Mongoose to interact with our MongoDB database. Following [Mongoose’s documentation](https://mongoosejs.com/), in our server folder’s `index.js`, add the following lines:
-
-```
-
-// Import Mongoose ORM
-const mongoose = require('mongoose')
-
-// Connect to MongoDB database (ensure MongoDB is running...)
-mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true })
-
-// Create a Mongoose model, first argument is the model name, second argument is the `Schema`
-const Cat = mongoose.model('Cat', { name: String })
-
-// Create a `kitty` document of model `Cat` with name `Zildjian`
-const kitty = new Cat({ name: 'Zildjian' })
-
-// Save `kitty` to the MongoDB database
-kitty.save().then(() => console.log('meow'))
-
-```
-
-Ensure MongoDB is running (with `mongod` in a separate Terminal instance), and then restart our server (which is necessary after installing a new npm package) with `npm start`. You should see `meow` print to your Terminal.
-
-### Step 11: Improve the DX - Robo 3T
-
-A nice free GUI for seeing what’s in your MongoDB database is [Robo 3T](https://robomongo.org/). You can [download it here](https://robomongo.org/download).
-
-Open the Robo 3T app and connect to your MongoDB database (`File > Connect...`, then `Create`). A `Connection Settings` dialog box will appear. Ensure `Type:` is `Direct Connection`, for `Name:` enter `Test Connection`, and ensure `Address:` is `localhost` (same as `127.0.0.1`), and the port is `27017`. Then hit `Save`. Now `Connect` to the connection called `Test Connection`.
-
-Note that in MongoDB, we have `collections` that comprise `documents` with your data. If you are more familiar with relational databases, a `collection` is akin to a relational db’s `table`, and a `document` is akin to a `record` of data.
-
-The main GUI will open as a separate window. Please select `Options` > `Display View Mode` > `Text Mode`.
-In the left panel, under `Test Connection` > `test` > `Collections`, click on the collection `cats`, and you will see the `kitty` document we created:
-
-```
-/* 1 */
-{
-  "_id" : ObjectId("5c7cd3c2ae1a51bfb172e107"),
-  "name" : "Zildjian",
-  "__v" : 0
+Todo: {
+  id: (obj, args, context, info) => obj.id,
+  text: (obj, args, context, info) => obj.text,
+  completed: (obj, args, context, info) => obj.completed,
 }
 ```
 
-MongoDB automatically generates a unique `_id` for the document and versions the document `__v`.
+### Data Source (Part 1): Mongoose Model
 
-### Step 12: Adding a Mongoose schema and model
-
-Everything in Mongoose starts with a [Schema](https://mongoosejs.com/docs/guide.html). It is completely distinct from our GraphQL schema. A Mongoose schema maps to a MongoDB collection, and defines the shape of documents within that collection.
-
-For example, a simple Todo app schema for Mongoose could be:
-
-```
-const todoSchema = new mongoose.Schema({
-  id: {
-    type: String,
-  },
-  text: {
-    type: String,
-  },
-  completed: {
-    type: Boolean,
-  },
-})
-```
-
-It defines the shape of our todos as having `String` types for the `id` and `text` fields, and a `Boolean` type for the `completed` field.
-
-To use our `todoSchema` definition, we convert it into a Mongoose model that we can work with, which we will call `Todo`:
-
-```
-const Todo = mongoose.model('Todo', todoSchema)
-```
-
-Now we can create documents with instances of our `Todo` model using Mongoose.
-
-So, let’s create a new file in our `server` folder, and call it `model.js`:
-
-```
-$ touch model.js
-```
-
-Within this `model.js` file, enter the following:
+Let’s start off with the code, found in the [`src/dataSource/model.js` file](https://github.com/bowdentom/todo-server-app/blob/master/src/dataSource/model.js):
 
 ```
 const mongoose = require('mongoose')
@@ -562,109 +207,17 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema)
 
 module.exports = { Todo }
-
 ```
 
-We have elaborated on our Schema a little, specifying that each field is required (non-null), `completed` has a default value of `false`, `text` cannot be an empty string `''`, and the white-space from the beginning and end of the `text` is removed (trimmed off). The Model is specified using the Schema, and it is exported from this file.
+MongoDB databases comprise of `collections`, which resemble JavaScript arrays, holding our data `documents`, which resemble JavaScript objects. Mongoose defines [schemas](https://mongoosejs.com/docs/guide.html) (not to be confused with GraphQL schemas), each of which maps to a MongoDB collection and defines the shape of documents within that collection.
 
-### Step 13: Interact with the database using Mongoose
+Our Mongoose schema simply describes the shape of a our Todo documents, which have `id`, `text`, and `completed` keys, and the types and additional properties (such as `required`, `default`, and `minLength`) on them.
 
-Now that we have our Mongoose Schema and Model specified, we can fill in the stubs in `db.js`. At the top of the file, import the Mongoose library and our model file:
+To use the Mongoose schema, we convert it into a Mongoose [model](https://mongoosejs.com/docs/models.html) we can work with: `const Todo = mongoose.model('Todo', todoSchema)`. Instances of these `Todo` models are documents, that map to the MongoDB documents.
 
-```
-const mongoose = require('mongoose')
+### Data Source (Part 2): Mongoose Static Helper Functions for CRUD Operations
 
-const { Todo } = require('./model')
-```
-
-Now we can start with our first stub, the `list` function. In Mongoose, to get all documents in a collection, we use the [`Model.find()` method](https://mongoosejs.com/docs/api.html#model_Model.find):
-
-```
-const list = async () => {
-  try {
-    const todos = await Todo.find()
-    if (!todos) return []
-    return todos
-  } catch (err) {
-    console.log(`Error in list todos: ${err}`)
-  }
-}
-```
-
-All database operations are asynchronous, so we are using the [`async/await` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) to deal with the [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-
-The next stub, the `create` function, requires an input object be passed to a newly created document, when is then saved to the database with the [`Document.prototype.save()`](https://mongoosejs.com/docs/api.html#document_Document-save) method:
-
-```
-const create = async input => {
-  const newTodo = new Todo({
-    id: input.id,
-    text: input.text,
-    completed: input.completed,
-  })
-  try {
-    await newTodo.save()
-    return newTodo
-  } catch (err) {
-    console.log(`Error in create todo with text ${todoText}: ${err}`)
-  }
-}
-```
-
-The `remove` function takes the `id` field from the input object, and is used with the [`Model.findOneAndDelete()` method](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete):
-
-```
-const remove = async input => {
-  try {
-    if (!input.id) return
-    const removedTodo = await Todo.findOneAndDelete({ id: input.id })
-    return removedTodo
-  } catch (err) {
-    console.log(`Error in remove todo with id ${input.id}: ${err}`)
-  }
-}
-```
-
-The `update` function is used with the [`Model.findOneAndUpdate()` method](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate). This method finds a matching document based on the conditions in the first argument, updates the document based on the second argument, and if `{new: true}` is added in the optional third argument, then the modified document is returned (rather than the original document, which is the default behavior).
-
-```
-const update = async input => {
-  try {
-    const updatedTodo = await Todo.findOneAndUpdate(
-      { id: input.id },
-      { text: input.text, completed: input.completed },
-      { new: true }
-    )
-    return updatedTodo
-  } catch (err) {
-    console.log(
-      `Error in update todo with id ${input.id} and text ${input.text}: ${err}`
-    )
-  }
-}
-```
-
-The `toggle` function also updates a document in the database. First, we need to find the todo for which we want to toggle the `completed` boolean. For this, we use the [`Model.findOne()` method](https://mongoosejs.com/docs/api.html#model_Model.findOne). Then we update it.
-
-```
-const toggle = async input => {
-  try {
-    // 1. Find todo that needs to be toggled in database
-    const toggleTodo = await Todo.findOne({ id: input.id })
-    // 2. Update the completed flag of that todo in the database
-    const updatedTodo = await Todo.findOneAndUpdate(
-      { id: toggleTodo.id },
-      { text: toggleTodo.text, completed: !toggleTodo.completed },
-      { new: true }
-    )
-    return updatedTodo
-  } catch (err) {
-    console.log(`Error in toggle with id ${input.id}: ${err}`)
-  }
-}
-```
-
-That’s all we need to do in the `db.js` file. The complete file should look like this:
+The operations to create, read, update, and delete documents in our MongoDB database are coded up in [`src/dataSource/db.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/dataSource/db.js):
 
 ```
 const mongoose = require('mongoose')
@@ -691,7 +244,7 @@ const create = async input => {
     await newTodo.save()
     return newTodo
   } catch (err) {
-    console.log(`Error in create todo with text ${todoText}: ${err}`)
+    console.log(`Error in create todo with text ${input.text}: ${err}`)
   }
 }
 
@@ -739,43 +292,848 @@ const toggle = async input => {
 module.exports = { list, create, remove, update, toggle }
 ```
 
-### Step 14: Connecting to our database
+All database operations are asynchronous, so we are using the [`async/await` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) to deal with [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
-Now, that our backend schema, resolvers, and database interactions are complete, in `index.js` within our `server` folder, we can now set up a new connection to our database. We will call it `todo-api`:
+This file describes five asychronous functions: `list`, `create`, `remove`, `update`, and `toggle`, which use several of Mongoose’s CRUD helper utitlities. Let’s describe how each function works:
+
+1. `list`: to get all documents in a collection, we use the [`Model.find()` method](https://mongoosejs.com/docs/api.html#model_Model.find).
+
+2. `create`: requires an input object be passed to a newly created document, when is then saved to the database with the [`Document.prototype.save()`](https://mongoosejs.com/docs/api.html#document_Document-save) method.
+
+3. `remove`: takes the `id` field from the input object, and is used with the [`Model.findOneAndDelete()` method](https://mongoosejs.com/docs/api.html#model_Model.findOneAndDelete).
+
+4. `update`: is used with the [`Model.findOneAndUpdate()` method](https://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate). This method finds a matching document based on the conditions in the first argument, updates the document based on the second argument, and if `{new: true}` is added in the optional third argument, then the modified document is returned (rather than the original document, which is the default behavior).
+
+5. `toggle`: also updates a document in the database. First, we need to find the todo for which we want to toggle the `completed` boolean. For this, we use the [`Model.findOne()` method](https://mongoosejs.com/docs/api.html#model_Model.findOne). Then we update it.
+
+### The Complete Server
+
+With that, we have completed all the code in `src` of the server side of our serverful app. You can find the project in the [`todo-server-app` on Github](https://github.com/bowdentom/todo-server-app).
+
+### The Client App with GraphQL (Apollo Client)
+
+Now that we have the GraphQL server app, we can work on the GraphQL client app. To make GraghQL requests from the client, we will make use of Apollo Client. The simplest way to get started with Apollo Client is by using the [Apollo Boost package](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost).
+
+Let’s start with the client-only React app that we showed earlier in the [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp). You can download the [`todo-clientonly`](https://github.com/bowdentom/todo-clientonly) app as a starting point if you want to code along.
+
+The [`App` component](https://github.com/bowdentom/todo-clientonly/blob/master/src/components/App.js) is where we will be making most code changes to adapt it for our GraphQL client app.
 
 ```
-mongoose.connect('mongodb://127.0.0.1:27017/todo-api', {
-  useNewUrlParser: true,
+import React, { useState } from 'react'
+import { generate } from 'shortid'
+
+import TodoItem from './TodoItem'
+import TodoTextInput from './TodoTextInput'
+import { initialTodos } from '../data'
+
+const App = () => {
+  const [todos, setTodos] = useState(initialTodos)
+
+  const addTodo = todoText => {
+    const addedTodo = {
+      id: generate(),
+      completed: false,
+      text: todoText,
+    }
+    const updateTodos = [...todos, addedTodo]
+    setTodos(updateTodos)
+  }
+
+  const removeTodo = todoId => {
+    const updateTodos = todos.filter(todo => todo.id !== todoId)
+    setTodos(updateTodos)
+  }
+
+  const editTodo = (todoId, todoText) => {
+    const updateTodos = [...todos]
+    const index = updateTodos.findIndex(todo => todo.id === todoId)
+    const editedTodo = updateTodos[index]
+    editedTodo.text = todoText
+    setTodos(updateTodos)
+  }
+
+  const completeTodo = todoId => {
+    const updateTodos = [...todos]
+    const index = updateTodos.findIndex(todo => todo.id === todoId)
+    const editedTodo = updateTodos[index]
+    editedTodo.completed = !editedTodo.completed
+    setTodos(updateTodos)
+  }
+
+  return (
+    <div>
+      <header className="header">
+        <h1>todos</h1>
+        <TodoTextInput
+          newTodo
+          onSave={text => {
+            if (text.length !== 0) addTodo(text)
+          }}
+        />
+      </header>
+      <section className="main">
+        <ul className="todo-list">
+          {todos.map(todo => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              completeTodo={completeTodo}
+              editTodo={editTodo}
+              removeTodo={removeTodo}
+            />
+          ))}
+        </ul>
+      </section>
+    </div>
+  )
+}
+
+export default App
+```
+
+Instead of getting hard-coded `initialTodos`, we will now get them via a GraphQL request query. We will call the query `ListTodos`. You will find it in the completed [`todo-client-app`](https://github.com/bowdentom/todo-client-app) on Github in the file [`src/graphql/queries`](https://github.com/bowdentom/todo-client-app/blob/master/src/graphql/queries.js):
+
+```
+import gql from 'graphql-tag'
+
+export const LIST_TODOS = gql`
+  query ListTodos {
+    listTodos {
+      id
+      text
+      completed
+    }
+  }
+`
+```
+
+The `ListTodos` query string is wrapped in a `gql` template tag to parse it into GraphQL [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (from the [`graphql-tag` package](https://github.com/apollographql/graphql-tag)).
+
+Now, we will need the AST of the mutations as well. You can find them in file [`src/graphql/mutations`](https://github.com/bowdentom/todo-client-app/blob/master/src/graphql/mutations.js):
+
+```
+import gql from 'graphql-tag'
+
+export const CREATE_TODO = gql`
+  mutation CreateTodo($input: CreateTodoInput!) {
+    createTodo(input: $input) {
+      id
+      text
+      completed
+    }
+  }
+`
+
+export const DELETE_TODO = gql`
+  mutation DeleteTodo($input: DeleteTodoInput!) {
+    deleteTodo(input: $input) {
+      id
+      text
+      completed
+    }
+  }
+`
+
+export const UPDATE_TODO = gql`
+  mutation UpdateTodo($input: UpdateTodoInput!) {
+    updateTodo(input: $input) {
+      id
+      text
+      completed
+    }
+  }
+`
+```
+
+Now that we have these GraphQL ASTs, we can turn back to our `App` component, set up the Apollo Client, add a `fetchTodos` function to be run the `ListTodos` query when the component mounts, and implement the `CreateTodo`, `DeleteTodo`, and `UpdateTodo` mutations in the existing handlers for `addTodo`, `removeTodo`, `editTodo`, and `completeTodo`:
+
+```
+import React, { useState, useEffect } from 'react'
+import { generate } from 'shortid'
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost'
+
+import TodoItem from './TodoItem'
+import TodoTextInput from './TodoTextInput'
+import { LIST_TODOS } from '../graphql/queries'
+import { CREATE_TODO, DELETE_TODO, UPDATE_TODO } from '../graphql/mutations'
+
+const apiUrl =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000/'
+    : process.env.REACT_APP_API_URL
+
+const client = new ApolloClient({
+  link: new HttpLink({ uri: apiUrl }),
+  cache: new InMemoryCache(),
 })
 
-const db = mongoose.connection
+const App = () => {
+  const [todos, setTodos] = useState([])
 
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => console.log('We are connected to MongoDB'))
+  const fetchTodos = async () => {
+    // Get a fresh list of all todos from the server
+    try {
+      const response = await client.query({
+        query: LIST_TODOS,
+        fetchPolicy: 'no-cache',
+      })
+      const fetchedTodos = response.data.listTodos
+      setTodos(fetchedTodos)
+    } catch (err) {
+      console.log(`Error in fetchTodos API call: ${err}`)
+    }
+  }
+
+  // Fetch todos on mount
+  useEffect(() => {
+    fetchTodos()
+  }, [])
+
+  const addTodo = async todoText => {
+    // Update UI immediately
+    const addedTodo = {
+      id: generate(),
+      text: todoText,
+      completed: false,
+    }
+    const updatedTodos = [...todos, addedTodo]
+    setTodos(updatedTodos)
+    // Send operation to the API
+    try {
+      const createTodoInput = {
+        id: addedTodo.id,
+        text: addedTodo.text,
+        completed: addedTodo.completed,
+      }
+      await client.mutate({
+        mutation: CREATE_TODO,
+        variables: { input: createTodoInput },
+      })
+    } catch (err) {
+      console.log(`Error in addTodo API call with text ${todoText}: ${err}`)
+    }
+  }
+
+  const removeTodo = async todoId => {
+    // Update UI immediately
+    const updatedTodos = todos.filter(todo => todo.id !== todoId)
+    setTodos(updatedTodos)
+    // Send operation to the API
+    try {
+      const deleteTodoInput = {
+        id: todoId,
+      }
+      await client.mutate({
+        mutation: DELETE_TODO,
+        variables: { input: deleteTodoInput },
+      })
+    } catch (err) {
+      console.log(`Error in removeTodo API call with id ${todoId}: ${err}`)
+    }
+  }
+
+  const editTodo = async (todoId, todoText) => {
+    // Update UI immediately
+    const updateTodos = [...todos]
+    const index = updateTodos.findIndex(todo => todo.id === todoId)
+    const editedTodo = updateTodos[index]
+    editedTodo.text = todoText
+    setTodos(updateTodos)
+    // Send operation to the API
+    try {
+      const updateTodoInput = {
+        id: todoId,
+        text: todoText,
+        completed: editedTodo.completed,
+      }
+      await client.mutate({
+        mutation: UPDATE_TODO,
+        variables: { input: updateTodoInput },
+      })
+    } catch (err) {
+      console.log(
+        `Error in editTodo API call with id ${todoId} and text ${todoText}: ${err}`
+      )
+    }
+  }
+
+  const completeTodo = async todoId => {
+    // Update UI immediately
+    const updateTodos = [...todos]
+    const index = updateTodos.findIndex(todo => todo.id === todoId)
+    const editedTodo = updateTodos[index]
+    editedTodo.completed = !editedTodo.completed
+    setTodos(updateTodos)
+    // Send operation to the API
+    try {
+      const updateTodoInput = {
+        id: todoId,
+        text: editedTodo.text,
+        completed: editedTodo.completed,
+      }
+      await client.mutate({
+        mutation: UPDATE_TODO,
+        variables: { input: updateTodoInput },
+      })
+    } catch (err) {
+      console.log(`Error in completeTodo API call with id ${todoId}: ${err}`)
+    }
+  }
+
+  return (
+    <div>
+      <header className="header">
+        <h1>todos</h1>
+        <TodoTextInput
+          newTodo
+          onSave={text => {
+            if (text.length !== 0) addTodo(text)
+          }}
+        />
+      </header>
+      <section className="main">
+        <ul className="todo-list">
+          {todos.map(todo => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              completeTodo={completeTodo}
+              editTodo={editTodo}
+              removeTodo={removeTodo}
+            />
+          ))}
+        </ul>
+      </section>
+    </div>
+  )
+}
+
+export default App
 ```
 
-So, our completed `index.js` server file should now look like this:
+Note that we follow the pattern of updating the UI immedietely in the handlers, and then making the asynchronous GraphQL requests to the server.
+
+Now that’s all the code changes that need to be done on the front-end.
+
+### Deployments of client, server, and db to cloud
+
+## Approach B: Serverless Architecture
+
+Since we are now covering a “serverless” approach, we won’t be making a server, or even have to worry about connecting a database manually. All we need to do is code up the client side and let AWS do the rest of the heavy lifting.
+
+Let’s get started with the [`todo-clientonly` app](https://github.com/bowdentom/todo-clientonly), same as we did for the client-side of Approach A.
+
+### Step 1: Clone `todo-clientonly` App
+
+In your terminal’s command-line:
 
 ```
-const { ApolloServer, gql } = require('apollo-server')
-const fs = require('fs')
-const mongoose = require('mongoose')
-
-mongoose.connect('mongodb://127.0.0.1:27017/todo-api', {
-  useNewUrlParser: true,
-})
-
-const db = mongoose.connection
-
-db.on('error', console.error.bind(console, 'connection error:'))
-db.once('open', () => console.log('We are connected to MongoDB'))
-
-const typeDefs = gql(fs.readFileSync('./schema.graphql', { encoding: 'utf-8' }))
-const resolvers = require('./resolvers')
-
-const server = new ApolloServer({ typeDefs, resolvers })
-
-server.listen().then(({ url }) => console.log(`GraphQL server ready on ${url}`))
+git clone https://github.com/bowdentom/todo-clientonly.git todo-serverless
+cd todo-serverless
 ```
 
-### Step 15: Testing our API with GraphQL Playground
+### Step 2: Install AWS Amplify CLI
+
+In the command-line, do a global install on your machine:
+
+```
+npm install -g @aws-amplify/cli
+```
+
+### Step 3: Configure the Amplify CLI
+
+#### Step 3a: Start Configuration
+
+In the command-line, configure the CLI with the user from your AWS account:
+
+```
+amplify configure
+```
+
+#### Step 3b: Login
+
+This should open up the AWS Management Console in your browser. Log in to your AWS account, then return to your command-line. Hit `Enter` to continue.
+
+#### Step 3c: Specify Region
+
+Specify the AWS Region, using your arrow keys.
+For example `us-east-1`.
+
+#### Step 3d: Specify an IAM User
+
+Specify the username of a new IAM user.
+For example: `todo-serverless-cli-user`
+
+#### Step 3e: Add IAM User
+
+The `Add User` stepper in AWS Management Console should open in your browser.
+In your browser, the IAM user has some preconfigured settings that we can accept by clicking `Next: Permissions`, `Next: Tags`, `Next: Review`, and finally `Create User`.
+Once the IAM user has been created, we’re given an `Access key ID` and a `Secret access key`. Make sure you copy these to a secure location, because we will need them the next step.
+Now you can return to your command-line. Hit `Enter` to continue.
+
+#### Step 3f: Enter User Access Key
+
+Enter the access key id of the newly created user, which you got in the previous step.
+
+#### Step 3g: Enter User Secret Access Key
+
+Enter the secrete access key of the newly created user, which you got in Step 7.
+
+#### Step 3h: Specify a Profile Name
+
+Specify the profile name.
+For example: `todo-serverless-cli-user-profile`
+
+Now the CLI has been configured and we’re ready to begin initializing new AWS Amplify projects.
+
+### Step 4: Initialize Amplify Project
+
+“Note: It is recommended to run this command from the root of your app directory”
+In the command-line, from the root of the `todo-serverless` app folder that you cloned and changed directory into in Step 1:
+
+```
+amplify init
+```
+
+#### Step 4a: Specify Project Name
+
+Enter a name for the project.
+For example, choose the default name `todo-serverless` by pressing `Enter`.
+
+#### Step 4b: Specify Environment Name
+
+Enter a name for the environment.
+For example: `dev`
+
+#### Step 4c: Choose Default Editor
+
+Choose your default editor, using the arrow keys.
+For example: `Visual Studio Code`
+
+#### Step 4d: Choose Programming Language of App
+
+Choose the type of app that you’re building.
+Select: `javascript`
+
+### Step 4e: Choose Framework
+
+“What javascript framework are you using?”
+Select: `react`
+
+### Step 4f: Specify Source Directory Path
+
+“Source Directory Path:”
+Enter: `src`, which should be the default.
+
+#### Step 4g: Specify Distribution Directory Path
+
+“Distribution Directory Path:”
+Enter: `build`, which should be the default.
+
+#### Step 4h: Specify the Build Command
+
+“Build Command:”
+Enter: `npm run-script build`, which should be the default.
+
+#### Step 4i: Specify the Start Command
+
+“Start Command:”
+Enter: `npm run-script start`, which should be the default.
+
+#### Step 4j: Use AWS Profile?
+
+“Do you want to use an AWS profile?”
+Enter: `Y`
+
+#### Step 4k: Select AWS Profile
+
+“Please choose the profile you want to use”
+Select: `todo-serverless-cli-user-profile`
+
+The CLI will start initializing the project in the cloud. This will take a few seconds.
+If successful, you should see “Your project has been successfully initialized and connected to the cloud!”
+
+You may have noticed that Amplify CLI added a folder `amplify` to your `todo-serverless` project at the root level, and updated your `.gitignore` file.
+
+### Step 5: Add API using Amplify
+
+Now we can get started creating the GraphQL API for our app. AWS provides a managed GraphQL backend service called `AppSync`, which we will be using. In the command-line:
+
+```
+amplify add api
+```
+
+#### Step 5a: Select GraphQL API
+
+“Please select from one of the below mentioned services”
+Select: `GraphQL`
+
+#### Step 5b: Specify API Name
+
+Provide an API name.
+For example: `TodoServerlessAppSyncApi`
+
+#### Step 5c: Choose API Authorization Type
+
+Choose an authorization type for the API.
+Select: `API key`
+
+> For our simple example app, we will not add authorization and authentication. If we wanted to sign in users, we would choose the `Amazon Cognito User Pool` option.
+
+#### Step 5d: Existing GraphQL Schema?
+
+“Do you have an annotated GraphQL schema?”
+Select: `N`
+
+#### Step 5e: Guided Schema Creation?
+
+“Do you want a guided schema creation?”
+Select: `Y`
+
+#### Step 5f: Complexity of Data Relationships
+
+“What best describes your project:”
+Select: `Single object with fields (e.g., “Todo” with ID, name, description)`
+
+#### Step 5g: Edit Schema Now?
+
+“Do you want to edit the schema now?”
+Select: `Y`
+
+#### Step 5h: Edit Amplify-Generated Schema
+
+Your code editor should open on the file on the Amplify-generated `schema.graphql` file at `todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql`.
+
+You should see the following Amplify-generated schema code:
+
+```
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+}
+```
+
+Please update the `Todo` type to look like this:
+
+```
+type Todo @model {
+  id: ID!
+  text: String!
+  completed: Boolean!
+}
+```
+
+Save your changes, return to your command-line.
+
+#### Step 5i: Continue GraphQL Autogeneration
+
+Hit `Enter` to continue.
+If all went successfully, you should see the following message:
+
+“GraphQL schema compiled successfully.
+Edit your schema at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql` or place `.graphql` files in a directory at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema`
+Successfully added resource `TodoServerlessAppSyncApi` locally”
+
+Amplify has added the local folder `amplify/backend/api/` which contains your modified schema. You can now push these changes (and your configuration choices) up to AWS to create the resources for your backend in the cloud.
+
+### Step 6: Push API Update to AWS
+
+In the command-line, in order to build all your local backend resources and provision it in the cloud:
+
+```
+amplify push
+```
+
+#### Step 6a: Continue
+
+“Are you sure you want to continue?”
+Select `Y`
+
+#### Step 6b: Generate Code for New GraphQL API?
+
+“Do you want to generate code for your newly created GraphQL API?”
+Select `Y`.
+
+#### Step 6c: Choose Code Generation Language Target
+
+“Choose the code generation language target”
+For example: `javascript`
+
+#### Step 6d: Specify GraphQL
+
+“Enter the file name pattern of graphql queries, mutations and subscriptions”
+Enter `src/graphql/**/*.js`, which should be the default.
+
+#### Step 6e: Generate All GraphQL Operations?
+
+“Do you want to generate/update all possible GraphQL operations - queries, mutations and subscriptions”
+Select `Y`.
+
+#### Step 6f: Specify Maximum Statement Depth
+
+“Enter maximum statement depth [increase from default if your schema is deeply nested]”
+Enter `2`, which should be the default.
+
+You should now see the following message:
+“Updating resources in the cloud. This may take a few minutes...”
+
+If successful, you should see the message:
+“ ✔ Generated GraphQL operations successfully and saved at `src/graphql`
+✔ All resources are updated in the cloud”
+
+Amplify has added the folder `src/graphql` to your project. Inside, you will see folders for `queries`, `mutations`, and `subscriptions`, and a `schema.json` file.
+
+If you look inside the `queries` and `mutations` folders, you will see similar GraphQL queries to the ones we wrote by hand in the `Approach A: Serverful Architecture` section of this article, when creating the server-side app.
+
+### Step 7: Configuring Amplify in the Serverless (Client-Only) App
+
+Now that we have set up the “serverless” resources in `AWS AppSync`, we can add GraphQL request code in the client-side app `todo-serverless`.
+
+The base level `index.js` component is where we will start. You may have noticed that Amplify automatically added a configuration file `todo-serverless/src/aws-exports.js` in a previous step, while setting up AWS AppSync. We will use this file when configuring Amplify in our client-only app.
+
+Update the `index.js` file so that it looks like this:
+
+```
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Amplify from 'aws-amplify'
+
+import App from './components/App'
+import 'todomvc-app-css/index.css'
+import aws_exports from './aws-exports'
+
+Amplify.configure(aws_exports)
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+We will need to install `aws-amplify` to our project so that we can import `Amplify`. In your command-line, please either `yarn add aws-amplify` or `npm install aws-amplify`, to add it to our project.
+
+### Step 8: Update the Serverless (Client-Only) App with GraphQL API Requests
+
+Let’s move over to the `App` component file in the `src/components` folder. Update this file so that it looks like this:
+
+```
+import React, { useState, useEffect } from 'react'
+import { generate } from 'shortid'
+import { API, graphqlOperation } from 'aws-amplify'
+
+import TodoItem from './TodoItem'
+import TodoTextInput from './TodoTextInput'
+import { listTodos } from '../graphql/queries'
+import { createTodo, deleteTodo, updateTodo } from '../graphql/mutations'
+
+const App = () => {
+  const [todos, setTodos] = useState([])
+
+  const fetchTodos = async () => {
+    try {
+      const response = await API.graphql(graphqlOperation(listTodos))
+      // Note: todos are under listTodos.items in this schema...
+      const fetchedTodos = response.data.listTodos.items
+      setTodos(fetchedTodos)
+    } catch (err) {
+      console.log('Error in fetchTodos:', err)
+    }
+  }
+
+  // Fetch todos on mount
+  useEffect(() => {
+    fetchTodos()
+  }, [])
+
+  const addTodo = async todoText => {
+    // Update UI immediately
+    const addedTodo = {
+      id: generate(),
+      text: todoText,
+      completed: false,
+    }
+    const updatedTodos = [...todos, addedTodo]
+    setTodos(updatedTodos)
+    // Send operation to the API
+    try {
+      const createTodoInput = {
+        id: addedTodo.id,
+        text: addedTodo.text,
+        completed: addedTodo.completed,
+      }
+      await API.graphql(
+        graphqlOperation(createTodo, { input: createTodoInput })
+      )
+    } catch (err) {
+      console.log(`Error in addTodo API call with text ${todoText}: ${err}`)
+    }
+  }
+
+  const removeTodo = async todoId => {
+    // Update UI immediately
+    const updatedTodos = todos.filter(todo => todo.id !== todoId)
+    setTodos(updatedTodos)
+    // Send operation to the API
+    try {
+      const deleteTodoInput = {
+        id: todoId,
+      }
+      await API.graphql(
+        graphqlOperation(deleteTodo, { input: deleteTodoInput })
+      )
+    } catch (err) {
+      console.log(`Error in removeTodo API call with id ${todoId}: ${err}`)
+    }
+  }
+
+  const editTodo = async (todoId, todoText) => {
+    // Update UI immediately
+    const updateTodos = [...todos]
+    const index = updateTodos.findIndex(todo => todo.id === todoId)
+    const editedTodo = updateTodos[index]
+    editedTodo.text = todoText
+    setTodos(updateTodos)
+    // Send operation to the API
+    try {
+      const updateTodoInput = {
+        id: todoId,
+        text: todoText,
+        completed: editedTodo.completed,
+      }
+      await API.graphql(
+        graphqlOperation(updateTodo, { input: updateTodoInput })
+      )
+    } catch (err) {
+      console.log(
+        `Error in editTodo API call with id ${todoId} and text ${todoText}: ${err}`
+      )
+    }
+  }
+
+  const completeTodo = async todoId => {
+    // Update UI immediately
+    const updateTodos = [...todos]
+    const index = updateTodos.findIndex(todo => todo.id === todoId)
+    const editedTodo = updateTodos[index]
+    editedTodo.completed = !editedTodo.completed
+    setTodos(updateTodos)
+    // Send operation to the API
+    try {
+      const updateTodoInput = {
+        id: todoId,
+        text: editedTodo.text,
+        completed: editedTodo.completed,
+      }
+      await API.graphql(
+        graphqlOperation(updateTodo, { input: updateTodoInput })
+      )
+    } catch (err) {
+      console.log(`Error in completeTodo API call with id ${todoId}: ${err}`)
+    }
+  }
+
+  return (
+    <div>
+      <header className="header">
+        <h1>todos</h1>
+        <TodoTextInput
+          newTodo
+          onSave={text => {
+            if (text.length !== 0) addTodo(text)
+          }}
+        />
+      </header>
+      <section className="main">
+        <ul className="todo-list">
+          {todos.map(todo => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              completeTodo={completeTodo}
+              editTodo={editTodo}
+              removeTodo={removeTodo}
+            />
+          ))}
+        </ul>
+      </section>
+    </div>
+  )
+}
+
+export default App
+```
+
+You can now delete the `src/data` directory with the hardcoded todos.
+
+You will notice how similar the API calls are to the ones we wrote in `todo-client-app`. This is all we have to do for this app.
+
+You can now test your app locally, interacting with AWS AppSync’s DynamoDB in the cloud. From your command-line, either `yarn start` or `npm start` to start the development server on `localhost:3000` in the browser. Add a few todos in the app, and then check that the added todos appear in DynamoDB in the AWS Management Console.
+
+[Image of DynamoDB Todo collection]
+
+### Step 9: Host the Serverless (Client-Only) App on S3
+
+We can either choose `DEV` for S3 with HTTP or `PROD` for S3 with HTTPS with CloudFront distribution. We will go with S3 with HTTP for the purposes of this article.
+
+#### 9a: Amplify Add Hosting
+
+From the command-line, we can add S3 hosting for our app:
+
+```
+amplify add hosting
+```
+
+#### 9b: Select Environment Setup
+
+“Select the environment setup:”
+Select: `DEV (S3 only with HTTP)`
+
+#### 9c: Specify Hosting Bucket Name
+
+“hosting bucket name”
+Select the default name.
+
+#### 9d: Specify Website’s `index` Document
+
+“index doc for the website”
+Enter `index.html`, which should be the default.
+
+#### 9e: Specify Website’s `error` Document
+
+“error doc for the website”
+Enter `index.html`, which should be the default.
+
+#### 9f: Amplify Publish
+
+We can now deploy to S3 using the following command in the command-line:
+
+```
+amplify publish
+```
+
+Hit `Y` when prompted: “Are you sure you want to continue?”.
+You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...”
+
+If everything was successful, you will receive the message:
+“✔ Uploaded files successfully.
+Your app is published successfully.
+http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com”
+
+Your browser should automatically open with a tab pointing to url `http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com`.
+
+Your app is now live on the web for you to share! Test it out, refresh the browser, and see all of your persisted todos! Congratulations on creating a serverless app!
+
+## Comparing the Serverful and Serverless Approaches (A versus B)
+
+After going through this somewhat lengthy article, you will now be able to appreciate the differences between the serverful approach, where you had to make two apps – for client and server – as well as separately deploy both in addition to a database, and the serverless approach, where you only needed to make and deploy a single client-side app with some very simple configuration for AWS using Amplify.
+
+When writing a the backend API of a serverful GraphQL app, you need to worry about creating:
+
+1. a GraphQL server
+2. a valid GraphQL schema
+3. all the GraphQL resolvers
+4. all the data source CRUD functions
+
+Then, you need to deploy both the server and the database. So many things can go wrong, and so much time and money can be wasted. Even for this simple todo app, it took a not insignificant amount of time and effort to accomplish this.
+
+Manually creating a backend API involves a lot of code and complexity that you can pass on to a managed GraphQL BaaS, such as AWS AppSync. This will enable you to iterate on your app prototype, or your MVP, or your online business more quickly, which is obviously desirable. Every startup should strive to be an [`Exponential Organization`](https://exponentialorgs.com/), and the serverless approach to making webapps is a step in the right direction.
+
+Serverless is the future of making webapps, in our humble opinion. And we welcome such a future!
