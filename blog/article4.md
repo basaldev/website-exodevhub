@@ -1,20 +1,17 @@
 ---
 date: 2019-03-04T09:00:00.000Z
 title: 'React in a Serverless World'
-banner:
+banner: /assets/social-serverless-world.png
 type: post
 category: react
-shape:
+shape: square
 language: en
 medium:
 author: Tom Bowden
 ---
+**A comparison between client-server and serverless full-stack app architectures, with simple app examples**
 
-# React in a Serverless World
-
-“A comparison between client-server and serverless full-stack app architectures, with simple app examples”
-
-> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync is necessary to follow along. Full repos are available with the app examples.
+*The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync is necessary to follow along. Full repos are available with the app examples.*
 
 We want to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, let’s build a simple client side app in React, used for both client-server (which will call “serverful” from now on) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
 
@@ -35,8 +32,8 @@ For the purposes of this simple example app, some example todos were added in a 
 
 Now we have a simple client-side app starting point, there are basically two separate approaches to add data persistence for users:
 
-- _serverful (client-server) architecture_, where the developer selects and deploys a backend server and a persistent data source (database)
-- _serverless architecture_, where the backend server and data source implementations are outsourced to a [BaaS](https://en.wikipedia.org/wiki/Mobile_backend_as_a_service) cloud provider
+- **serverful (client-server) architecture**, where the developer selects and deploys a backend server and a persistent data source (database)
+- **serverless architecture**, where the backend server and data source implementations are outsourced to a [BaaS](https://en.wikipedia.org/wiki/Mobile_backend_as_a_service) cloud provider
 
 We will create two full-stack apps from our client-only app — one for each architectural approach — explaining the process for each in detail, so that we can evaluate the pros and cons of each approach. In addition, we have chosen to only use packages written in JavaScript for both the client and the server, in the interest of simplicity.
 
@@ -66,7 +63,7 @@ The server app’s base level [`index.js` file](https://github.com/bowdentom/tod
 2. Gets the parsed GraphQL schema type definitions and resolvers
 3. Creates and runs the Apollo GraphQL server
 
-```
+```js
 const { ApolloServer, gql } = require('apollo-server')
 const fs = require('fs')
 const mongoose = require('mongoose')
@@ -107,7 +104,7 @@ Scalar types are simple tyes such as `String`, `Boolean`, and `ID`. User-defined
 
 Here is our entire schema, in the [`src/graphql/schema.graphql` file](https://github.com/bowdentom/todo-server-app/blob/master/src/graphql/schema.graphql):
 
-```
+```js
 type Todo {
   id: ID!
   text: String!
@@ -146,7 +143,7 @@ type Mutation {
 
 Let’s have a look at our resolvers, in the [`src/graphql/resolvers.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/graphql/resolvers.js) file, which are very simple:
 
-```
+```js
 const db = require('../dataSource/db')
 
 const Query = {
@@ -171,7 +168,7 @@ If a field produces a scalar value like a string or number, then the execution c
 
 In our example, the returned `Todo` is an object value, which contains only scalar fields (`id`, `text`, and `completed`). Resolving these is [trivial](https://graphql.org/learn/execution/#trivial-resolvers), and the Apollo server lets us omit resolvers this simple. It will assume that if a resolver is not provided for a field, then a property of the same name should be read and returned. This means that we don’t have to explicitly specify the following resolvers:
 
-```
+```js
 Todo: {
   id: (obj, args, context, info) => obj.id,
   text: (obj, args, context, info) => obj.text,
@@ -183,7 +180,7 @@ Todo: {
 
 Let’s start off with the code, found in the [`src/dataSource/model.js` file](https://github.com/bowdentom/todo-server-app/blob/master/src/dataSource/model.js):
 
-```
+```js
 const mongoose = require('mongoose')
 
 const todoSchema = new mongoose.Schema({
@@ -219,7 +216,7 @@ To use the Mongoose schema, we convert it into a Mongoose [model](https://mongoo
 
 The operations to create, read, update, and delete documents in our MongoDB database are coded up in [`src/dataSource/db.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/dataSource/db.js):
 
-```
+```js
 const mongoose = require('mongoose')
 
 const { Todo } = require('./model')
@@ -318,7 +315,7 @@ Let’s start with the client-only React app that we showed earlier in the [Code
 
 The [`App` component](https://github.com/bowdentom/todo-clientonly/blob/master/src/components/App.js) is where we will be making most code changes to adapt it for our GraphQL client app.
 
-```
+```js
 import React, { useState } from 'react'
 import { generate } from 'shortid'
 
@@ -393,7 +390,7 @@ export default App
 
 Instead of getting hard-coded `initialTodos`, we will now get them via a GraphQL request query. We will call the query `ListTodos`. You will find it in the completed [`todo-client-app`](https://github.com/bowdentom/todo-client-app) on Github in the file [`src/graphql/queries`](https://github.com/bowdentom/todo-client-app/blob/master/src/graphql/queries.js):
 
-```
+```js
 import gql from 'graphql-tag'
 
 export const LIST_TODOS = gql`
@@ -411,7 +408,7 @@ The `ListTodos` query string is wrapped in a `gql` template tag to parse it into
 
 Now, we will need the AST of the mutations as well. You can find them in file [`src/graphql/mutations`](https://github.com/bowdentom/todo-client-app/blob/master/src/graphql/mutations.js):
 
-```
+```js
 import gql from 'graphql-tag'
 
 export const CREATE_TODO = gql`
@@ -447,7 +444,7 @@ export const UPDATE_TODO = gql`
 
 Now that we have these GraphQL ASTs, we can turn back to our `App` component, set up the Apollo Client, add a `fetchTodos` function to be run the `ListTodos` query when the component mounts, and implement the `CreateTodo`, `DeleteTodo`, and `UpdateTodo` mutations in the existing handlers for `addTodo`, `removeTodo`, `editTodo`, and `completeTodo`:
 
-```
+```js
 import React, { useState, useEffect } from 'react'
 import { generate } from 'shortid'
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost'
@@ -627,7 +624,7 @@ Let’s get started with the [`todo-clientonly` app](https://github.com/bowdento
 
 In your terminal’s command-line:
 
-```
+```bash
 git clone https://github.com/bowdentom/todo-clientonly.git todo-serverless
 cd todo-serverless
 ```
@@ -636,50 +633,34 @@ cd todo-serverless
 
 In the command-line, do a global install on your machine:
 
-```
+```bash
 npm install -g @aws-amplify/cli
 ```
 
 ### Step 3: Configure the Amplify CLI
 
-#### Step 3a: Start Configuration
+**Configure:** In the command-line, configure the CLI with the user from your AWS account:
 
-In the command-line, configure the CLI with the user from your AWS account:
-
-```
+```bash
 amplify configure
 ```
 
-#### Step 3b: Login
-
 This should open up the AWS Management Console in your browser. Log in to your AWS account, then return to your command-line. Hit `Enter` to continue.
-
-#### Step 3c: Specify Region
 
 Specify the AWS Region, using your arrow keys.
 For example `us-east-1`.
 
-#### Step 3d: Specify an IAM User
-
 Specify the username of a new IAM user.
 For example: `todo-serverless-cli-user`
-
-#### Step 3e: Add IAM User
 
 The `Add User` stepper in AWS Management Console should open in your browser.
 In your browser, the IAM user has some preconfigured settings that we can accept by clicking `Next: Permissions`, `Next: Tags`, `Next: Review`, and finally `Create User`.
 Once the IAM user has been created, we’re given an `Access key ID` and a `Secret access key`. Make sure you copy these to a secure location, because we will need them the next step.
 Now you can return to your command-line. Hit `Enter` to continue.
 
-#### Step 3f: Enter User Access Key
-
-Enter the access key id of the newly created user, which you got in the previous step.
-
-#### Step 3g: Enter User Secret Access Key
+Enter the access key id of the newly created user.
 
 Enter the secrete access key of the newly created user, which you got in Step 7.
-
-#### Step 3h: Specify a Profile Name
 
 Specify the profile name.
 For example: `todo-serverless-cli-user-profile`
@@ -691,63 +672,41 @@ Now the CLI has been configured and we’re ready to begin initializing new AWS 
 “Note: It is recommended to run this command from the root of your app directory”
 In the command-line, from the root of the `todo-serverless` app folder that you cloned and changed directory into in Step 1:
 
-```
+```bash
 amplify init
 ```
-
-#### Step 4a: Specify Project Name
 
 Enter a name for the project.
 For example, choose the default name `todo-serverless` by pressing `Enter`.
 
-#### Step 4b: Specify Environment Name
-
 Enter a name for the environment.
 For example: `dev`
-
-#### Step 4c: Choose Default Editor
 
 Choose your default editor, using the arrow keys.
 For example: `Visual Studio Code`
 
-#### Step 4d: Choose Programming Language of App
-
 Choose the type of app that you’re building.
 Select: `javascript`
 
-### Step 4e: Choose Framework
-
-“What javascript framework are you using?”
+*“What javascript framework are you using?”*
 Select: `react`
 
-### Step 4f: Specify Source Directory Path
-
-“Source Directory Path:”
+*“Source Directory Path:”*
 Enter: `src`, which should be the default.
 
-#### Step 4g: Specify Distribution Directory Path
-
-“Distribution Directory Path:”
+*“Distribution Directory Path:”*
 Enter: `build`, which should be the default.
 
-#### Step 4h: Specify the Build Command
-
-“Build Command:”
+*“Build Command:”*
 Enter: `npm run-script build`, which should be the default.
 
-#### Step 4i: Specify the Start Command
-
-“Start Command:”
+*“Start Command:”*
 Enter: `npm run-script start`, which should be the default.
 
-#### Step 4j: Use AWS Profile?
-
-“Do you want to use an AWS profile?”
+*“Do you want to use an AWS profile?”*
 Enter: `Y`
 
-#### Step 4k: Select AWS Profile
-
-“Please choose the profile you want to use”
+*“Please choose the profile you want to use”*
 Select: `todo-serverless-cli-user-profile`
 
 The CLI will start initializing the project in the cloud. This will take a few seconds.
@@ -763,50 +722,34 @@ Now we can get started creating the GraphQL API for our app. AWS provides a mana
 amplify add api
 ```
 
-#### Step 5a: Select GraphQL API
-
-“Please select from one of the below mentioned services”
+*“Please select from one of the below mentioned services”*
 Select: `GraphQL`
-
-#### Step 5b: Specify API Name
 
 Provide an API name.
 For example: `TodoServerlessAppSyncApi`
-
-#### Step 5c: Choose API Authorization Type
 
 Choose an authorization type for the API.
 Select: `API key`
 
 > For our simple example app, we will not add authorization and authentication. If we wanted to sign in users, we would choose the `Amazon Cognito User Pool` option.
 
-#### Step 5d: Existing GraphQL Schema?
-
-“Do you have an annotated GraphQL schema?”
+*“Do you have an annotated GraphQL schema?”*
 Select: `N`
 
-#### Step 5e: Guided Schema Creation?
-
-“Do you want a guided schema creation?”
+*“Do you want a guided schema creation?”*
 Select: `Y`
 
-#### Step 5f: Complexity of Data Relationships
-
-“What best describes your project:”
+*“What best describes your project:”*
 Select: `Single object with fields (e.g., “Todo” with ID, name, description)`
 
-#### Step 5g: Edit Schema Now?
-
-“Do you want to edit the schema now?”
+*“Do you want to edit the schema now?”*
 Select: `Y`
-
-#### Step 5h: Edit Amplify-Generated Schema
 
 Your code editor should open on the file on the Amplify-generated `schema.graphql` file at `todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql`.
 
 You should see the following Amplify-generated schema code:
 
-```
+```js
 type Todo @model {
   id: ID!
   name: String!
@@ -816,7 +759,7 @@ type Todo @model {
 
 Please update the `Todo` type to look like this:
 
-```
+```js
 type Todo @model {
   id: ID!
   text: String!
@@ -825,8 +768,6 @@ type Todo @model {
 ```
 
 Save your changes, return to your command-line.
-
-#### Step 5i: Continue GraphQL Autogeneration
 
 Hit `Enter` to continue.
 If all went successfully, you should see the following message:
@@ -845,42 +786,37 @@ In the command-line, in order to build all your local backend resources and prov
 amplify push
 ```
 
-#### Step 6a: Continue
-
-“Are you sure you want to continue?”
+*“Are you sure you want to continue?”*
 Select `Y`
 
-#### Step 6b: Generate Code for New GraphQL API?
-
-“Do you want to generate code for your newly created GraphQL API?”
+*“Do you want to generate code for your newly created GraphQL API?”*
 Select `Y`.
 
-#### Step 6c: Choose Code Generation Language Target
-
-“Choose the code generation language target”
+*“Choose the code generation language target”*
 For example: `javascript`
 
 #### Step 6d: Specify GraphQL
 
-“Enter the file name pattern of graphql queries, mutations and subscriptions”
+*“Enter the file name pattern of graphql queries, mutations and subscriptions”*
 Enter `src/graphql/**/*.js`, which should be the default.
 
-#### Step 6e: Generate All GraphQL Operations?
-
-“Do you want to generate/update all possible GraphQL operations - queries, mutations and subscriptions”
+*“Do you want to generate/update all possible GraphQL operations - queries, mutations and subscriptions”*
 Select `Y`.
 
-#### Step 6f: Specify Maximum Statement Depth
-
-“Enter maximum statement depth [increase from default if your schema is deeply nested]”
+*“Enter maximum statement depth [increase from default if your schema is deeply nested]”*
 Enter `2`, which should be the default.
 
 You should now see the following message:
-“Updating resources in the cloud. This may take a few minutes...”
+```bash
+Updating resources in the cloud. This may take a few minutes...
+```
 
 If successful, you should see the message:
-“ ✔ Generated GraphQL operations successfully and saved at `src/graphql`
-✔ All resources are updated in the cloud”
+
+```bash
+✔ Generated GraphQL operations successfully and saved at `src/graphql`
+✔ All resources are updated in the cloud
+```
 
 Amplify has added the folder `src/graphql` to your project. Inside, you will see folders for `queries`, `mutations`, and `subscriptions`, and a `schema.json` file.
 
@@ -894,7 +830,7 @@ The base level `index.js` component is where we will start. You may have noticed
 
 Update the `index.js` file so that it looks like this:
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Amplify from 'aws-amplify'
@@ -914,7 +850,7 @@ We will need to install `aws-amplify` to our project so that we can import `Ampl
 
 Let’s move over to the `App` component file in the `src/components` folder. Update this file so that it looks like this:
 
-```
+```js
 import React, { useState, useEffect } from 'react'
 import { generate } from 'shortid'
 import { API, graphqlOperation } from 'aws-amplify'
@@ -1073,35 +1009,23 @@ You can now test your app locally, interacting with AWS AppSync’s DynamoDB in 
 
 We can either choose `DEV` for S3 with HTTP or `PROD` for S3 with HTTPS with CloudFront distribution. We will go with S3 with HTTP for the purposes of this article.
 
-#### 9a: Amplify Add Hosting
-
 From the command-line, we can add S3 hosting for our app:
 
 ```
 amplify add hosting
 ```
 
-#### 9b: Select Environment Setup
-
-“Select the environment setup:”
+*“Select the environment setup:”*
 Select: `DEV (S3 only with HTTP)`
 
-#### 9c: Specify Hosting Bucket Name
-
-“hosting bucket name”
+*“hosting bucket name”*
 Select the default name.
 
-#### 9d: Specify Website’s `index` Document
-
-“index doc for the website”
+*“index doc for the website”*
 Enter `index.html`, which should be the default.
 
-#### 9e: Specify Website’s `error` Document
-
-“error doc for the website”
+*“error doc for the website”*
 Enter `index.html`, which should be the default.
-
-#### 9f: Amplify Publish
 
 We can now deploy to S3 using the following command in the command-line:
 
@@ -1109,13 +1033,16 @@ We can now deploy to S3 using the following command in the command-line:
 amplify publish
 ```
 
-Hit `Y` when prompted: “Are you sure you want to continue?”.
-You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...”
+Hit `Y` when prompted: `“Are you sure you want to continue?”`.
+
+You will then see a message saying: `“Updating resources in the cloud. This may take a few minutes...”`
 
 If everything was successful, you will receive the message:
-“✔ Uploaded files successfully.
+```bash
+✔ Uploaded files successfully.
 Your app is published successfully.
-http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com”
+http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com
+```
 
 Your browser should automatically open with a tab pointing to url `http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com`.
 
