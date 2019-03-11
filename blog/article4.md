@@ -1,14 +1,15 @@
 ---
 date: 2019-03-04T09:00:00.000Z
 title: 'React in a Serverless World'
-banner:
+banner: /assets/social-serverless-world.png
 type: post
 category: react
-shape:
+shape: square
 language: en
 medium:
 author: Tom Bowden
 ---
+**A comparison between client-server and serverless full-stack app architectures, with simple app examples**
 
 # React in a Serverless World
 
@@ -37,8 +38,8 @@ For the purposes of this simple example app, some example todos were added in a 
 
 Now we have a simple client-side app starting point, there are basically two separate approaches to add data persistence for users:
 
-- _serverful (client-server) architecture_, where the developer selects and deploys a backend server and a persistent data source (database)
-- _serverless architecture_, where the backend server and data source implementations are outsourced to a [BaaS](https://en.wikipedia.org/wiki/Mobile_backend_as_a_service) cloud provider
+- **serverful (client-server) architecture**, where the developer selects and deploys a backend server and a persistent data source (database)
+- **serverless architecture**, where the backend server and data source implementations are outsourced to a [BaaS](https://en.wikipedia.org/wiki/Mobile_backend_as_a_service) cloud provider
 
 We will create two full-stack solutions based on the client-only app — one for each architectural approach — explaining the process for each in detail, so that we can evaluate the pros and cons of each approach. In addition, we have chosen to only use packages written in JavaScript for both the client and the server, in the interest of simplicity.
 
@@ -107,7 +108,7 @@ Scalar types are simple tyes such as `String`, `Boolean`, and `ID`. User-defined
 
 Here is our entire schema, in the [`src/graphql/schema.graphql`](https://github.com/bowdentom/todo-server-app/blob/master/src/graphql/schema.graphql) file:
 
-```
+```js
 type Todo {
   id: ID!
   text: String!
@@ -664,7 +665,7 @@ Let’s get started with the [`todo-clientonly`](https://github.com/bowdentom/to
 
 In your terminal’s command-line:
 
-```
+```bash
 git clone https://github.com/bowdentom/todo-clientonly.git todo-serverless
 cd todo-serverless
 ```
@@ -673,15 +674,13 @@ cd todo-serverless
 
 In the command-line, do a global install on your machine:
 
-```
+```bash
 npm install -g @aws-amplify/cli
 ```
 
 ### Step 2: Configure the Amplify CLI
 
-In the command-line, configure the CLI with the user from your AWS account:
-
-```
+```bash
 amplify configure
 ```
 
@@ -700,7 +699,7 @@ Then the following configuration stpes are required:
 
 In the command-line, from the root of the `todo-serverless` app folder that you cloned during preparation:
 
-```
+```bash
 amplify init
 ```
 
@@ -743,7 +742,7 @@ Then complete the following steps to add AppSync:
 
 You should see the following Amplify-generated schema code:
 
-```
+```js
 type Todo @model {
   id: ID!
   name: String!
@@ -753,7 +752,7 @@ type Todo @model {
 
 Please update the `Todo` type to look like this:
 
-```
+```js
 type Todo @model {
   id: ID!
   text: String!
