@@ -46,6 +46,10 @@ const Title = styled.h2`
 const PostContent = styled.div`
   padding: 2rem 0;
   margin-top: ${designSystem.spacing(6)};
+  h2,h3,h4 {
+    font-family: 'Noto Sans',sans-serif;
+    text-transform: capitalize;
+  }
   @media ${media.phone} {
     padding: 0rem;
     max-width: 100%;
