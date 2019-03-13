@@ -11,10 +11,6 @@ author: Tom Bowden
 ---
 **A comparison between client-server and serverless full-stack app architectures, with simple app examples**
 
-# React in a Serverless World
-
-### “A comparison between client-server and serverless full-stack app architectures”
-
 > The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync is necessary to follow along. Full repos are available with the app examples.
 
 We want to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, let’s build a simple client side app in React, used for both client-server (which will call “serverful” from now on) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
