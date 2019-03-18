@@ -6,7 +6,7 @@ type: post
 category: react
 shape: square
 language: en
-medium:
+medium: https://medium.com/@tombowden_8885/react-in-a-serverless-world-c54596eb148
 author: Tom Bowden
 ---
 
