@@ -9,15 +9,12 @@ language: en
 medium:
 author: Tom Bowden
 ---
-**A comparison between client-server and serverless full-stack app architectures, with simple app examples**
-
-# React in a Serverless World
 
 ### “A comparison between client-server and serverless full-stack app architectures”
 
-> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync is necessary to follow along. Full repos are available with the app examples.
+> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as [Apollo Server](https://www.apollographql.com/docs/apollo-server/), [MongoDB](https://www.mongodb.com/), [Mongoose](https://mongoosejs.com/), deployments, [AWS](https://aws.amazon.com/), [Amplify](https://aws-amplify.github.io/), and [AppSync](https://aws.amazon.com/appsync/) is necessary to follow along. Full repos are available with the app examples.
 
-We want to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, let’s build a simple client side app in React, used for both client-server (which will call “serverful” from now on) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
+This article serves to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, we will build a simple client side app in React, used for both client-server (which will call “serverful” from now on, taking a lead from this illuminating [technical report](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf) by UC Berkeley) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
 
 ---
 
@@ -765,10 +762,9 @@ Save your changes, and return to your command-line.
 - _Continue GraphQL Autogeneration_. Hit `Enter` to continue.
 
 If all went successfully, you should see the following message:
-
 “GraphQL schema compiled successfully.
 Edit your schema at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql` or place `.graphql` files in a directory at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema`
-Successfully added resource `TodoServerlessAppSyncApi` locally”
+Successfully added resource `TodoServerlessAppSyncApi` locally”.
 
 Amplify has added the local folder `amplify/backend/api/` which contains your modified schema. You can now push these changes (and your configuration choices) up to AWS to create the resources for your backend in the cloud.
 
@@ -790,9 +786,10 @@ Then complete the following steps to push the API to AWS:
 - _Specify Maximum Statement Depth_. “Enter maximum statement depth [increase from default if your schema is deeply nested].” Enter `2`, which should be the default.
 
 You should now see the following message:
-“Updating resources in the cloud. This may take a few minutes...” If successful, you should see the message:
-✔ Generated GraphQL operations successfully and saved at `src/graphql`
-✔ All resources are updated in the cloud
+“Updating resources in the cloud. This may take a few minutes...”
+
+If successful, you should see the message:
+“✔ Generated GraphQL operations successfully and saved at `src/graphql` ✔ All resources are updated in the cloud”.
 
 Amplify has added the folder `src/graphql` to your project. Inside, you will see folders for `queries`, `mutations`, and `subscriptions`, and a `schema.json` file.
 
@@ -979,8 +976,6 @@ You will notice how similar the API calls are to the ones we wrote in `todo-clie
 
 You can now test your app locally, interacting with AWS AppSync’s DynamoDB in the cloud. From your command-line, either `yarn start` or `npm start` to start the development server on `localhost:3000` in the browser. Add a few todos in the app, and then check that the added todos appear in DynamoDB in the AWS Management Console.
 
-[Image of DynamoDB Todo collection]
-
 ### Step 8: Host the Serverless (Client-Only) App on S3
 
 We can either choose `DEV` for S3 with HTTP or `PROD` for S3 with HTTPS with CloudFront distribution. We will go with S3 with HTTP for the purposes of this article.
@@ -1007,9 +1002,8 @@ amplify publish
 Hit `Y` when prompted: “Are you sure you want to continue?”.
 
 You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...” If everything was successful, you will receive the message:
-✔ Uploaded files successfully.
-Your app is published successfully.
-http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com
+
+“✔ Uploaded files successfully. Your app is published successfully. http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com”.
 
 Your browser should automatically open with a tab pointing to url `http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com`.
 
@@ -1019,19 +1013,24 @@ Your app is now live on the web for you to share! Test it out, refresh the brows
 
 ## Comparing the Serverful and Serverless Approaches (A versus B)
 
-After going through this somewhat lengthy article, you will now be able to appreciate the differences between the serverful approach, where you had to make two apps – for client and server – as well as separately deploy both in addition to a database, and the serverless approach, where you only needed to make and deploy a single client-side app with some very simple configuration for AWS using Amplify.
+After going through this detailed article, you will be able to appreciate the differences between the _serverful_ approach, in which you had to make two apps — for client and server — as well as separately deploy both in addition to a database, and the _serverless_ approach, where you only needed to make and deploy a single client-side app with some very simple configuration for AWS using Amplify.
 
-When writing a the backend API of a serverful GraphQL app, you need to worry about creating:
+When writing a the backend API of a serverful GraphQL app, you need to create:
 
 1. GraphQL server
 2. GraphQL schema
 3. GraphQL resolvers
 4. Data source CRUD functions
 
-Then, you need to deploy both the server and the database. So many things could go wrong, and so much time — and money — could be wasted. Even for this simple todo app, it took a significant amount of time and effort to accomplish this.
+Then, you need to deploy both the server and the database. These are non-trivial tasks, introducing potential errors and requiring ongoing maintenance. Even for this simple todo app, it took a significant amount of time and effort to complete these tasks.
 
-Manually creating a backend API involves a lot of code and complexity that you can pass on to a managed GraphQL BaaS, such as AWS AppSync. This will enable you to iterate on your app prototype, or your MVP, or your online business more quickly, which is obviously desirable.
+Manually creating a backend API involves a lot of code and complexity that you can pass on to a managed GraphQL BaaS, such as AWS AppSync. This will enable you to iterate on your project more quickly, which is more [lean](http://theleanstartup.com/) and [agile](https://agilemanifesto.org/).
 
-Startups should strive to be an [`Exponential Organization`](https://exponentialorgs.com/), and the serverless approach to making webapps is a step in the right direction.
+The authors of the UC Berkeley Technical Report entitled “[Cloud Programming Simplified: A Berkeley View on
+Serverless Computing](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf)” predict that:
+
+> Serverless computing will become the default computing paradigm of the Cloud Era, largely replacing serverful computing and thereby bringing closure to the Client-Server Era.
+
+We believe that startups should strive to be ‘[Exponential Organizations](https://exponentialorgs.com/)’, leveraging cloud computing assets and technologies, and the serverless approach to making webapps is a step in the right direction.
 
 Serverless is the future of making webapps. Welcome to the future!
