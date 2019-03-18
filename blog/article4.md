@@ -284,7 +284,7 @@ module.exports = { list, create, remove, update, toggle }
 
 All database operations are asynchronous, so we are using the [`async/await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) syntax to deal with [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
-This file describes five asychronous functions: `list`, `create`, `remove`, `update`, and `toggle`, which use several of Mongoose’s CRUD helper utitlities. Let’s describe how each function works:
+This file describes five asynchronous functions: `list`, `create`, `remove`, `update`, and `toggle`, which use several of Mongoose’s CRUD helper utilities. Let’s describe how each function works:
 
 1. `list`: to get all documents in a collection, we use the [`Model.find()`](https://mongoosejs.com/docs/api.html#model_Model.find) method.
 
@@ -300,7 +300,7 @@ This file describes five asychronous functions: `list`, `create`, `remove`, `upd
 
 ### Step 6 (Client): Creating the Apollo Client
 
-Now that we have the GraphQL server app, we can work on the GraphQL client app. To make GraghQL requests from the client, we will make use of Apollo Client. The simplest way to get started with Apollo Client is by using the [Apollo Boost](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) package.
+Now that we have the GraphQL server app, we can work on the GraphQL client app. To make GraphQL requests from the client, we will make use of Apollo Client. The simplest way to get started with Apollo Client is by using the [Apollo Boost](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) package.
 
 Let’s start with the client-only React app that we showed earlier in the [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp). The code can be cloned from a Github repo that we have prepared.
 
@@ -681,13 +681,13 @@ npm install -g @aws-amplify/cli
 amplify configure
 ```
 
-Then the following configuration stpes are required:
+Then the following configuration steps are required:
 
 - _Login_. This should open up the AWS Management Console in your browser. Log in to your AWS account, then return to your command-line. Hit `Enter` to continue.
 - _Specify Region_. Specify the AWS Region, using your arrow keys. For example `us-east-1`.
 - _Specify an IAM User_. Specify the username of a new IAM user. For example: `todo-serverless-cli-user`.
 - _Add IAM User_. The `Add User` stepper in AWS Management Console should open in your browser.
-  In your browser, the IAM user has some preconfigured settings that we can accept by clicking `Next: Permissions`, `Next: Tags`, `Next: Review`, and finally `Create User`. Once the IAM user has been created, we’re given an `Access key ID` and a `Secret access key`. Make sure you copy these to a secure location, because we will need them next. Now you can return to your command-line. Hit `Enter` to continue.
+  In your browser, the IAM user has some preconfigured settings that we can accept by clicking `Next: Permissions`, `Next: Tags`, `Next: Review`, and finally `Create User`. Once the IAM user has been created, we are given an `Access key ID` and a `Secret access key`. Make sure you copy these to a secure location, because we will need them next. Now you can return to your command-line. Hit `Enter` to continue.
 - _Enter User Access Key_. Enter the access key id of the newly created user, which you got previously.
 - _Enter User Secret Access Key_. Enter the secrete access key of the newly created user, which you got previously.
 - _Specify a Profile Name_. Specify the profile name. For example: `todo-serverless-cli-user-profile`. Now the CLI has been configured and we’re ready to begin initializing new AWS Amplify projects.
@@ -714,7 +714,11 @@ Then complete the following steps to configure Amplify for your project:
 - _Use AWS Profile_? “Do you want to use an AWS profile?” Enter: `Y`.
 - _Select AWS Profile_. “Please choose the profile you want to use”. Select: `todo-serverless-cli-user-profile`.
 
-The CLI will start initializing the project in the cloud. This will take a few seconds. If successful, you should see “Your project has been successfully initialized and connected to the cloud!”
+The CLI will start initializing the project in the cloud. This will take a few seconds.
+
+If successful, you should see:
+
+> Your project has been successfully initialized and connected to the cloud!
 
 You may have noticed that Amplify CLI added a folder `amplify` to your `todo-serverless` project at the root level, and updated your `.gitignore` file.
 
@@ -762,9 +766,10 @@ Save your changes, and return to your command-line.
 - _Continue GraphQL Autogeneration_. Hit `Enter` to continue.
 
 If all went successfully, you should see the following message:
-“GraphQL schema compiled successfully.
-Edit your schema at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql` or place `.graphql` files in a directory at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema`
-Successfully added resource `TodoServerlessAppSyncApi` locally”.
+
+> GraphQL schema compiled successfully.
+> Edit your schema at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql` or place `.graphql` files in a directory at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema`
+> Successfully added resource `TodoServerlessAppSyncApi` locally.
 
 Amplify has added the local folder `amplify/backend/api/` which contains your modified schema. You can now push these changes (and your configuration choices) up to AWS to create the resources for your backend in the cloud.
 
@@ -789,7 +794,9 @@ You should now see the following message:
 “Updating resources in the cloud. This may take a few minutes...”
 
 If successful, you should see the message:
-“✔ Generated GraphQL operations successfully and saved at `src/graphql` ✔ All resources are updated in the cloud”.
+
+> ✔ Generated GraphQL operations successfully and saved at `src/graphql`
+> ✔ All resources are updated in the cloud
 
 Amplify has added the folder `src/graphql` to your project. Inside, you will see folders for `queries`, `mutations`, and `subscriptions`, and a `schema.json` file.
 
@@ -1001,9 +1008,11 @@ amplify publish
 
 Hit `Y` when prompted: “Are you sure you want to continue?”.
 
-You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...” If everything was successful, you will receive the message:
+You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...”
 
-“✔ Uploaded files successfully. Your app is published successfully. http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com”.
+If everything was successful, you will receive the message:
+
+> ✔ Uploaded files successfully. Your app is published successfully. http://<your-hosting-bucket-name>-dev.s3-website-us-east-1.amazonaws.com
 
 Your browser should automatically open with a tab pointing to url `http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com`.
 
@@ -1015,7 +1024,7 @@ Your app is now live on the web for you to share! Test it out, refresh the brows
 
 After going through this detailed article, you will be able to appreciate the differences between the _serverful_ approach, in which you had to make two apps — for client and server — as well as separately deploy both in addition to a database, and the _serverless_ approach, where you only needed to make and deploy a single client-side app with some very simple configuration for AWS using Amplify.
 
-When writing a the backend API of a serverful GraphQL app, you need to create:
+When writing the backend API of a serverful GraphQL app, you need to create:
 
 1. GraphQL server
 2. GraphQL schema
