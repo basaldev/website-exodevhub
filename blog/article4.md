@@ -6,18 +6,19 @@ type: post
 category: react
 shape: square
 language: en
-medium:
+medium: https://medium.com/@tombowden_8885/react-in-a-serverless-world-c54596eb148
 author: Tom Bowden
 ---
-**A comparison between client-server and serverless full-stack app architectures, with simple app examples**
 
-> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as Apollo Server, MongoDB, Mongoose, deployments, AWS, Amplify, and AppSync is necessary to follow along. Full repos are available with the app examples.
+### [“A comparison between client-server and serverless full-stack app architectures”](#top)
 
-We want to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, let’s build a simple client side app in React, used for both client-server (which will call “serverful” from now on) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
+> The intended audience for this article is primarily front-end developers. This article assumes the reader is familiar with [React](https://reactjs.org/) and some basic [GraphQL](https://graphql.org/). In addition, the client-side app in this article uses recently introduced React [hooks](https://reactjs.org/docs/hooks-intro.html). Backend technologies will be explained in some detail, so no detailed understanding of topics such as [Apollo Server](https://www.apollographql.com/docs/apollo-server/), [MongoDB](https://www.mongodb.com/), [Mongoose](https://mongoosejs.com/), deployments, [AWS](https://aws.amazon.com/), [Amplify](https://aws-amplify.github.io/), and [AppSync](https://aws.amazon.com/appsync/) is necessary to follow along. Full repos are available with the app examples.
+
+This article serves to illustrate the differences between client-server and serverless approaches to building full-stack apps, with React being used for the UI. As a starting point, we will build a simple client side app in React, used for both client-server (which will call “serverful” from now on, taking a lead from this illuminating [technical report](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf) by UC Berkeley) and serverless approaches. Now, the [TodoMVC project](http://todomvc.com/) is a well-known initiative that uses a Todo app to compare web frameworks, so we’ll go with a Todo app based on it. Specifically, we’ll select the [Todo MVC app](https://github.com/reduxjs/redux/tree/master/examples/todomvc) from the Redux repository, use their CSS styling, remove some functionality to make it simpler for this article, and switch out class-based components for functional components using React hooks, to further simplify the code.
 
 ---
 
-## Starting Point: Client Side App
+## [Starting Point: Client Side App](#starting-point-client-side-app)
 
 You can see the client side app that resulted from doing this in the following [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp):
 
@@ -41,7 +42,7 @@ We will create two full-stack solutions based on the client-only app — one for
 
 ---
 
-## Approach A: Serverful Architecture
+## [Approach A: Serverful Architecture](#approach-a-serverful-architecture)
 
 > The complete repos for this example can be found in the Github repos for the [server](https://github.com/bowdentom/todo-server-app) and the [client](https://github.com/bowdentom/todo-client-app).
 
@@ -55,7 +56,7 @@ For handling GraphQL requests on the front-end, we will use [Apollo Client](http
 
 Let’s look at the backend code first.
 
-### Step 1 (Server): Create the GraphQL server and connect the database
+### [Step 1 (Server): Create the GraphQL server and connect the database](#step-1-create-graphql-server)
 
 The server app’s base level [`index.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/index.js) file does the following:
 
@@ -87,7 +88,7 @@ server
   .then(({ url }) => console.log(`GraphQL server ready on ${url}`))
 ```
 
-### Step 2 (Server): Create the GraphQL schema
+### [Step 2 (Server): Create the GraphQL schema](#step-2-create-graphql-schema)
 
 A GraphQL schema describes the functionality available to the clients which connect to it. A core building block of a GraphQL schema are the type definitions. Types provide a wide range of functions:
 
@@ -139,7 +140,7 @@ type Mutation {
 }
 ```
 
-### Step 3 (Server): Create the GraphQL resolvers
+### [Step 3 (Server): Create the GraphQL resolvers](#step-3-create-graphql-resolvers)
 
 Let’s have a look at our resolvers, in the [`src/graphql/resolvers.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/graphql/resolvers.js) file, which are very simple:
 
@@ -168,7 +169,7 @@ If a field produces a scalar value like a string or number, then the execution c
 
 In our example, the returned `Todo` is an object value, which contains only scalar fields (`id`, `text`, and `completed`). Resolving these is [trivial](https://graphql.org/learn/execution/#trivial-resolvers), and the Apollo server lets us omit resolvers this simple. It will assume that if a resolver is not provided for a field, then a property of the same name should be read and returned.
 
-### Step 4 (Server): Interact with the data source (part 1, Mongoose model)
+### [Step 4 (Server): Interact with the data source (part 1, Mongoose model)](#step-4-interact-with-data-source-part-1)
 
 Let’s start off with the code, found in the [`src/dataSource/model.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/dataSource/model.js) file:
 
@@ -204,7 +205,7 @@ Our Mongoose schema simply describes the shape of a our Todo documents, which ha
 
 To use the Mongoose schema, we convert it into a Mongoose [model](https://mongoosejs.com/docs/models.html) we can work with: `const Todo = mongoose.model('Todo', todoSchema)`. Instances of these `Todo` models are documents, that map to the MongoDB documents.
 
-### Step 5 (Server): Interact with the data source (part 2, Mongoose CRUD operations)
+### [Step 5 (Server): Interact with the data source (part 2, Mongoose CRUD operations)](#step-5-interact-with-data-source-part-2)
 
 The operations to create, read, update, and delete documents in our MongoDB database are coded up in [`src/dataSource/db.js`](https://github.com/bowdentom/todo-server-app/blob/master/src/dataSource/db.js):
 
@@ -283,7 +284,7 @@ module.exports = { list, create, remove, update, toggle }
 
 All database operations are asynchronous, so we are using the [`async/await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) syntax to deal with [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 
-This file describes five asychronous functions: `list`, `create`, `remove`, `update`, and `toggle`, which use several of Mongoose’s CRUD helper utitlities. Let’s describe how each function works:
+This file describes five asynchronous functions: `list`, `create`, `remove`, `update`, and `toggle`, which use several of Mongoose’s CRUD helper utilities. Let’s describe how each function works:
 
 1. `list`: to get all documents in a collection, we use the [`Model.find()`](https://mongoosejs.com/docs/api.html#model_Model.find) method.
 
@@ -297,9 +298,9 @@ This file describes five asychronous functions: `list`, `create`, `remove`, `upd
 
 > With that, we have completed all the code in `src` of the server side of our serverful app. You can find the project in the [`todo-server-app`](https://github.com/bowdentom/todo-server-app) on Github.
 
-### Step 6 (Client): Creating the Apollo Client
+### [Step 6 (Client): Creating the Apollo Client](#step-6-create-apollo-client)
 
-Now that we have the GraphQL server app, we can work on the GraphQL client app. To make GraghQL requests from the client, we will make use of Apollo Client. The simplest way to get started with Apollo Client is by using the [Apollo Boost](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) package.
+Now that we have the GraphQL server app, we can work on the GraphQL client app. To make GraphQL requests from the client, we will make use of Apollo Client. The simplest way to get started with Apollo Client is by using the [Apollo Boost](https://github.com/apollographql/apollo-client/tree/master/packages/apollo-boost) package.
 
 Let’s start with the client-only React app that we showed earlier in the [CodeSandBox](https://codesandbox.io/s/3r6jjoljpp). The code can be cloned from a Github repo that we have prepared.
 
@@ -613,7 +614,7 @@ Note that we follow the pattern of updating the UI immediately in the handlers, 
 
 We can now move on to deploying the database, the server, and the client.
 
-### Step 6: Deploying the database
+### [Step 7: Deploying the database](#step-7-deploy-database)
 
 We will use [Cloud Atlas](https://www.mongodb.com/cloud/atlas) as the cloud-hosting service of our MongoDB database. We will be using their [free tier](https://docs.mongodb.com/manual/tutorial/atlas-free-tier-setup/).
 
@@ -623,7 +624,7 @@ We will use [Cloud Atlas](https://www.mongodb.com/cloud/atlas) as the cloud-host
 - _Whitelist client connection to database_. From the `Security` tab, click `IP Whitelist` tab, then click `Add IP Address` button. An `Add Whitelist Entry` dialog will appear. Click the `Add Current IP Address` button, then click `Confirm` and wait for Atlas to update the firewall.
 - _Get the URI connection string_. From the `Overview` tab, inside the Sandbox panel for your cluster, click on the `Connect` button. A `Connect to <YOUR CLUSTER NAME>` dialog will appear. Select `Connect Your Application`. Then select `Short SRV connection string`. In the `Copy the SRV address field`, copy the string. It will look something like this: `mongodb+srv://<Username>:<PASSWORD>@<Cluster>.mongodb.net/todo-db?retryWrites=true`. We will use this URI connection string to connect to the cluster from the server app in the next step.
 
-### Step 7: Deploying the server app
+### [Step 8: Deploying the server app](#step-8-deploy-server)
 
 We will use [Heroku](https://www.heroku.com) to deploy our server for [free](https://www.heroku.com/free).
 
@@ -639,7 +640,7 @@ Now that we have the tools necessary to interact with Heroku from the command-li
 
 If successful, your server app API will be accessible on the URL: `https://<YOUR_SERVER_APP_NAME>.herokuapp.com/`. You will need this URL in the next step.
 
-### Step 8: Deploying the client app
+### Step 9: [Deploying the client app](#step-9-deploy-client)
 
 Now that we have the database and server app deployed, we can deploy our client app, also using Heroku.
 
@@ -651,7 +652,7 @@ If successful, your client Todo app will be accessible on the URL: `https://<YOU
 
 ---
 
-## Approach B: Serverless Architecture
+## [Approach B: Serverless Architecture](#approach-b-serverless-architecture)
 
 Since we are now covering a “serverless” approach, we won’t be making a server, or even have to worry about connecting a database manually. All we need to do is code up the client side and let AWS do the rest of the heavy lifting.
 
@@ -666,7 +667,7 @@ git clone https://github.com/bowdentom/todo-clientonly.git todo-serverless
 cd todo-serverless
 ```
 
-### Step 1: Install AWS Amplify CLI
+### [Step 1: Install AWS Amplify CLI](#serverless-step-1-install-amplify-cli)
 
 In the command-line, do a global install on your machine:
 
@@ -674,24 +675,24 @@ In the command-line, do a global install on your machine:
 npm install -g @aws-amplify/cli
 ```
 
-### Step 2: Configure the Amplify CLI
+### [Step 2: Configure the Amplify CLI](#serverless-step-2-configure-amplify-cli)
 
 ```bash
 amplify configure
 ```
 
-Then the following configuration stpes are required:
+Then the following configuration steps are required:
 
 - _Login_. This should open up the AWS Management Console in your browser. Log in to your AWS account, then return to your command-line. Hit `Enter` to continue.
 - _Specify Region_. Specify the AWS Region, using your arrow keys. For example `us-east-1`.
 - _Specify an IAM User_. Specify the username of a new IAM user. For example: `todo-serverless-cli-user`.
 - _Add IAM User_. The `Add User` stepper in AWS Management Console should open in your browser.
-  In your browser, the IAM user has some preconfigured settings that we can accept by clicking `Next: Permissions`, `Next: Tags`, `Next: Review`, and finally `Create User`. Once the IAM user has been created, we’re given an `Access key ID` and a `Secret access key`. Make sure you copy these to a secure location, because we will need them next. Now you can return to your command-line. Hit `Enter` to continue.
+  In your browser, the IAM user has some preconfigured settings that we can accept by clicking `Next: Permissions`, `Next: Tags`, `Next: Review`, and finally `Create User`. Once the IAM user has been created, we are given an `Access key ID` and a `Secret access key`. Make sure you copy these to a secure location, because we will need them next. Now you can return to your command-line. Hit `Enter` to continue.
 - _Enter User Access Key_. Enter the access key id of the newly created user, which you got previously.
 - _Enter User Secret Access Key_. Enter the secrete access key of the newly created user, which you got previously.
 - _Specify a Profile Name_. Specify the profile name. For example: `todo-serverless-cli-user-profile`. Now the CLI has been configured and we’re ready to begin initializing new AWS Amplify projects.
 
-### Step 3: Initialize Amplify Project
+### [Step 3: Initialize Amplify Project](#serverless-step-3-initialize-amplify)
 
 In the command-line, from the root of the `todo-serverless` app folder that you cloned during preparation:
 
@@ -713,11 +714,15 @@ Then complete the following steps to configure Amplify for your project:
 - _Use AWS Profile_? “Do you want to use an AWS profile?” Enter: `Y`.
 - _Select AWS Profile_. “Please choose the profile you want to use”. Select: `todo-serverless-cli-user-profile`.
 
-The CLI will start initializing the project in the cloud. This will take a few seconds. If successful, you should see “Your project has been successfully initialized and connected to the cloud!”
+The CLI will start initializing the project in the cloud. This will take a few seconds.
+
+If successful, you should see:
+
+> Your project has been successfully initialized and connected to the cloud!
 
 You may have noticed that Amplify CLI added a folder `amplify` to your `todo-serverless` project at the root level, and updated your `.gitignore` file.
 
-### Step 4: Add API using Amplify
+### [Step 4: Add API using Amplify](#serverless-step-4-amplify-add-api)
 
 Now we can get started creating the GraphQL API for our app. AWS provides a managed GraphQL backend service called `AppSync`, which we will be using. In the command-line:
 
@@ -762,13 +767,13 @@ Save your changes, and return to your command-line.
 
 If all went successfully, you should see the following message:
 
-“GraphQL schema compiled successfully.
-Edit your schema at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql` or place `.graphql` files in a directory at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema`
-Successfully added resource `TodoServerlessAppSyncApi` locally”
+> GraphQL schema compiled successfully.
+> Edit your schema at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema.graphql` or place `.graphql` files in a directory at `<...>/todo-serverless/amplify/backend/api/TodoServerlessAppSyncApi/schema`
+> Successfully added resource `TodoServerlessAppSyncApi` locally.
 
 Amplify has added the local folder `amplify/backend/api/` which contains your modified schema. You can now push these changes (and your configuration choices) up to AWS to create the resources for your backend in the cloud.
 
-### Step 5: Push API Update to AWS
+### [Step 5: Push API Update to AWS](#serverless-step-5-amplify-push)
 
 In the command-line, in order to build all your local backend resources and provision it in the cloud:
 
@@ -786,15 +791,18 @@ Then complete the following steps to push the API to AWS:
 - _Specify Maximum Statement Depth_. “Enter maximum statement depth [increase from default if your schema is deeply nested].” Enter `2`, which should be the default.
 
 You should now see the following message:
-“Updating resources in the cloud. This may take a few minutes...” If successful, you should see the message:
-✔ Generated GraphQL operations successfully and saved at `src/graphql`
-✔ All resources are updated in the cloud
+“Updating resources in the cloud. This may take a few minutes...”
+
+If successful, you should see the message:
+
+> ✔ Generated GraphQL operations successfully and saved at `src/graphql`
+> ✔ All resources are updated in the cloud
 
 Amplify has added the folder `src/graphql` to your project. Inside, you will see folders for `queries`, `mutations`, and `subscriptions`, and a `schema.json` file.
 
 If you look inside the `queries` and `mutations` folders, you will see similar GraphQL queries to the ones we wrote by hand in the `Approach A: Serverful Architecture` section of this article, when creating the server-side app.
 
-### Step 6: Configuring Amplify in the Serverless (Client-Only) App
+### [Step 6: Configuring Amplify in the Serverless (Client-Only) App](#serverless-step-6-configure-amplify-on-client)
 
 Now that we have set up the “serverless” resources in `AWS AppSync`, we can add GraphQL request code in the client-side app `todo-serverless`.
 
@@ -818,7 +826,7 @@ ReactDOM.render(<App />, document.getElementById('root'))
 
 We will need to install `aws-amplify` to our project so that we can import `Amplify`. In your command-line, please either `yarn add aws-amplify` or `npm install aws-amplify`, to add it to our project.
 
-### Step 7: Update the Serverless (Client-Only) App with GraphQL API Requests
+### [Step 7: Update the Serverless (Client-Only) App with GraphQL API Requests](#serverless-step-7-update-client-with-graphql-api)
 
 Let’s move over to the `App` component file in the `src/components` folder. Update this file so that it looks like this:
 
@@ -975,9 +983,7 @@ You will notice how similar the API calls are to the ones we wrote in `todo-clie
 
 You can now test your app locally, interacting with AWS AppSync’s DynamoDB in the cloud. From your command-line, either `yarn start` or `npm start` to start the development server on `localhost:3000` in the browser. Add a few todos in the app, and then check that the added todos appear in DynamoDB in the AWS Management Console.
 
-[Image of DynamoDB Todo collection]
-
-### Step 8: Host the Serverless (Client-Only) App on S3
+### [Step 8: Host the Serverless (Client-Only) App on S3](#serverless-step-8-amplify-add-s3-hosting)
 
 We can either choose `DEV` for S3 with HTTP or `PROD` for S3 with HTTPS with CloudFront distribution. We will go with S3 with HTTP for the purposes of this article.
 
@@ -1002,10 +1008,11 @@ amplify publish
 
 Hit `Y` when prompted: “Are you sure you want to continue?”.
 
-You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...” If everything was successful, you will receive the message:
-✔ Uploaded files successfully.
-Your app is published successfully.
-http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com
+You will then see a message saying: “Updating resources in the cloud. This may take a few minutes...”
+
+If everything was successful, you will receive the message:
+
+> ✔ Uploaded files successfully. Your app is published successfully. http://<your-hosting-bucket-name>-dev.s3-website-us-east-1.amazonaws.com
 
 Your browser should automatically open with a tab pointing to url `http://<your hosting bucket name>-dev.s3-website-us-east-1.amazonaws.com`.
 
@@ -1013,21 +1020,26 @@ Your app is now live on the web for you to share! Test it out, refresh the brows
 
 ---
 
-## Comparing the Serverful and Serverless Approaches (A versus B)
+## [Comparing the Serverful and Serverless Approaches (A versus B)](#comparing-serverful-and-serverless-approaches)
 
-After going through this somewhat lengthy article, you will now be able to appreciate the differences between the serverful approach, where you had to make two apps – for client and server – as well as separately deploy both in addition to a database, and the serverless approach, where you only needed to make and deploy a single client-side app with some very simple configuration for AWS using Amplify.
+After going through this detailed article, you will be able to appreciate the differences between the _serverful_ approach, in which you had to make two apps — for client and server — as well as separately deploy both in addition to a database, and the _serverless_ approach, where you only needed to make and deploy a single client-side app with some very simple configuration for AWS using Amplify.
 
-When writing a the backend API of a serverful GraphQL app, you need to worry about creating:
+When writing the backend API of a serverful GraphQL app, you need to create:
 
 1. GraphQL server
 2. GraphQL schema
 3. GraphQL resolvers
 4. Data source CRUD functions
 
-Then, you need to deploy both the server and the database. So many things could go wrong, and so much time — and money — could be wasted. Even for this simple todo app, it took a significant amount of time and effort to accomplish this.
+Then, you need to deploy both the server and the database. These are non-trivial tasks, introducing potential errors and requiring ongoing maintenance. Even for this simple todo app, it took a significant amount of time and effort to complete these tasks.
 
-Manually creating a backend API involves a lot of code and complexity that you can pass on to a managed GraphQL BaaS, such as AWS AppSync. This will enable you to iterate on your app prototype, or your MVP, or your online business more quickly, which is obviously desirable.
+Manually creating a backend API involves a lot of code and complexity that you can pass on to a managed GraphQL BaaS, such as AWS AppSync. This will enable you to iterate on your project more quickly, which is more [lean](http://theleanstartup.com/) and [agile](https://agilemanifesto.org/).
 
-Startups should strive to be an [`Exponential Organization`](https://exponentialorgs.com/), and the serverless approach to making webapps is a step in the right direction.
+The authors of the UC Berkeley Technical Report entitled “[Cloud Programming Simplified: A Berkeley View on
+Serverless Computing](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2019/EECS-2019-3.pdf)” predict that:
+
+> Serverless computing will become the default computing paradigm of the Cloud Era, largely replacing serverful computing and thereby bringing closure to the Client-Server Era.
+
+We believe that startups should strive to be ‘[Exponential Organizations](https://exponentialorgs.com/)’, leveraging cloud computing assets and technologies, and the serverless approach to making webapps is a step in the right direction.
 
 Serverless is the future of making webapps. Welcome to the future!
