@@ -17,7 +17,7 @@ export const CONTENT_STRINGS = {
         title: 'About',
         content: [
           `
-          Exo DevHub provides businesses with the software tools and mindset
+          Exo Dev provides businesses with the software tools and mindset
           necessary to transform themselves into exponential organizations.
           `,
           `
@@ -37,7 +37,7 @@ export const CONTENT_STRINGS = {
           sources. New players should build agility in from the start.
           <a href="https://www.openexo.com/">OpenExO</a> will guide you
           through the process of transforming your business into an
-          exponential one, and <strong>ExO DevHub</strong> will assist you
+          exponential one, and <strong>ExO Dev</strong> will assist you
           with cutting-edge technical solutions.
           `
         ],
@@ -59,7 +59,7 @@ export const CONTENT_STRINGS = {
         title: 'About',
         content: [
           `
-          Exo DevHubはあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。
+          Exo Dev はあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。
           `,
           `
           <a href="https://exponentialorgs.com/">exponential organizations</a>とは、
@@ -71,7 +71,7 @@ export const CONTENT_STRINGS = {
           異業種からの新規参入がもたらす予期せぬ業界変革の中組織を成長させていくためには、
           業界リーダー規模であるか小規模プレイヤーであるかを問わず自らも変革を遂げなければなりません。
           一方新規参入者は参入当初時から俊敏な組織を構築する必要があります。<a href="https://www.openexo.com/">OpenExO</a>は
-          変革プロセスを通し飛躍型組織へと、ExO DevHubは最新テクノロジーを用いたソリューションを提供し、あなたのビジネスをアシストします。
+          変革プロセスを通し飛躍型組織へと、ExO Devは最新テクノロジーを用いたソリューションを提供し、あなたのビジネスをアシストします。
           `
         ]
       }

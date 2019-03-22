@@ -120,7 +120,7 @@ const Header = ({ children }: Props) => (
   <Wrapper>
     <Content>
       <LogoLink to="/">
-        <Logo alt="Exo Devhub" src={config.siteLogo} />
+        <Logo alt="ExO Dev" src={config.siteLogo} />
       </LogoLink>
       <LanguageSwitcherWrapper>
         <LanguageSwitcher
