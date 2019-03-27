@@ -94,7 +94,7 @@ function Navbar(location:{ hash: string, pathname:string }){
   const list = routes.map(item => {
     const isActive = item.to ===  location.pathname + location.hash;
     const selectedName = isActive ? `[${item.name}]` : item.name;
-    return  <MenuItem isActive={isActive} to={item.to}>{selectedName}</MenuItem>
+    return  <MenuItem key={item.to} isActive={isActive} to={item.to}>{selectedName}</MenuItem>
   })
 
   return (<Menu>

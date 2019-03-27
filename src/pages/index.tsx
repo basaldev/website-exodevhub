@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { filter } from 'lodash';
 import { Grid, Hidden } from '@material-ui/core';
 import 'katex/dist/katex.min.css'
-import ProgressiveImage from 'react-progressive-image';
 import {
   Layout,
   Header,
@@ -13,6 +12,7 @@ import {
   Button,
   SectionTitle,
   LinkHeader,
+  ServiceCard,
   Person,
   SignUpCommunity,
   SEO,
@@ -185,16 +185,21 @@ const IndexPage = ({
           <Grid item xs={6}>
           <Grid container justify="flex-end">
           <Grid item>
-          <ProgressiveImage src={wordings.about.image} placeholder={wordings.about.imagePlaceholder}>
-            {src => (<img style={{width:`600px`, padding: designSystem.spacing(2)}} src={src} alt="about exodev"/>)}
-          </ProgressiveImage>
-            </Grid>
+            <img style={{width:`600px`, padding: designSystem.spacing(2)}} src={wordings.about.image} alt="about exodev"/>
+          </Grid>
           </Grid>
           </Grid>
           </Hidden>
           </Grid>
+          <Section>
+            <SectionTitle text={`${wordings.services.title}`} />
+            <Grid container spacing={32} alignItems="stretch">
+            {wordings.services.content.map((service: {title:string }, index: number) => {
+            return <Grid item md={6}><ServiceCard key={index+service.title} {...service} /></Grid>
+          })}
+          </Grid>
+          </Section>
           </AboutSection>
-
           <Section  id="team">
             <SectionTitle text={`${wordings.community.title}`} />
             <PeopleWrapper>

@@ -12,6 +12,8 @@ import Person from './Person'
 import DiscordWidget from './DiscordWidget'
 import SignUpCommunity from './SignUpCommunity'
 import Footer from './Footer';
+import ServiceCard from './ServiceCard';
+import Texture from './Texture';
 
 
 export {
@@ -28,5 +30,7 @@ export {
   Person,
   DiscordWidget,
   SignUpCommunity,
-  Footer
+  Footer,
+  ServiceCard,
+  Texture
 }
