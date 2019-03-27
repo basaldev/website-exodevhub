@@ -147,7 +147,6 @@ const IndexPage = ({
   },
   location
 }: Props) => {
-  console.log(location);
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
   const selectedLanguage: string = getLanguage();
@@ -169,7 +168,6 @@ const IndexPage = ({
         <Header location={location} />
         <Content>
         <AboutSection id="about" background={wordings.about.image}>
-
           <Grid container justify="space-between" >
           <Grid item xs={12} md={6} >
         <SectionTitle text={`${wordings.about.title}`} />
