@@ -7,9 +7,7 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 import theme from '../../config/Theme'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
-import { CONTENT_STRINGS } from '../utils/content-strings';
-import { getLanguage } from '../utils/language';
-
+import { Footer } from '../components';
 
 const GlobalStyle = createGlobalStyle`
   ::selection {
@@ -135,6 +133,9 @@ const GlobalStyle = createGlobalStyle`
   src: local('Roboto Mono Bold'), local('RobotoMono-Bold'), url(https://fonts.gstatic.com/s/robotomono/v6/L0xkDF4xlVMF-BfR8bXMIjDwjmqxf7-pAVU_.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     font-display:block;
     background: ${theme.colors.bg};
@@ -213,18 +214,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const Footer = styled.footer`
-  text-align: center;
-  padding: 3rem 0;
-  opacity: 1;
-  color: ${designSystem.color('white', 'darker')};
-  span {
-    font-size: 0.9rem;
-  }
-  small {
-    opacity: 0.4;
-  }
-`
+
 
 interface Props {
   children: ReactNode
@@ -244,13 +234,7 @@ const Layout = ({ children }: Props) => (
         <React.Fragment>
           <GlobalStyle />
           {children}
-          <Footer>
-            <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].company }}></span>
-            <br />
-            <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].copyright }}></span>
-            <br />
-            <small>{CONTENT_STRINGS.footer[getLanguage()].build}: {data.site.buildTime}</small>
-          </Footer>
+          <Footer buildTime={data.site.buildTime}/>
         </React.Fragment>
       </ThemeProvider>
     )}

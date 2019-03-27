@@ -3,18 +3,19 @@ export const CONTENT_STRINGS = {
   index: {
     en: {
       writing: {
-        title: `writing`,
+        title: `Blog`,
         button: `All Categories`
       },
       community: {
-        title: `Community`,
+        title: `Team`,
         discord: {
           button: `Join the community`,
           subtitle: `Online`
         }
       },
       about: {
-        title: 'About',
+        title: 'We are Exodev',
+        image: `/assets/about.png`,
         content: [
           `
           Exo Dev provides businesses with the software tools and mindset
@@ -41,22 +42,38 @@ export const CONTENT_STRINGS = {
           with cutting-edge technical solutions.
           `
         ],
+      },
+      clients: {
+        title: 'Recent Clients',
+        content: [
+          { name: 'Boston Scietific', logo: `/clients/boston-scientific.png`},
+          { name: 'Rakuten', logo: `/clients/rakuten.svg`}
+        ]
+      },
+      services: {
+        title: 'Products + Services',
+        content: []
+      },
+      products: {
+        title: 'Products',
+        content: []
       }
     },
     ja: {
       writing: {
-        title: `writing`,
+        title: `Blog`,
         button: `すべてのカテゴリ`
       },
       community: {
-        title: `Community`,
+        title: `Team`,
         discord: {
           button: `コミュニティに参加する`,
           subtitle: `オンライン`
         }
       },
       about: {
-        title: 'About',
+        title: 'We are Exodev',
+        image: `/assets/about.png`,
         content: [
           `
           Exo Dev はあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。
@@ -74,6 +91,21 @@ export const CONTENT_STRINGS = {
           変革プロセスを通し飛躍型組織へと、ExO Devは最新テクノロジーを用いたソリューションを提供し、あなたのビジネスをアシストします。
           `
         ]
+      },
+      clients: {
+        title: 'Recent Clients',
+        content: [
+          { name: 'Boston Scietific', logo: `/clients/boston-scientific.png`},
+          { name: 'Rakuten', logo: `/clients/rakuten.svg`}
+        ]
+      },
+      services: {
+        title: 'Products + Services',
+        content: []
+      },
+      products: {
+        title: 'Products',
+        content: []
       }
     }
   },

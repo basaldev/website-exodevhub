@@ -38,10 +38,10 @@ interface Props {
   children?: ReactNode
 }
 
-const LinkHeader = ({ text, white, children }: Props) => {
+const LinkHeader = ({ text, children }: Props) => {
   return (
     <TitleHeader>
-      <SectionTitle text={text} white={white} />
+      <SectionTitle text={text} />
       <ButtonWrapper>{children}</ButtonWrapper>
     </TitleHeader>
   )

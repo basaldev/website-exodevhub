@@ -10,7 +10,7 @@ module.exports = {
   siteDescription:
     'An internet and software company working towards an exponential future', // Your site description
   author: 'ExoDevHub Team', // Author for schemaORGJSONLD
-  siteLogo: '/social/logo.svg', // Image for schemaORGJSONLD
+  siteLogo: '/social/logo-mono.svg', // Image for schemaORGJSONLD
 
   userTwitter: '@exodevhub', // Twitter Username - Optional
   medium: 'exodevhub',

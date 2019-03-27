@@ -9,6 +9,7 @@ interface Props {
   postBodyComponents: any[]
 }
 export default class HTML extends React.Component<Props, {}> {
+  console.log(this.props);
   render() {
     return (
       <html {...this.props.htmlAttributes}>

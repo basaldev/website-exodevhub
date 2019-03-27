@@ -57,7 +57,7 @@ const designTokens = {
     sizes: {
       xxs: '14',
       xs: '16',
-      s: '20',
+      sm: '20',
       base: '22',
       m: '28',
       l: '36',

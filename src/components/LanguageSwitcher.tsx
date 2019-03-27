@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { designSystem } from '../utils/designSystem';
 import { Language } from '../utils/language';
+import { media } from '../utils/media'
 
 interface Props {
   languages: {
@@ -14,6 +15,11 @@ interface Props {
 
 const Wrapper = styled.div`
   margin-bottom: ${designSystem.spacing(2)};
+  @media ${media.phone} {
+    position:absolute;
+    top: ${designSystem.spacing(1)};
+    right: ${designSystem.spacing(1)};
+  }
 `
 
 const LanguageSwitch = styled.span`
@@ -25,6 +31,8 @@ const LanguageSwitch = styled.span`
     font-weight: bold;
     color: ${designSystem.color('blue')};
   }
+
+
 `
 
 const LanguageSwitcher = function({ selectedLanguage, languages, onClick }: Props) {

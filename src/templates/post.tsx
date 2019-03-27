@@ -55,7 +55,7 @@ const PostContent = styled.div`
     max-width: 100%;
     p,
     blockquote {
-      font-size: ${designSystem.fs('s')}px;
+      font-size: ${designSystem.fs('sm')}px;
     }
   }
 `
