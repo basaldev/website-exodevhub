@@ -117,12 +117,14 @@ interface Props {
         medium: string
       }
     }
-  }
+  },
+  location: any
 }
 
 const Post = ({
   pageContext: { slug },
   data: { markdownRemark: postNode },
+  location,
 }: Props) => {
   const post = postNode.frontmatter
   const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
@@ -139,7 +141,7 @@ const Post = ({
       <Wrapper>
         <SEO postPath={slug} postNode={postNode} postSEO />
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
-        <Header />
+        <Header location={location} />
         <Content>
           <LanguageSwitcher
             languages={post.languages}
