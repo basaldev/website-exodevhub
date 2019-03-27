@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { filter } from 'lodash';
 import { Grid, Hidden } from '@material-ui/core';
 import 'katex/dist/katex.min.css'
-
+import ProgressiveImage from 'react-progressive-image';
 import {
   Layout,
   Header,
@@ -185,7 +185,9 @@ const IndexPage = ({
           <Grid item xs={6}>
           <Grid container justify="flex-end">
           <Grid item>
-            <img style={{width:`600px`, padding: designSystem.spacing(2)}} src={wordings.about.image} alt="about exodev"/>
+          <ProgressiveImage src={wordings.about.image} placeholder={wordings.about.imagePlaceholder}>
+            {src => (<img style={{width:`600px`, padding: designSystem.spacing(2)}} src={src} alt="about exodev"/>)}
+          </ProgressiveImage>
             </Grid>
           </Grid>
           </Grid>

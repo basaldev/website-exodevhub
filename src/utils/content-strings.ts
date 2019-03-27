@@ -16,6 +16,7 @@ export const CONTENT_STRINGS = {
       about: {
         title: 'We are Exodev',
         image: `/assets/about.png`,
+        imagePlaceholder: `/assets/about-placeholder.png`,
         content: [
           `
           Exo Dev provides businesses with the software tools and mindset
@@ -74,6 +75,7 @@ export const CONTENT_STRINGS = {
       about: {
         title: 'We are Exodev',
         image: `/assets/about.png`,
+        imagePlaceholder: `/assets/about-placeholder.png`,
         content: [
           `
           Exo Dev はあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。

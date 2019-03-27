@@ -49,6 +49,7 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-helmet": "^5.2.0",
+    "react-progressive-image": "^0.6.0",
     "react-typography": "^0.16.13",
     "styled-components": "^4.0.3",
     "typography": "^0.16.17"
