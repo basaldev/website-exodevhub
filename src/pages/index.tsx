@@ -156,20 +156,16 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
-  let selectedLanguage: string = getLanguage();
-  if(typeof window !== 'undefined'){
-    setTimeout(() => {
-    document.getElementById('lang-en').click();
-    if(window.location.search === "?lang=ja"){
-        // document.getElementById('lang-ja').click();
-    };
-    if(window.location.search === "?lang=en"){
-      document.getElementById('lang-en').click();
-    };
-    }, 2000)
-  }
-  let wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
 
+  let selectedLanguage: string = getLanguage();
+  if(typeof window !== "undefined"){
+  if(window.location.search === "?lang=ja"){
+      selectedLanguage = 'ja';
+      setLanguage('ja');
+      window.location.href = '/'
+    };
+  }
+  const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
@@ -181,7 +177,6 @@ const IndexPage = ({
     }
   });
   const [expandedCard, setExpandedCard] = useState(false);
-
   const updateExpandedCard = () => setExpandedCard(!expandedCard);
   return (
     <Layout>
