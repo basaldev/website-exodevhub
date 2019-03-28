@@ -19,7 +19,7 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
-import { getLanguage } from '../utils/language';
+import { getLanguage, setLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
 const Content = styled.div`
   grid-column: 2;
@@ -102,6 +102,10 @@ const ClientLogo = styled(Grid)`
       height: auto;
       max-height: 40px;
     }
+    @media (min-width: 960px) {
+      height: auto;
+      max-height: 40px;
+    }
   }
 `
 const ClientList = styled(Grid)`
@@ -114,6 +118,9 @@ line-height: 50px;
   @media ${media.tablet} {
       font-size: ${designSystem.fs('sm')}px;
     }
+  @media ${media.smallLaptop} {
+      font-size: ${designSystem.fs('sm')}px;
+  }
 `
 
 function randomWhite(text:string){
@@ -149,6 +156,15 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
+
+  if(location.search === "?lang=en"){
+    setLanguage('en');
+    location.search = '';
+  };
+  if(location.search === "?lang=ja"){
+    setLanguage('ja');
+    location.search = '';
+  };
   const selectedLanguage: string = getLanguage();
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
