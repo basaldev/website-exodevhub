@@ -55,7 +55,7 @@ export const CONTENT_STRINGS = {
         title: 'Services',
         content: [
           {
-          color: 'froly',
+          color: 'green',
           bg: `/assets/scale.png`,
           mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
           title: 'SCALE DEVELOPMENT',
@@ -150,7 +150,7 @@ export const CONTENT_STRINGS = {
         title: 'Services',
         content: [
           {
-          color: 'froly',
+          color: 'green',
           bg: `/assets/scale.png`,
           mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
           title: 'SCALE DEVELOPMENT',
