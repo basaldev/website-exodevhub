@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { graphql } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash';
 import { Grid, Hidden } from '@material-ui/core';
@@ -19,7 +19,7 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
-import { getLanguage } from '../utils/language';
+import { getLanguage, setLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
 const Content = styled.div`
   grid-column: 2;
@@ -102,6 +102,10 @@ const ClientLogo = styled(Grid)`
       height: auto;
       max-height: 40px;
     }
+    @media (min-width: 960px) {
+      height: auto;
+      max-height: 40px;
+    }
   }
 `
 const ClientList = styled(Grid)`
@@ -114,6 +118,9 @@ line-height: 50px;
   @media ${media.tablet} {
       font-size: ${designSystem.fs('sm')}px;
     }
+  @media ${media.smallLaptop} {
+      font-size: ${designSystem.fs('sm')}px;
+  }
 `
 
 function randomWhite(text:string){
@@ -149,7 +156,9 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
-  const selectedLanguage: string = getLanguage();
+
+  let selectedLanguage: string = getLanguage();
+
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
@@ -173,6 +182,7 @@ const IndexPage = ({
           <Grid container justify="space-between" >
           <Grid item xs={12} md={6} >
           <h1>{wordings.about.title}</h1>
+
           {wordings.about.content.map((para: string, index: number) => {
             return <p key={index+para} dangerouslySetInnerHTML={{ __html: para}} />
           })}

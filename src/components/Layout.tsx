@@ -1,10 +1,11 @@
 /* eslint no-unused-expressions:0 */
 
 import React, { ReactNode } from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql, navigate } from 'gatsby'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 import theme from '../../config/Theme'
+import { setLanguage, getLanguage } from '../utils/language';
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
 import { Footer } from '../components';
@@ -21,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
     font-display:block;
     background: ${theme.colors.bg};
     font-display: swap;
-    transition: 0.5s ease all;
+    transition: 1s ease all;
     opacity: 1 !important;
     @media ${media.phone} {
       font-size: 14px;
@@ -110,15 +111,26 @@ const Layout = ({ children }: Props) => (
         }
       }
     `}
-    render={data => (
+    render={data => {
+      let content = null;
+      let footer = null;
+      if(typeof window !== 'undefined'){
+        if(window.location.search === '?lang=ja'){
+          setLanguage('ja');
+          navigate('/')
+        }
+        content = children;
+        footer = <Footer buildTime={data.site.buildTime}/>
+      }
+      return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <GlobalStyle />
-          {children}
-          <Footer buildTime={data.site.buildTime}/>
+          {content}
+          {footer}
         </React.Fragment>
       </ThemeProvider>
-    )}
+    )}}
   />
 )
 

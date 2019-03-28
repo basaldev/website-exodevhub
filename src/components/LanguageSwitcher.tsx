@@ -45,6 +45,7 @@ const LanguageSwitcher = function({ selectedLanguage, languages, onClick }: Prop
       {Object.keys(languages).map((langKey: Language) => {
         return (
           <LanguageSwitch
+            id={`lang-${langKey}`}
             key={langKey}
             className={selectedLanguage === langKey ? 'active' : ''}
             onClick={(e: any) => onClick(langKey, e)}
