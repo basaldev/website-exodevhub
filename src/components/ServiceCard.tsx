@@ -62,6 +62,9 @@ const BlackButton = styled(Button)`
   background: ${designSystem.color('black')};
   color: ${designSystem.color('white')};
   border: 3px solid ${designSystem.color('black')};
+  @media ${media.phone} {
+      font-size: 3.9vw;
+  }
 `
 
 const GhostButton = styled.button`
@@ -72,6 +75,9 @@ const GhostButton = styled.button`
   &:hover {
     background-color: ${designSystem.color('white')};
   }
+  @media ${media.phone} {
+      font-size: 3.9vw;
+  }
 `
 
 const Title = styled.h3`
@@ -81,7 +87,7 @@ const Title = styled.h3`
       font-size: 3vw;
     }
   @media ${media.phone} {
-      font-size: 5vw;
+      font-size: 8vw;
   }
 `
 
@@ -92,15 +98,19 @@ const Subtitle = styled.h4`
   margin-bottom: ${designSystem.spacing(1)};
   word-break:break-word;
   padding:0;
+  @media ${media.phone} {
+      font-size: 4vw;
+  }
 `
+
 const Inner = styled.div`
   position: relative;
   z-index: 2;
-  /* height: 100%; */
 `;
 
 const _CardContent = styled(CardContent)`
   height: 100%;
+  max-width: auto;
 `;
 const _ExpansionPanel = styled(ExpansionPanel)`
   background: transparent;
@@ -128,7 +138,7 @@ export class ServiceCard extends React.Component {
       <Inner>
         <_CardContent>
         <Grid container justify="space-between" direction="column" spacing={16}>
-          <Grid item xs={8}>
+          <Grid item sm={8} xs={12}>
           <Subtitle>{this.props.subtitle}</Subtitle>
           <Title>{this.props.title}</Title>
           {this.props.excerpt}
