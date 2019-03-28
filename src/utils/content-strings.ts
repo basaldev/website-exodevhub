@@ -59,7 +59,7 @@ export const CONTENT_STRINGS = {
           bg: `/assets/scale.png`,
           mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
           title: 'SCALE DEVELOPMENT',
-          subtitle: `Your cutting-edge development team, on-demand`,
+          subtitle: `Your cutting-edge development team on-demand`,
           excerpt: `We are your on-demand development team; from cutting-edge web technologies to leveraging existing technological architectural assets. We are here to take your development.`,
           content: [
             `<b>Staff-on-demand and Community</b><br>
