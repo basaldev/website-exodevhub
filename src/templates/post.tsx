@@ -17,6 +17,7 @@ const Content = styled.article`
   overflow: hidden;
   padding: 1rem 0rem;
   z-index: 9000;
+  position:relative;
   max-width: 55vw;
   margin: 0 auto;
   @media ${media.tablet} {
@@ -24,7 +25,7 @@ const Content = styled.article`
     max-width: 100%;
   }
   @media ${media.phone} {
-    padding: 2rem 0rem;
+    padding: 0rem 0rem 2rem 0;
     max-width: 100%;
   }
   h2 {
@@ -92,7 +93,6 @@ const Clap = styled.a`
     border: 3px solid ${designSystem.color('green')};
   }
 `
-
 interface Props {
   pageContext: {
     slug: string
@@ -143,11 +143,6 @@ const Post = ({
         <Helmet title={`${post.title} | ${config.siteTitle}`} />
         <Header location={location} />
         <Content>
-          <LanguageSwitcher
-            languages={post.languages}
-            onClick={(langKey: Language) => navigate((post.languages as any)[langKey])}
-            selectedLanguage={post.language}
-          />
           <Subline>
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
