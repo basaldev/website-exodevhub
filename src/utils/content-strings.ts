@@ -79,13 +79,13 @@ export const CONTENT_STRINGS = {
           subtitle: `Evolve your technical team`,
           excerpt: `The ExO Dev Sprint is a practical and hands-on educational program designed to evolve and adapt your internal tech team, while also managing internal resistance to change inside your company.`,
           content: [
-            `1) evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
-            `2) do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
+            `<b>1)</b> evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
+            `<b>2)</b> do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
             `We offer the program in three formats tailored to your specific needs and context:<br>
             `,
-            `- Short program: 1 week
-            - Medium program: 4 weeks
-            - Long program: 10 weeks
+            `<b>Short program: 1 week</b><br>
+            <b>Medium program: 4 weeks</b><br>
+            <b>Long program: 10 weeks</b><br>
             `
           ]
          },
@@ -174,13 +174,13 @@ export const CONTENT_STRINGS = {
           subtitle: `Evolve your technical team`,
           excerpt: `The ExO Dev Sprint is a practical and hands-on educational program designed to evolve and adapt your internal tech team, while also managing internal resistance to change inside your company.`,
           content: [
-            `1) evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
-            `2) do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
+            `<b>1)</b> evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
+            `<b>2)</b> do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
             `We offer the program in three formats tailored to your specific needs and context:<br>
             `,
-            `- Short program: 1 week
-            - Medium program: 4 weeks
-            - Long program: 10 weeks
+            `<b>Short program: 1 week</b><br>
+            <b>Medium program: 4 weeks</b><br>
+            <b>Long program: 10 weeks</b><br>
             `
           ]
          },
