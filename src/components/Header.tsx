@@ -1,4 +1,4 @@
-import React, { ReactNode, SyntheticEvent } from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import { Link, navigate } from 'gatsby'
 import { getLanguage, setLanguage } from '../utils/language';

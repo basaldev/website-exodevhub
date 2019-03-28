@@ -96,16 +96,7 @@ export const CONTENT_STRINGS = {
           subtitle: `Introductory 1 day workshop`,
           excerpt: `In this 1 day workshop in which we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
           This is a short introductory version of the ExO Dev Sprint.`,
-          content: [
-            `<b>Staff-on-demand and Community</b><br>
-             We are your on-demand development team leveraging an open community of cutting-edge developers`,
-             `<b>Algorithms</b><br>
-             We design algorithmic solutions to automate and manage your company’s processes.`,
-             `<b>Leverage assets</b><br>
-             We leverage existing technological architectural assets in the ‘cloud’ in order to accelerate your development projects.`,
-             `<b>Engagement</b><br>
-             We make powerful social and engagement tools available to you.`,
-          ]
+          content: []
          }
 
         ]

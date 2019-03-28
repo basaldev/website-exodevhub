@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash';
@@ -161,6 +161,8 @@ const IndexPage = ({
         break
     }
   });
+  const [expandedCard, setExpandedCard] = useState(false);
+  const updateExpandedCard = () => setExpandedCard(!expandedCard);
   return (
     <Layout>
       <SEO />
@@ -195,7 +197,7 @@ const IndexPage = ({
             <SectionTitle text={`${wordings.services.title}`} />
             <Grid container spacing={32} alignItems="stretch">
             {wordings.services.content.map((service: {title:string }, index: number) => {
-            return <Grid item md={6}><ServiceCard key={index+service.title} {...service} /></Grid>
+            return <Grid item md={6}><ServiceCard expanded={expandedCard} handleExpand={updateExpandedCard} key={index+service.title} {...service} /></Grid>
           })}
           </Grid>
           </Section>
