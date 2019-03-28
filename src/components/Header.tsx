@@ -106,6 +106,12 @@ function Navbar(location:{ hash: string, pathname:string }){
     {list}
   </Menu>)
 }
+if(typeof window !== 'undefined'){
+  if(window.location.search === "?lang=ja"){
+    setLanguage('ja');
+    navigate('/');
+  };
+}
 const Header = ({ children, location }: Props) => (
   <Wrapper>
     <Content>
