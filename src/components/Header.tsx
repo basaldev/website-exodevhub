@@ -58,13 +58,17 @@ const Menu = styled.div`
   justify-content: flex-end;
   @media ${media.phone} {
     margin-top: ${designSystem.spacing(2)};
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
   }
 `;
 const MenuItem = styled(Link)`
   ${button}
   ${props => { return props.isActive ? `color:${designSystem.color('blue')}`: ''}};
   padding: ${designSystem.space(1)} ${designSystem.space(3)};
+  @media ${media.phone} {
+  padding: ${designSystem.space(1)} ${designSystem.space(1)};
+  }
 `
 
 

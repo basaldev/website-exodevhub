@@ -172,7 +172,7 @@ const IndexPage = ({
         <AboutSection id="about" background={wordings.about.image}>
           <Grid container justify="space-between" >
           <Grid item xs={12} md={6} >
-        <SectionTitle text={`${wordings.about.title}`} />
+          <h1>{wordings.about.title}</h1>
           {wordings.about.content.map((para: string, index: number) => {
             return <p key={index+para} dangerouslySetInnerHTML={{ __html: para}} />
           })}
@@ -193,7 +193,7 @@ const IndexPage = ({
           </Grid>
           </Hidden>
           </Grid>
-          <Section>
+          <Section id="services">
             <SectionTitle text={`${wordings.services.title}`} />
             <Grid container spacing={32} alignItems="stretch">
             {wordings.services.content.map((service: {title:string }, index: number) => {
