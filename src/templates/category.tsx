@@ -52,12 +52,14 @@ interface Props {
       edges: any[]
       totalCount: number
     }
-  }
+  },
+  location:any
 }
 
 const Category = ({
   pageContext: { category },
   data: { allMarkdownRemark },
+  location
 }: Props) => {
   const { edges } = allMarkdownRemark
   const seoNode = {
@@ -70,7 +72,7 @@ const Category = ({
       <SEO postPath={`/${category}`} postNode={seoNode} postSEO />
       <Wrapper>
         <Helmet title={`${seoNode.frontmatter.title}`} />
-        <Header />
+        <Header location={location}/>
         <Content>
           <LinkHeader
             text={`#${category}`}

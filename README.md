@@ -1,4 +1,4 @@
-# ExO Devhub
+# ExO Dev
 
 Netlify Admin controls are in
 

@@ -12,6 +12,12 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-netlify-cms',
     {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        // Add any options here
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'post',

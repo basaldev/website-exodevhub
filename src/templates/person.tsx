@@ -36,19 +36,21 @@ interface Props {
         fullName: string
       }
     }
-  }
+  },
+  location:any
 }
 
 const Person = ({
   data: {
     markdownRemark: { frontmatter },
   },
+  location
 }: Props) => {
   const person = frontmatter
   return (
     <Layout>
       <Wrapper>
-        <Header />
+        <Header location={location} />
         <Content>{person.fullName}</Content>
       </Wrapper>
     </Layout>

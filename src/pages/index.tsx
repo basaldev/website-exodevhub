@@ -1,10 +1,9 @@
-import React from 'react'
-import { graphql } from 'gatsby'
+import React, { useState } from 'react'
+import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
-import { filter } from 'lodash'
-
+import { filter } from 'lodash';
+import { Grid, Hidden } from '@material-ui/core';
 import 'katex/dist/katex.min.css'
-
 import {
   Layout,
   Header,
@@ -13,13 +12,14 @@ import {
   Button,
   SectionTitle,
   LinkHeader,
+  ServiceCard,
   Person,
   SignUpCommunity,
   SEO,
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem';
-import { getLanguage } from '../utils/language';
+import { getLanguage, setLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
 const Content = styled.div`
   grid-column: 2;
@@ -92,6 +92,36 @@ const Section = styled.div`
     }
   }
 `
+const ClientLogo = styled(Grid)`
+  padding: 0 0 0 ${designSystem.spacing(4)};
+  opacity: 0.3;
+  img {
+    max-width: 100%;
+    height: 40px;
+    @media ${media.tablet} {
+      height: auto;
+      max-height: 40px;
+    }
+    @media (min-width: 960px) {
+      height: auto;
+      max-height: 40px;
+    }
+  }
+`
+const ClientList = styled(Grid)`
+  padding-top: ${designSystem.spacing(2)};
+  display:flex;
+  justify-content:flex-start;
+`
+const ClientListHeader = styled.h3`
+line-height: 50px;
+  @media ${media.tablet} {
+      font-size: ${designSystem.fs('sm')}px;
+    }
+  @media ${media.smallLaptop} {
+      font-size: ${designSystem.fs('sm')}px;
+  }
+`
 
 function randomWhite(text:string){
   const min = 0;
@@ -100,22 +130,35 @@ function randomWhite(text:string){
   return text.substring(rand, rand+1);
 }
 
+const AboutSection = styled.div`
+    @media ${media.sm} {
+  background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), ${props => `url(${props.background})`};
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-position:top;
+  }
+`
+
 interface Props {
   data: {
     allMarkdownRemark: {
       group: any[]
     }
   }
+  location:any
 }
 
 const IndexPage = ({
   data: {
     allMarkdownRemark: { group },
   },
+  location
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
-  const selectedLanguage: string = getLanguage();
+
+  let selectedLanguage: string = getLanguage();
+
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
@@ -127,12 +170,62 @@ const IndexPage = ({
         break
     }
   });
+  const [expandedCard, setExpandedCard] = useState(false);
+  const updateExpandedCard = () => setExpandedCard(!expandedCard);
   return (
     <Layout>
       <SEO />
       <Wrapper>
-        <Header />
+        <Header location={location} />
         <Content>
+        <AboutSection id="about" background={wordings.about.image}>
+          <Grid container justify="space-between" >
+          <Grid item xs={12} md={6} >
+          <h1>{wordings.about.title}</h1>
+
+          {wordings.about.content.map((para: string, index: number) => {
+            return <p key={index+para} dangerouslySetInnerHTML={{ __html: para}} />
+          })}
+          <ClientList container>
+          <Grid item xs={12} md={5}><ClientListHeader>Recent Clients:</ClientListHeader></Grid>
+          {wordings.clients.content.map((client: {name:string, logo:string}, index: number) => {
+            return <ClientLogo item md={3} key={index+client.logo}><img src={client.logo} alt={client.logo}  /></ClientLogo>
+          })}
+          </ClientList>
+          </Grid>
+          <Hidden smDown={true}>
+          <Grid item xs={6}>
+          <Grid container justify="flex-end">
+          <Grid item>
+            <img style={{width:`600px`, padding: designSystem.spacing(2)}} src={wordings.about.image} alt="about exodev"/>
+          </Grid>
+          </Grid>
+          </Grid>
+          </Hidden>
+          </Grid>
+          <Section id="services">
+            <SectionTitle text={`${wordings.services.title}`} />
+            <Grid container spacing={32} alignItems="stretch">
+            {wordings.services.content.map((service: {title:string }, index: number) => {
+            return <Grid item md={6}><ServiceCard expanded={expandedCard} handleExpand={updateExpandedCard} key={index+service.title} {...service} /></Grid>
+          })}
+          </Grid>
+          </Section>
+          </AboutSection>
+          <Section  id="team">
+            <SectionTitle text={`${wordings.community.title}`} />
+            <PeopleWrapper>
+              {people.map(post => (
+                <Person
+                  {...post.node.frontmatter }
+                  slug={post.node.fields.slug}
+                  key={post.node.fields.slug}
+                />
+              ))}
+              <SignUpCommunity contentStrings={wordings.community.discord} />
+            </PeopleWrapper>
+          </Section>
+          <Section id="blog">
           <LinkHeader text={`${wordings.writing.title}`} white={`${randomWhite(wordings.writing.title)}`}>
             <Button to="/categories">{`${wordings.writing.button}`}</Button>
           </LinkHeader>
@@ -151,25 +244,6 @@ const IndexPage = ({
               />
             ))}
           </ArticleWrapper>
-          <Section>
-            <SectionTitle text={`${wordings.community.title}`} white={`${randomWhite(wordings.community.title)}`} />
-            <PeopleWrapper>
-              {people.map(post => (
-                <Person
-                  {...post.node.frontmatter }
-                  slug={post.node.fields.slug}
-                  key={post.node.fields.slug}
-                />
-              ))}
-              <SignUpCommunity contentStrings={wordings.community.discord} />
-            </PeopleWrapper>
-          </Section>
-
-          <Section>
-          <SectionTitle text={`${wordings.about.title}`} white={`${randomWhite(wordings.about.title)}`} />
-          {wordings.about.content.map((para: string, index: number) => {
-            return <p key={index} dangerouslySetInnerHTML={{ __html: para}} />
-          })}
         </Section>
         </Content>
       </Wrapper>

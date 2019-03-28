@@ -1,4 +1,4 @@
-import React, { ReactNode, SyntheticEvent } from 'react'
+import React, { ReactNode } from 'react'
 import styled from 'styled-components'
 import { Link, navigate } from 'gatsby'
 import { getLanguage, setLanguage } from '../utils/language';
@@ -6,6 +6,8 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import { designSystem } from '../utils/designSystem'
 import config from '../../config/SiteConfig'
 import { media } from '../utils/media'
+import anime from 'animejs';
+
 
 type ButtonProps = {
   big: string
@@ -22,56 +24,6 @@ const button = `
   font-family: ${designSystem.get('type.fontFamily.mono')};
   font-size: ${(props: ButtonProps) => (props.big ? '1.2rem' : '1rem')};
 `
-const Dropdown = styled.div`
-  position: absolute;
-  float: right;
-  right: ${designSystem.spacing(2)};
-  top: ${designSystem.spacing(1)};
-
-  .sub-menu {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 100%;
-    margin-top: ${designSystem.spacing(2)};
-    transform: translateY(-2em);
-    z-index: -1;
-    transition: all 0.2s ease-in-out 0s, visibility 0s linear 0.2s, z-index 0s linear 0.01s;
-  }
-
-  :focus .sub-menu,
-  :focus-within .sub-menu,
-  :hover .sub-menu {
-    visibility: visible;
-    opacity: 1;
-    z-index: 1;
-    transform: translateY(0%);
-    transition-delay: 0s, 0s, 0.3s; /* this removes the transition delay so the menu will be visible while the other styles transition */
-  }
-
-  a {
-    display: block;
-    ${button}
-    margin-top: ${designSystem.spacing(1)};
-    background: ${designSystem.color('black')};
-    color: ${designSystem.color('white')};
-    &:hover {
-      cursor: pointer;
-    }
-    &:focus {
-      outline: none;
-    }
-    &:hover {
-      opacity: 0.85;
-      color: ${designSystem.color('blue')};
-    }
-  }
-  @media ${media.phone} {
-    right: 0;
-  }
-`
 
 const Wrapper = styled.header`
   grid-column: 2;
@@ -81,92 +33,101 @@ const Wrapper = styled.header`
 const Content = styled.div`
   margin: 0 auto;
   position: relative;
+  display:grid;
+  grid-template-columns: 8fr 3fr 0.5fr;
+  grid-gap: ${designSystem.spacing(4)};
+  @media ${media.phone} {
+    grid-gap: 0;
+  grid-template-columns: 1fr;
+
+  }
 `
-const FakeButton = styled.span`
-  ${button}
-  background: ${designSystem.color('yellow')};
-`
+
 const LogoLink = styled(Link)`
   overflow:hidden;
   display:inline-block;
-`
-const Logo = styled.img`
-  display: inline;
-  overflow:hidden;
-  min-height: 67px;
   @media ${media.phone} {
-    width: 55vw;
-  }
-`
-const LanguageSwitcherWrapper = styled.div`
-  position:absolute;
-  display:inline-block;
-  right: 160px;
-  top: ${designSystem.spacing(1)};
-  @media ${media.phone} {
-    right: 8px;
-    top: 64px;
+   & path.text {
+     fill: rgba(0,0,0,1)
+   }
   }
 `
 
-const onHover = (e: SyntheticEvent<HTMLAnchorElement>) => {
-  return ((e.target as HTMLAnchorElement).href = `mailto:info@exodevhub.com`)
-}
+const Menu = styled.div`
+  display:flex;
+  justify-content: flex-end;
+  @media ${media.phone} {
+    margin-top: ${designSystem.spacing(2)};
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+`;
+const MenuItem = styled(Link)`
+  ${button}
+  ${props => { return props.isActive ? `color:${designSystem.color('blue')}`: ''}};
+  padding: ${designSystem.space(1)} ${designSystem.space(3)};
+  @media ${media.phone} {
+  padding: ${designSystem.space(1)} ${designSystem.space(1)};
+  }
+`
+
 
 interface Props {
   children?: ReactNode
+  location: any;
 }
-const Header = ({ children }: Props) => (
+
+async function AddVisable(event:any){
+  if(event.target.getAttribute('fill') === `rgba(0,0,0,0)`){
+    anime({
+      targets: event.target,
+      fill: ['rgba(0,0,0,0)', `rgba(0,0,0,1)`],
+      easing: 'easeInOutSine',
+      duration: 500,
+    });
+  }
+}
+
+const routes = [
+  {to: '/#about', name: "About"},
+  {to: '/#services', name: "Services"},
+  {to: '/#team', name: "Team"},
+  {to: '/#blog', name: "Blog"},
+]
+
+function Navbar(location:{ hash: string, pathname:string }){
+  const list = routes.map(item => {
+    const isActive = item.to ===  location.pathname + location.hash;
+    const selectedName = isActive ? `[${item.name}]` : item.name;
+    return  <MenuItem key={item.to} isActive={isActive} to={item.to}>{selectedName}</MenuItem>
+  })
+
+  return (<Menu>
+    {list}
+  </Menu>)
+}
+const Header = ({ children, location }: Props) => (
   <Wrapper>
     <Content>
       <LogoLink to="/">
-        <Logo alt="Exo Devhub" src={config.siteLogo} />
+        <svg xmlns="http://www.w3.org/2000/svg" width="151" height="67" fill="none">
+          <path className="text" onMouseEnter={AddVisable} fill="rgba(0,0,0,0)" d="M68 29.26h14.004v-4.993H73.92v-4.28h7.153V14.84H73.92v-3.784h8.084V6H68v23.26zM86.264 29.26h7.213l4.628-6.823 4.628 6.823h7.213l-8.235-12.126L109.224 6h-7.212l-3.907 5.8L94.168 6h-7.212l7.513 11.134-8.204 12.127zM132.325 17.661c0-6.42-5.049-11.661-11.27-11.661-6.22 0-11.239 5.241-11.239 11.661s5.019 11.6 11.239 11.6c6.221 0 11.27-5.18 11.27-11.6zm-5.89-.03c0 3.039-2.404 5.55-5.38 5.55-2.945 0-5.349-2.511-5.349-5.55 0-3.071 2.404-5.552 5.349-5.552 2.976 0 5.38 2.48 5.38 5.551zM68 59h8.355c6.22 0 11.269-5.21 11.269-11.63 0-6.42-5.049-11.63-11.27-11.63H68V59zm5.89-6.017v-11.01h2.495c2.945 0 5.349 2.481 5.349 5.49 0 3.04-2.404 5.52-5.35 5.52H73.89zM91.181 59h14.004v-4.993h-8.084v-4.28h7.153v-5.148h-7.153v-3.784h8.084v-5.056H91.181V59zM119.382 59h2.705l10.488-23.291h-5.89l-5.95 13.242-5.921-13.242h-5.95L119.382 59z"/>
+          <path className="cut" stroke="#000" strokeWidth="5" d="M7.478 8.5H53.5v48H7.478v-48z"/>
+          <path className="frame" fill="#000" d="M0 0h49.84c.653 0 1.182.53 1.182 1.183v1.53c0 27.544-22.33 49.874-49.874 49.874A1.148 1.148 0 0 1 0 51.44V0z"/>
+        </svg>
       </LogoLink>
-      <LanguageSwitcherWrapper>
-        <LanguageSwitcher
-              languages={{
-                en: true,
-                ja: true
-              }}
-              onClick={(langKey: string) => {
-                setLanguage(langKey);
-                navigate('/');
-              }}
-              selectedLanguage={getLanguage()}
-            />
-        </LanguageSwitcherWrapper>
-      <Dropdown>
-        <FakeButton>socials</FakeButton>
-        <div className="sub-menu">
-          <a
-            rel="noopener"
-            target="_blank"
-            href={`http://twitter.com/${config.userTwitter}`}
-          >
-            twitter
-          </a>
-          <a
-            rel="noopener"
-            target="_blank"
-            href={`https://medium.com/${config.medium}`}
-          >
-            Medium
-          </a>
-          <a rel="noopener" target="_blank" href={`${config.discord}`}>
-            discord
-          </a>
-          <a
-            rel="noopener"
-            target="_blank"
-            href={`https://dev.to/${config.devto}`}
-          >
-            dev.to
-          </a>
-          <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
-            Email
-          </a>
-        </div>
-      </Dropdown>
+      {Navbar(location)}
+      <LanguageSwitcher
+        languages={{
+          en: true,
+          ja: true
+        }}
+        onClick={(langKey: string) => {
+          setLanguage(langKey);
+          navigate('/');
+        }}
+        selectedLanguage={getLanguage()}
+      />
       {children}
     </Content>
   </Wrapper>
