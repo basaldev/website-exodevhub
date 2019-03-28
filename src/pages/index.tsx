@@ -156,12 +156,13 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
-  if(location.search === "?lang=ja"){
-    setLanguage('ja');
-    location.search = '';
-  };
+
   if(location.search === "?lang=en"){
     setLanguage('en');
+    location.search = '';
+  };
+  if(location.search === "?lang=ja"){
+    setLanguage('ja');
     location.search = '';
   };
   const selectedLanguage: string = getLanguage();
