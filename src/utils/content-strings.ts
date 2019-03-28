@@ -80,7 +80,7 @@ export const CONTENT_STRINGS = {
           excerpt: `The ExO Dev Sprint is a hands-on educational program designed to evolve your tech team, while also managing your company's immune system (internal resistance to change).`,
           content: [
             `The sprint will help your team:`,
-            `<b>1)</b> Adapt to the new technology and management practices of cutting-edge modern companies.`,
+            `<b>1)</b> Adapt to the new technology and management practices of breakthrought companies such as Uber and Airbnb.`,
             `<b>2)</b> While managing the internal immune system within your company to achieve transformation in a smooth and conflict-free way.`,
             `We offer the program in three formats tailored to your specific needs and context:<br>
             `,
@@ -95,7 +95,7 @@ export const CONTENT_STRINGS = {
           bg: `/assets/workshop.png`,
           mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service`,
           subtitle: `Introductory 1 day workshop`,
-          excerpt: `In this 1 day workshop in which we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
+          excerpt: `In this 1 day workshop we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
           This is a short introductory version of the ExO Dev Sprint.`,
           content: []
          }
