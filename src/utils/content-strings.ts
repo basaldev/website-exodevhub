@@ -98,7 +98,6 @@ export const CONTENT_STRINGS = {
           This is a short introductory version of the ExO Dev Sprint.`,
           content: []
          }
-
         ]
       },
       products: {
@@ -148,8 +147,53 @@ export const CONTENT_STRINGS = {
         ]
       },
       services: {
-        title: 'Products + Services',
-        content: []
+        title: 'Services',
+        content: [
+          {
+          color: 'froly',
+          bg: `/assets/scale.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
+          title: 'SCALE DEVELOPMENT',
+          subtitle: `Your cutting-edge development team, on-demand`,
+          excerpt: `We are your on-demand development team; from cutting-edge web technologies to leveraging existing technological architectural assets. We are here to take your development.`,
+          content: [
+            `<b>Staff-on-demand and Community</b><br>
+             We are your on-demand development team leveraging an open community of cutting-edge developers`,
+             `<b>Algorithms</b><br>
+             We design algorithmic solutions to automate and manage your company’s processes.`,
+             `<b>Leverage assets</b><br>
+             We leverage existing technological architectural assets in the ‘cloud’ in order to accelerate your development projects.`,
+             `<b>Engagement</b><br>
+             We make powerful social and engagement tools available to you.`,
+          ]
+         },
+         { color: 'cornflower',
+          title: 'EXODEV SPRINT',
+          bg: `/assets/sprint.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service`,
+          subtitle: `Evolve your technical team`,
+          excerpt: `The ExO Dev Sprint is a practical and hands-on educational program designed to evolve and adapt your internal tech team, while also managing internal resistance to change inside your company.`,
+          content: [
+            `1) evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
+            `2) do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
+            `We offer the program in three formats tailored to your specific needs and context:<br>
+            `,
+            `- Short program: 1 week
+            - Medium program: 4 weeks
+            - Long program: 10 weeks
+            `
+          ]
+         },
+         { color: 'amber',
+          title: 'EXODEV WORKSHOP',
+          bg: `/assets/workshop.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service`,
+          subtitle: `Introductory 1 day workshop`,
+          excerpt: `In this 1 day workshop in which we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
+          This is a short introductory version of the ExO Dev Sprint.`,
+          content: []
+         }
+        ]
       },
       products: {
         title: 'Products',
