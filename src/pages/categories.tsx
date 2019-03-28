@@ -38,12 +38,15 @@ interface Props {
       group: any[]
     }
   }
+  location:any
 }
+
 
 const Category = ({
   data: {
     allMarkdownRemark: { group },
   },
+  location
 }: Props) => {
   const seoNode = {
     frontmatter: {
@@ -55,7 +58,7 @@ const Category = ({
       <SEO postPath={`/categories`} postNode={seoNode} postSEO />
       <Wrapper>
         <Helmet title={seoNode.frontmatter.title} />
-        <Header />
+        <Header location={location} />
         <Content>
           <LinkHeader text={'Categories'} white="o" />
           {group.map(category => (

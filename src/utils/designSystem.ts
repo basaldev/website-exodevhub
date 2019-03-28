@@ -16,10 +16,12 @@ const designTokens = {
       red: {
         base: '#EE3B50',
         dark: '#C91026',
+        froly: '#F37685'
       },
       yellow: {
         base: '#FDD758',
         dark: '#FEC400',
+        amber: '#FEC400'
       },
       green: {
         base: '#1CD1A6',
@@ -28,6 +30,7 @@ const designTokens = {
       blue: {
         base: '#3B4DEE',
         dark: '#0228A7',
+
       },
       pink: {
         light: '#FEDACF',
@@ -43,6 +46,9 @@ const designTokens = {
         dark: '#E7E7E7',
         darker: '#c2c2c2',
       },
+      cornflower: {base:'#838EF2'},
+      amber: {base:'#FEC400'},
+      froly: {base:'#F37685'},
     },
   },
   spacing: {
@@ -57,7 +63,7 @@ const designTokens = {
     sizes: {
       xxs: '14',
       xs: '16',
-      s: '20',
+      sm: '20',
       base: '22',
       m: '28',
       l: '36',

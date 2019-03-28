@@ -3,21 +3,23 @@ export const CONTENT_STRINGS = {
   index: {
     en: {
       writing: {
-        title: `writing`,
+        title: `Blog`,
         button: `All Categories`
       },
       community: {
-        title: `Community`,
+        title: `Team`,
         discord: {
           button: `Join the community`,
           subtitle: `Online`
         }
       },
       about: {
-        title: 'About',
+        title: 'We are Exodev',
+        image: `/assets/about.png`,
+        imagePlaceholder: `/assets/about-placeholder.png`,
         content: [
           `
-          Exo DevHub provides businesses with the software tools and mindset
+          Exo Dev provides businesses with the software tools and mindset
           necessary to transform themselves into exponential organizations.
           `,
           `
@@ -37,29 +39,91 @@ export const CONTENT_STRINGS = {
           sources. New players should build agility in from the start.
           <a href="https://www.openexo.com/">OpenExO</a> will guide you
           through the process of transforming your business into an
-          exponential one, and <strong>ExO DevHub</strong> will assist you
+          exponential one, and <strong>ExO Dev</strong> will assist you
           with cutting-edge technical solutions.
           `
         ],
+      },
+      clients: {
+        title: 'Recent Clients',
+        content: [
+          { name: 'Boston Scietific', logo: `/clients/boston-scientific.png`},
+          { name: 'Rakuten', logo: `/clients/rakuten.svg`}
+        ]
+      },
+      services: {
+        title: 'Services',
+        content: [
+          {
+          color: 'green',
+          bg: `/assets/scale.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
+          title: 'SCALE DEVELOPMENT',
+          subtitle: `Your cutting-edge development team, on-demand`,
+          excerpt: `We are your on-demand development team; from cutting-edge web technologies to leveraging existing technological architectural assets. We are here to take your development.`,
+          content: [
+            `<b>Staff-on-demand and Community</b><br>
+             We are your on-demand development team leveraging an open community of cutting-edge developers`,
+             `<b>Algorithms</b><br>
+             We design algorithmic solutions to automate and manage your company’s processes.`,
+             `<b>Leverage assets</b><br>
+             We leverage existing technological architectural assets in the ‘cloud’ in order to accelerate your development projects.`,
+             `<b>Engagement</b><br>
+             We make powerful social and engagement tools available to you.`,
+          ]
+         },
+         { color: 'cornflower',
+          title: 'EXODEV SPRINT',
+          bg: `/assets/sprint.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service`,
+          subtitle: `Evolve your technical team`,
+          excerpt: `The ExO Dev Sprint is a practical and hands-on educational program designed to evolve and adapt your internal tech team, while also managing internal resistance to change inside your company.`,
+          content: [
+            `<b>1)</b> evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
+            `<b>2)</b> do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
+            `We offer the program in three formats tailored to your specific needs and context:<br>
+            `,
+            `<b>Short program: 1 week</b><br>
+            <b>Medium program: 4 weeks</b><br>
+            <b>Long program: 10 weeks</b><br>
+            `
+          ]
+         },
+         { color: 'amber',
+          title: 'EXODEV WORKSHOP',
+          bg: `/assets/workshop.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service`,
+          subtitle: `Introductory 1 day workshop`,
+          excerpt: `In this 1 day workshop in which we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
+          This is a short introductory version of the ExO Dev Sprint.`,
+          content: []
+         }
+        ]
+      },
+      products: {
+        title: 'Products',
+        content: []
       }
     },
     ja: {
       writing: {
-        title: `writing`,
+        title: `Blog`,
         button: `すべてのカテゴリ`
       },
       community: {
-        title: `Community`,
+        title: `Team`,
         discord: {
           button: `コミュニティに参加する`,
           subtitle: `オンライン`
         }
       },
       about: {
-        title: 'About',
+        title: 'We are Exodev',
+        image: `/assets/about.png`,
+        imagePlaceholder: `/assets/about-placeholder.png`,
         content: [
           `
-          Exo DevHubはあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。
+          Exo Dev はあなたの組織をexponential organizations（飛躍型組織）へ変革するために必要なツールとマインドセットを提供します。
           `,
           `
           <a href="https://exponentialorgs.com/">exponential organizations</a>とは、
@@ -71,9 +135,69 @@ export const CONTENT_STRINGS = {
           異業種からの新規参入がもたらす予期せぬ業界変革の中組織を成長させていくためには、
           業界リーダー規模であるか小規模プレイヤーであるかを問わず自らも変革を遂げなければなりません。
           一方新規参入者は参入当初時から俊敏な組織を構築する必要があります。<a href="https://www.openexo.com/">OpenExO</a>は
-          変革プロセスを通し飛躍型組織へと、ExO DevHubは最新テクノロジーを用いたソリューションを提供し、あなたのビジネスをアシストします。
+          変革プロセスを通し飛躍型組織へと、ExO Devは最新テクノロジーを用いたソリューションを提供し、あなたのビジネスをアシストします。
           `
         ]
+      },
+      clients: {
+        title: 'Recent Clients',
+        content: [
+          { name: 'Boston Scietific', logo: `/clients/boston-scientific.png`},
+          { name: 'Rakuten', logo: `/clients/rakuten.svg`}
+        ]
+      },
+      services: {
+        title: 'Services',
+        content: [
+          {
+          color: 'green',
+          bg: `/assets/scale.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
+          title: 'SCALE DEVELOPMENT',
+          subtitle: `Your cutting-edge development team, on-demand`,
+          excerpt: `We are your on-demand development team; from cutting-edge web technologies to leveraging existing technological architectural assets. We are here to take your development.`,
+          content: [
+            `<b>Staff-on-demand and Community</b><br>
+             We are your on-demand development team leveraging an open community of cutting-edge developers`,
+             `<b>Algorithms</b><br>
+             We design algorithmic solutions to automate and manage your company’s processes.`,
+             `<b>Leverage assets</b><br>
+             We leverage existing technological architectural assets in the ‘cloud’ in order to accelerate your development projects.`,
+             `<b>Engagement</b><br>
+             We make powerful social and engagement tools available to you.`,
+          ]
+         },
+         { color: 'cornflower',
+          title: 'EXODEV SPRINT',
+          bg: `/assets/sprint.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service`,
+          subtitle: `Evolve your technical team`,
+          excerpt: `The ExO Dev Sprint is a practical and hands-on educational program designed to evolve and adapt your internal tech team, while also managing internal resistance to change inside your company.`,
+          content: [
+            `<b>1)</b> evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
+            `<b>2)</b> do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
+            `We offer the program in three formats tailored to your specific needs and context:<br>
+            `,
+            `<b>Short program: 1 week</b><br>
+            <b>Medium program: 4 weeks</b><br>
+            <b>Long program: 10 weeks</b><br>
+            `
+          ]
+         },
+         { color: 'amber',
+          title: 'EXODEV WORKSHOP',
+          bg: `/assets/workshop.png`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service`,
+          subtitle: `Introductory 1 day workshop`,
+          excerpt: `In this 1 day workshop in which we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
+          This is a short introductory version of the ExO Dev Sprint.`,
+          content: []
+         }
+        ]
+      },
+      products: {
+        title: 'Products',
+        content: []
       }
     }
   },

@@ -11,6 +11,10 @@ import LinkHeader from './LinkHeader'
 import Person from './Person'
 import DiscordWidget from './DiscordWidget'
 import SignUpCommunity from './SignUpCommunity'
+import Footer from './Footer';
+import ServiceCard from './ServiceCard';
+import Texture from './Texture';
+
 
 export {
   Article,
@@ -26,4 +30,7 @@ export {
   Person,
   DiscordWidget,
   SignUpCommunity,
+  Footer,
+  ServiceCard,
+  Texture
 }
