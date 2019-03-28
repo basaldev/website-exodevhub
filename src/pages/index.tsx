@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { graphql } from 'gatsby'
+import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash';
 import { Grid, Hidden } from '@material-ui/core';
@@ -156,17 +156,20 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
+  let selectedLanguage: string = getLanguage();
+  if(typeof window !== 'undefined'){
+    setTimeout(() => {
+    document.getElementById('lang-en').click();
+    if(window.location.search === "?lang=ja"){
+        // document.getElementById('lang-ja').click();
+    };
+    if(window.location.search === "?lang=en"){
+      document.getElementById('lang-en').click();
+    };
+    }, 2000)
+  }
+  let wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
 
-  if(location.search === "?lang=en"){
-    setLanguage('en');
-    location.search = '';
-  };
-  if(location.search === "?lang=ja"){
-    setLanguage('ja');
-    location.search = '';
-  };
-  const selectedLanguage: string = getLanguage();
-  const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
@@ -178,6 +181,7 @@ const IndexPage = ({
     }
   });
   const [expandedCard, setExpandedCard] = useState(false);
+
   const updateExpandedCard = () => setExpandedCard(!expandedCard);
   return (
     <Layout>
@@ -189,6 +193,7 @@ const IndexPage = ({
           <Grid container justify="space-between" >
           <Grid item xs={12} md={6} >
           <h1>{wordings.about.title}</h1>
+
           {wordings.about.content.map((para: string, index: number) => {
             return <p key={index+para} dangerouslySetInnerHTML={{ __html: para}} />
           })}

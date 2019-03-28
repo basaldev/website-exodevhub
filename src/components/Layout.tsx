@@ -1,10 +1,11 @@
 /* eslint no-unused-expressions:0 */
 
 import React, { ReactNode } from 'react'
-import { StaticQuery, graphql } from 'gatsby'
+import { StaticQuery, graphql, navigate } from 'gatsby'
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 import theme from '../../config/Theme'
+import { setLanguage } from '../utils/language';
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
 import { Footer } from '../components';
@@ -110,7 +111,8 @@ const Layout = ({ children }: Props) => (
         }
       }
     `}
-    render={data => (
+    render={data => {
+      return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
           <GlobalStyle />
@@ -118,7 +120,7 @@ const Layout = ({ children }: Props) => (
           <Footer buildTime={data.site.buildTime}/>
         </React.Fragment>
       </ThemeProvider>
-    )}
+    )}}
   />
 )
 
