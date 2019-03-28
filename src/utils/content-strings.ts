@@ -60,7 +60,7 @@ export const CONTENT_STRINGS = {
           mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
           title: 'SCALE DEVELOPMENT',
           subtitle: `Your cutting-edge development team, on-demand`,
-          excerpt: `ExO attributes are the traits that enable organizations such as Github, AirBnb, or Uber to have 10x the output as compared to their peers.`,
+          excerpt: `We are your on-demand development team; from cutting-edge web technologies to leveraging existing technological architectural assets. We are here to take your development.`,
           content: [
             `<b>Staff-on-demand and Community</b><br>
              We are your on-demand development team leveraging an open community of cutting-edge developers`,
