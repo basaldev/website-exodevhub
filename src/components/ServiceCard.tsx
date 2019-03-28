@@ -141,7 +141,7 @@ export class ServiceCard extends React.Component {
           <Grid item sm={8} xs={12}>
           <Subtitle>{this.props.subtitle}</Subtitle>
           <Title>{this.props.title}</Title>
-          {this.props.excerpt}
+          <p>{this.props.excerpt}</p>
           <_ExpansionPanel expanded={this.props.expanded}>
           <Padding>
           {this.props.content.map((para: string, index: number) => {
