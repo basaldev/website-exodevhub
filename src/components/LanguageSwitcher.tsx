@@ -17,6 +17,7 @@ const Wrapper = styled.div`
   margin-bottom: ${designSystem.spacing(2)};
   @media ${media.phone} {
     position:absolute;
+    z-index: 9;
     top: ${designSystem.spacing(1)};
     right: ${designSystem.spacing(1)};
   }
