@@ -81,8 +81,6 @@ const Content = styled.footer`
 const Footer = (props:Props) => (
   <Wrapper>
     <Content>
-
-
         <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].company }}></span>
             <br />
             <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].copyright }}></span>

@@ -161,14 +161,12 @@ const IndexPage = ({
     setTimeout(() => {
     document.getElementById('lang-en').click();
     if(window.location.search === "?lang=ja"){
-        document.getElementById('lang-en').click();
-        document.getElementById('lang-ja').click();
+        // document.getElementById('lang-ja').click();
     };
     if(window.location.search === "?lang=en"){
       document.getElementById('lang-en').click();
-      document.getElementById('lang-en').click();
     };
-    }, 5000)
+    }, 2000)
   }
   let wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
 

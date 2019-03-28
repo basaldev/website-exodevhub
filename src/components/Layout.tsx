@@ -112,16 +112,6 @@ const Layout = ({ children }: Props) => (
       }
     `}
     render={data => {
-      // if(typeof window !== 'undefined'){
-      //   if(window.location.search === "?lang=ja"){
-      //     setLanguage('ja');
-      //     navigate('/');
-      //   };
-      //   if(window.location.search === "?lang=en"){
-      //     setLanguage('en');
-      //     navigate('/');
-      //   };
-      // }
       return (
       <ThemeProvider theme={theme}>
         <React.Fragment>
