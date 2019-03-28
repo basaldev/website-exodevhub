@@ -2,7 +2,7 @@
 const sizes = {
   smallLaptop: '1500px',
   tablet: '1200px',
-  sm: '957px',
+  sm: '960px',
   phone: '600px',
 }
 
