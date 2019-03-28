@@ -158,13 +158,7 @@ const IndexPage = ({
   let people: Array<{ node: any }> = [];
 
   let selectedLanguage: string = getLanguage();
-  if(typeof window !== "undefined"){
-  if(window.location.search === "?lang=ja"){
-      selectedLanguage = 'ja';
-      setLanguage('ja');
-      window.location.href = '/'
-    };
-  }
+
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
