@@ -77,10 +77,11 @@ export const CONTENT_STRINGS = {
           bg: `/assets/sprint.png`,
           mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service`,
           subtitle: `Evolve your technical team`,
-          excerpt: `The ExO Dev Sprint is a practical and hands-on educational program designed to evolve and adapt your internal tech team, while also managing internal resistance to change inside your company.`,
+          excerpt: `The ExO Dev Sprint is a hands-on educational program designed to evolve your tech team, while also managing your company's immune system (internal resistance to change).`,
           content: [
-            `<b>1)</b> evolve and adapt your internal tech team to innovative technological trends and project management practices of Exponential Organizations.`,
-            `<b>2)</b> do that while managing the internal immune system of the company (internal resistance to change) to achieve a smooth and peaceful transformation.`,
+            `The sprint will help your team:`,
+            `<b>1)</b> Adapt to the new technology and management practices of cutting-edge modern companies.`,
+            `<b>2)</b> While managing the internal immune system within your company to achieve transformation in a smooth and conflict-free way.`,
             `We offer the program in three formats tailored to your specific needs and context:<br>
             `,
             `<b>Short program: 1 week</b><br>
