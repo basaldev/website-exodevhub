@@ -186,6 +186,12 @@ const IndexPage = ({
           {wordings.about.content.map((para: string, index: number) => {
             return <p key={index+para} dangerouslySetInnerHTML={{ __html: para}} />
           })}
+          <ClientList container>
+          <Grid item xs={12} md={5}><ClientListHeader>Recent Clients:</ClientListHeader></Grid>
+          {wordings.clients.content.map((client: {name:string, logo:string}, index: number) => {
+            return <ClientLogo item md={3} key={index+client.logo}><img src={client.logo} alt={client.logo}  /></ClientLogo>
+          })}
+          </ClientList>
           </Grid>
           <Hidden smDown={true}>
           <Grid item xs={6}>
