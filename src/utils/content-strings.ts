@@ -47,6 +47,7 @@ export const CONTENT_STRINGS = {
       clients: {
         title: 'Recent Clients',
         content: [
+          { name: 'Boston Scietific', logo: `/clients/boston-scientific.png`},
           { name: 'Rakuten', logo: `/clients/rakuten.svg`}
         ]
       },
@@ -141,6 +142,7 @@ export const CONTENT_STRINGS = {
       clients: {
         title: 'Recent Clients',
         content: [
+          { name: 'Boston Scietific', logo: `/clients/boston-scientific.png`},
           { name: 'Rakuten', logo: `/clients/rakuten.svg`}
         ]
       },
