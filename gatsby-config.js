@@ -131,5 +131,18 @@ module.exports = {
       resolve: `gatsby-plugin-google-tagmanager`,
       options: { id: 'GTM-WSXQZ7S' },
     },
+    {
+      resolve: `gatsby-plugin-intl`,
+      options: {
+        // language JSON resource path
+        path: `${__dirname}/src/intl`,
+        // supported language
+        languages: [`en`, `ja`],
+        // language file path
+        defaultLanguage: `en`,
+        // option to redirect to `/en` when connecting `/`
+        redirect: true,
+      },
+    },
   ],
 }
