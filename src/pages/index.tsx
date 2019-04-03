@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { filter } from 'lodash'
 import { Grid, Hidden } from '@material-ui/core'
 import 'katex/dist/katex.min.css'
-import { withIntl } from 'gatsby-plugin-intl'
+import { FormattedMessage, withIntl, Link } from 'gatsby-plugin-intl'
 
 import {
   Layout,
@@ -183,8 +183,6 @@ const IndexPage = ({
 
   const [expandedCard, setExpandedCard] = useState(false)
   const updateExpandedCard = () => setExpandedCard(!expandedCard)
-
-  console.log('intl.formatMessage({ id: "title" })')
 
   return (
     <Layout>
