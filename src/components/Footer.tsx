@@ -1,10 +1,12 @@
 import React, { ReactNode, SyntheticEvent } from 'react'
 import styled from 'styled-components'
-import { getLanguage, setLanguage } from '../utils/language';
+import { IntlContextConsumer } from 'gatsby-plugin-intl'
+
+import { getLanguage, setLanguage } from '../utils/language'
 import { designSystem } from '../utils/designSystem'
 import config from '../../config/SiteConfig'
 import { media } from '../utils/media'
-import { CONTENT_STRINGS } from '../utils/content-strings';
+import { CONTENT_STRINGS } from '../utils/content-strings'
 
 type ButtonProps = {
   big: string
@@ -51,9 +53,8 @@ const SocialMedia = styled.div`
 const Wrapper = styled.header`
   grid-column: 2;
   padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(10)} 0;
-  overflow:hidden;
+  overflow: hidden;
 `
-
 
 const onHover = (e: SyntheticEvent<HTMLAnchorElement>) => {
   return ((e.target as HTMLAnchorElement).href = `mailto:info@exodevhub.com`)
@@ -61,7 +62,7 @@ const onHover = (e: SyntheticEvent<HTMLAnchorElement>) => {
 
 interface Props {
   children?: ReactNode
-  buildTime: string;
+  buildTime: string
 }
 
 const Content = styled.footer`
@@ -77,46 +78,63 @@ const Content = styled.footer`
   }
 `
 
+const Footer = (props: Props) => {
+  return (
+    <Wrapper>
+      <IntlContextConsumer>
+        {({ messages }) => {
+          return (
+            <Content>
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: CONTENT_STRINGS.footer[getLanguage()].company,
+                }}
+              />
+              <br />
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: CONTENT_STRINGS.footer[getLanguage()].copyright,
+                }}
+              />
+              <br />
+              <SocialMedia>
+                <a
+                  rel="noopener"
+                  target="_blank"
+                  href={`http://twitter.com/${config.userTwitter}`}
+                >
+                  twitter
+                </a>
+                <a
+                  rel="noopener"
+                  target="_blank"
+                  href={`https://medium.com/${config.medium}`}
+                >
+                  Medium
+                </a>
+                <a rel="noopener" target="_blank" href={`${config.discord}`}>
+                  discord
+                </a>
+                <a
+                  rel="noopener"
+                  target="_blank"
+                  href={`https://dev.to/${config.devto}`}
+                >
+                  dev.to
+                </a>
+                <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
+                  Email
+                </a>
+              </SocialMedia>
+              <small>
+                {messages.build}: {props.buildTime}
+              </small>
+            </Content>
+          )
+        }}
+      </IntlContextConsumer>
+    </Wrapper>
+  )
+}
 
-const Footer = (props:Props) => (
-  <Wrapper>
-    <Content>
-        <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].company }}></span>
-            <br />
-            <span dangerouslySetInnerHTML={{ __html: CONTENT_STRINGS.footer[getLanguage()].copyright }}></span>
-            <br />
-            <SocialMedia>
-          <a
-            rel="noopener"
-            target="_blank"
-            href={`http://twitter.com/${config.userTwitter}`}
-          >
-            twitter
-          </a>
-          <a
-            rel="noopener"
-            target="_blank"
-            href={`https://medium.com/${config.medium}`}
-          >
-            Medium
-          </a>
-          <a rel="noopener" target="_blank" href={`${config.discord}`}>
-            discord
-          </a>
-          <a
-            rel="noopener"
-            target="_blank"
-            href={`https://dev.to/${config.devto}`}
-          >
-            dev.to
-          </a>
-          <a onMouseOver={onHover} href="mailto:#@exodevhub.com">
-            Email
-          </a>
-          </SocialMedia>
-            <small>{CONTENT_STRINGS.footer[getLanguage()].build}: {props.buildTime}</small>
-
-        </Content>
-  </Wrapper>
-)
-export default Footer;
+export default Footer
