@@ -13,6 +13,7 @@ function createSlug(node, key, createNodeField) {
     })
   }
 }
+
 function createPostType(
   postType,
   rawQuery,
@@ -91,8 +92,10 @@ exports.createPages = ({ graphql, actions }) => {
           'person',
           results,
           path.resolve(`src/templates/person.tsx`),
-          createPage
+          createPage,
+          (r, i) => {}
         )
+
         let categories = []
 
         _.each(results, edge => {
