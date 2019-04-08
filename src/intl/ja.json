@@ -1,3 +1,6 @@
 {
-  "build": "最終更新日"
+  "footer_build": "最終更新日",
+  "footer_company": "ExO Lever Asia 合同会社",
+  "footer_copyright": "© ",
+  "footer_rights": ". All Rights Reserved."
 }

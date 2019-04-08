@@ -82,20 +82,14 @@ const Footer = (props: Props) => {
   return (
     <Wrapper>
       <IntlContextConsumer>
-        {({ messages }) => {
+        {({ messages }: any) => {
           return (
             <Content>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: CONTENT_STRINGS.footer[getLanguage()].company,
-                }}
-              />
+              <span>{messages.footer_company}</span>
               <br />
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: CONTENT_STRINGS.footer[getLanguage()].copyright,
-                }}
-              />
+              <span>{messages.footer_copyright}</span>
+              <span>{new Date().getFullYear()}</span>
+              <span>{messages.footer_rights}</span>
               <br />
               <SocialMedia>
                 <a
@@ -127,7 +121,7 @@ const Footer = (props: Props) => {
                 </a>
               </SocialMedia>
               <small>
-                {messages.build}: {props.buildTime}
+                {messages.footer_build}: {props.buildTime}
               </small>
             </Content>
           )
