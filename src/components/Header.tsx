@@ -94,12 +94,19 @@ const routes = [
   { to: '/#blog', name: 'Blog' },
 ]
 
-function Navbar(location: { hash: string; pathname: string }) {
+function Navbar(
+  location: { hash: string; pathname: string },
+  selectedLanguage: string
+) {
   const list = routes.map(item => {
     const isActive = item.to === location.pathname + location.hash
     const selectedName = isActive ? `[${item.name}]` : item.name
     return (
-      <MenuItem key={item.to} isActive={isActive} to={item.to}>
+      <MenuItem
+        key={item.to}
+        isActive={isActive}
+        to={`/${selectedLanguage}/${item.to}`}
+      >
         {selectedName}
       </MenuItem>
     )
@@ -136,7 +143,7 @@ const Header = ({ children, location, selectedLanguage }: Props) => (
           />
         </svg>
       </LogoLink>
-      {Navbar(location)}
+      {Navbar(location, selectedLanguage)}
       <LanguageSwitcher selectedLanguage={selectedLanguage} />
       {children}
     </Content>

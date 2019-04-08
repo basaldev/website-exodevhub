@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { IntlContextConsumer, Link, intl } from 'gatsby-plugin-intl'
+import { IntlContextConsumer, Link } from 'gatsby-plugin-intl'
 
 import { designSystem } from '../utils/designSystem'
 import { media } from '../utils/media'
