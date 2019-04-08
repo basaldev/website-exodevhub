@@ -1,7 +1,8 @@
+import React, { Component } from 'react'
 import styled from 'styled-components'
+import { IntlContextConsumer } from 'gatsby-plugin-intl'
 
 import { designSystem } from '../utils/designSystem'
-import React from 'react'
 
 const Widget = styled.div`
   background: ${designSystem.color('white')};
@@ -47,15 +48,11 @@ type User = {
   status: string
 }
 
-interface Props {
-  contentStrings: { subtitle: string };
-}
-
-const DiscordWidget = class Welcome extends React.Component<Props> {
-  super() {}
+const DiscordWidget = class Welcome extends Component<{}> {
   state = {
     members: [],
   }
+
   async getMembers() {
     const thisComponent = this
     fetch('https://discordapp.com/api/guilds/542136882369265675/widget.json', {
@@ -72,30 +69,40 @@ const DiscordWidget = class Welcome extends React.Component<Props> {
         })
       })
   }
+
   componentDidMount() {
     this.getMembers()
   }
+
   render() {
     const online = this.state.members.filter(
       (user: User) => user.status === 'online'
     )
+
     return (
-      <>
-        <Widget>
-          <span>{this.props.contentStrings.subtitle}</span> <Online>{online.length}</Online>
-        </Widget>
-        <UserWrapper>
-          {online.slice(0, 10).map((user: User) => {
-            return (
-              <User
-                src={user.avatar_url}
-                key={user.username}
-                alt={user.username}
-              />
-            )
-          })}
-        </UserWrapper>
-      </>
+      <IntlContextConsumer>
+        {({ messages }: any) => {
+          return (
+            <>
+              <Widget>
+                <span>{messages.discord_subtitle}</span>{' '}
+                <Online>{online.length}</Online>
+              </Widget>
+              <UserWrapper>
+                {online.slice(0, 10).map((user: User) => {
+                  return (
+                    <User
+                      src={user.avatar_url}
+                      key={user.username}
+                      alt={user.username}
+                    />
+                  )
+                })}
+              </UserWrapper>
+            </>
+          )
+        }}
+      </IntlContextConsumer>
     )
   }
 }

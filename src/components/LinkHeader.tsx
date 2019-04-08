@@ -33,8 +33,7 @@ const ButtonWrapper = styled.div`
 `
 
 interface Props {
-  text: string
-  white: string
+  text: ReactNode | string
   children?: ReactNode
 }
 

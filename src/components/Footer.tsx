@@ -6,7 +6,6 @@ import { getLanguage, setLanguage } from '../utils/language'
 import { designSystem } from '../utils/designSystem'
 import config from '../../config/SiteConfig'
 import { media } from '../utils/media'
-import { CONTENT_STRINGS } from '../utils/content-strings'
 
 type ButtonProps = {
   big: string

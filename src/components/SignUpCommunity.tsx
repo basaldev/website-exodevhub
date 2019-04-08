@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { IntlContextConsumer } from 'gatsby-plugin-intl'
+
 import config from '../../config/SiteConfig'
 import { designSystem } from '../utils/designSystem'
 import { DiscordWidget } from '../components'
+
 const Wrapper = styled.div`
   grid-column: auto;
   grid-row: auto;
@@ -30,12 +33,22 @@ const Wrapper = styled.div`
       color: ${designSystem.color('blue')};
     }
   }
-  `
-const SignUpCommunity = ({contentStrings}: {contentStrings: { button:string, subtitle: string }}) => {
+`
+const SignUpCommunity = () => {
   return (
     <Wrapper>
-      <a rel="noopener" target="_blank" href={config.discord}>{contentStrings.button}</a>
-      <DiscordWidget contentStrings={contentStrings}/>
+      <IntlContextConsumer>
+        {({ messages }: any) => {
+          return (
+            <>
+              <a rel="noopener" target="_blank" href={config.discord}>
+                {messages.signupcommunity_button}
+              </a>
+              <DiscordWidget />
+            </>
+          )
+        }}
+      </IntlContextConsumer>
     </Wrapper>
   )
 }

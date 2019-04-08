@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { graphql, navigate } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash'
@@ -22,7 +22,6 @@ import {
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
 import { getLanguage, setLanguage } from '../utils/language'
-import { CONTENT_STRINGS } from '../utils/content-strings'
 
 const Content = styled.div`
   grid-column: 2;
@@ -124,13 +123,6 @@ const ClientListHeader = styled.h3`
   }
 `
 
-function randomWhite(text: string) {
-  const min = 0
-  const max = text.length
-  const rand = Math.floor(Math.random() * (+max - +min))
-  return text.substring(rand, rand + 1)
-}
-
 const AboutSection = styled.div`
   @media ${media.sm} {
     background: linear-gradient(
@@ -159,13 +151,11 @@ const IndexPage = ({
     allMarkdownRemark: { group },
   },
   location,
-  intl,
 }: Props) => {
   let posts: Array<{ node: any }> = []
   let people: Array<{ node: any }> = []
 
   let selectedLanguage: string = getLanguage()
-  const wordings = (CONTENT_STRINGS.index as any)[selectedLanguage]
 
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
@@ -190,32 +180,60 @@ const IndexPage = ({
       <Wrapper>
         <Header location={location} />
         <Content>
-          <AboutSection id="about" background={wordings.about.image}>
+          <AboutSection id="about" background="/assets/about.png">
             <Grid container justify="space-between">
               <Grid item xs={12} md={6}>
-                <h1>{wordings.about.title}</h1>
-
-                {wordings.about.content.map((para: string, index: number) => {
-                  return (
-                    <p
-                      key={index + para}
-                      dangerouslySetInnerHTML={{ __html: para }}
-                    />
-                  )
-                })}
+                <h1>
+                  <FormattedMessage id="index_about_title" />
+                </h1>
+                <p>
+                  <FormattedMessage
+                    id="index_about_content_para1"
+                    values={{
+                      link: (
+                        <a href="https://exponentialorgs.com/">
+                          exponential organizations
+                        </a>
+                      ),
+                    }}
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="index_about_content_para2"
+                    values={{
+                      link: (
+                        <a href="https://exponentialorgs.com/">
+                          exponential organization
+                        </a>
+                      ),
+                    }}
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="index_about_content_para3"
+                    values={{
+                      link: <a href="https://www.openexo.com/">OpenExO</a>,
+                      emphasis: <strong>ExO Dev</strong>,
+                    }}
+                  />
+                </p>
                 <ClientList container>
                   <Grid item xs={12} md={5}>
-                    <ClientListHeader>Recent Clients:</ClientListHeader>
+                    <ClientListHeader>
+                      <FormattedMessage id="index_clients_title" />
+                    </ClientListHeader>
                   </Grid>
-                  {wordings.clients.content.map(
-                    (client: { name: string; logo: string }, index: number) => {
-                      return (
-                        <ClientLogo item md={3} key={index + client.logo}>
-                          <img src={client.logo} alt={client.logo} />
-                        </ClientLogo>
-                      )
-                    }
-                  )}
+                  <ClientLogo item md={3}>
+                    <img
+                      src="/clients/boston-scientific.png"
+                      alt="Boston Scientific"
+                    />
+                  </ClientLogo>
+                  <ClientLogo item md={3}>
+                    <img src="/clients/rakuten.svg" alt="Rakuten" />
+                  </ClientLogo>
                 </ClientList>
               </Grid>
               <Hidden smDown={true}>
@@ -227,7 +245,7 @@ const IndexPage = ({
                           width: `600px`,
                           padding: designSystem.spacing(2),
                         }}
-                        src={wordings.about.image}
+                        src="/assets/about.png"
                         alt="about exodev"
                       />
                     </Grid>
@@ -236,27 +254,134 @@ const IndexPage = ({
               </Hidden>
             </Grid>
             <Section id="services">
-              <SectionTitle text={`${wordings.services.title}`} />
+              <SectionTitle
+                text={<FormattedMessage id="index_services_title" />}
+              />
               <Grid container spacing={32} alignItems="stretch">
-                {wordings.services.content.map(
-                  (service: { title: string }, index: number) => {
-                    return (
-                      <Grid item md={6}>
-                        <ServiceCard
-                          expanded={expandedCard}
-                          handleExpand={updateExpandedCard}
-                          key={index + service.title}
-                          {...service}
-                        />
-                      </Grid>
-                    )
-                  }
-                )}
+                <Grid item md={6}>
+                  <ServiceCard
+                    expanded={expandedCard}
+                    handleExpand={updateExpandedCard}
+                    color="green"
+                    bg="/assets/scale.png"
+                    mailto="mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service"
+                    title="SCALE DEVELOPMENT"
+                    subtitle={
+                      <FormattedMessage id="index_services_content_1_subtitle" />
+                    }
+                    excerpt={
+                      <FormattedMessage id="index_services_content_1_excerpt" />
+                    }
+                    content={
+                      <>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_1_para1_title" />
+                          </b>
+                          <br />
+                          <FormattedMessage id="index_services_content_1_para1_body" />
+                        </p>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_1_para2_title" />
+                          </b>
+                          <br />
+                          <FormattedMessage id="index_services_content_1_para2_body" />
+                        </p>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_1_para3_title" />
+                          </b>
+                          <br />
+                          <FormattedMessage id="index_services_content_1_para3_body" />
+                        </p>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_1_para4_title" />
+                          </b>
+                          <br />
+                          <FormattedMessage id="index_services_content_1_para4_body" />
+                        </p>
+                      </>
+                    }
+                  />
+                </Grid>
+                <Grid item md={6}>
+                  <ServiceCard
+                    expanded={expandedCard}
+                    handleExpand={updateExpandedCard}
+                    color="cornflower"
+                    bg="/assets/sprint.png"
+                    mailto="mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service"
+                    title="EXODEV SPRINT"
+                    subtitle={
+                      <FormattedMessage id="index_services_content_2_subtitle" />
+                    }
+                    excerpt={
+                      <FormattedMessage id="index_services_content_2_excerpt" />
+                    }
+                    content={
+                      <>
+                        <p>
+                          <FormattedMessage id="index_services_content_2_para1_title" />
+                        </p>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_2_para2_numbering" />
+                          </b>
+                          <FormattedMessage id="index_services_content_2_para2_text" />{' '}
+                        </p>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_2_para3_numbering" />
+                          </b>
+                          <FormattedMessage id="index_services_content_2_para3_text" />{' '}
+                        </p>
+                        <p>
+                          <FormattedMessage id="index_services_content_2_para4_text" />
+                          <br />
+                        </p>
+                        <p>
+                          <b>
+                            <FormattedMessage id="index_services_content_2_para5_text_1" />
+                          </b>
+                          <br />
+                          <b>
+                            <FormattedMessage id="index_services_content_2_para5_text_2" />
+                          </b>
+                          <br />
+                          <b>
+                            <FormattedMessage id="index_services_content_2_para5_text_3" />
+                          </b>
+                          <br />
+                        </p>
+                      </>
+                    }
+                  />
+                </Grid>
+                <Grid item md={6}>
+                  <ServiceCard
+                    expanded={expandedCard}
+                    handleExpand={updateExpandedCard}
+                    color="amber"
+                    bg="/assets/workshop.png"
+                    mailto="mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service"
+                    title="EXODEV WORKSHOP"
+                    subtitle={
+                      <FormattedMessage id="index_services_content_3_subtitle" />
+                    }
+                    excerpt={
+                      <FormattedMessage id="index_services_content_3_excerpt" />
+                    }
+                  />
+                </Grid>
               </Grid>
             </Section>
           </AboutSection>
           <Section id="team">
-            <SectionTitle text={`${wordings.community.title}`} />
+            <SectionTitle
+              text={<FormattedMessage id="index_community_title" />}
+            />
             <PeopleWrapper>
               {people.map(post => (
                 <Person
@@ -265,15 +390,14 @@ const IndexPage = ({
                   key={post.node.fields.slug}
                 />
               ))}
-              <SignUpCommunity contentStrings={wordings.community.discord} />
+              <SignUpCommunity />
             </PeopleWrapper>
           </Section>
           <Section id="blog">
-            <LinkHeader
-              text={`${wordings.writing.title}`}
-              white={`${randomWhite(wordings.writing.title)}`}
-            >
-              <Button to="/categories">{`${wordings.writing.button}`}</Button>
+            <LinkHeader text={<FormattedMessage id="index_writing_title" />}>
+              <Button to="/categories">
+                <FormattedMessage id="index_writing_button" />
+              </Button>
             </LinkHeader>
 
             <ArticleWrapper>
