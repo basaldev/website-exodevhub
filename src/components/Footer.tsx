@@ -2,7 +2,6 @@ import React, { ReactNode, SyntheticEvent } from 'react'
 import styled from 'styled-components'
 import { IntlContextConsumer } from 'gatsby-plugin-intl'
 
-import { getLanguage, setLanguage } from '../utils/language'
 import { designSystem } from '../utils/designSystem'
 import config from '../../config/SiteConfig'
 import { media } from '../utils/media'

@@ -1,12 +1,11 @@
 import React, { ReactNode } from 'react'
 import styled from 'styled-components'
-import { Link, navigate } from 'gatsby'
-import { getLanguage, setLanguage } from '../utils/language'
+import { Link } from 'gatsby'
+import anime from 'animejs'
+
 import LanguageSwitcher from '../components/LanguageSwitcher'
 import { designSystem } from '../utils/designSystem'
-import config from '../../config/SiteConfig'
 import { media } from '../utils/media'
-import anime from 'animejs'
 
 type ButtonProps = {
   big: string
@@ -74,6 +73,7 @@ const MenuItem = styled(Link)`
 interface Props {
   children?: ReactNode
   location: any
+  selectedLanguage: string
 }
 
 async function AddVisable(event: any) {
@@ -107,7 +107,7 @@ function Navbar(location: { hash: string; pathname: string }) {
 
   return <Menu>{list}</Menu>
 }
-const Header = ({ children, location }: Props) => (
+const Header = ({ children, location, selectedLanguage }: Props) => (
   <Wrapper>
     <Content>
       <LogoLink to="/">
@@ -137,17 +137,7 @@ const Header = ({ children, location }: Props) => (
         </svg>
       </LogoLink>
       {Navbar(location)}
-      <LanguageSwitcher
-      // languages={{
-      //   en: true,
-      //   ja: true
-      // }}
-      // onClick={(langKey: string) => {
-      //   setLanguage(langKey);
-      //   navigate('/');
-      // }}
-      // selectedLanguage={getLanguage()}
-      />
+      <LanguageSwitcher selectedLanguage={selectedLanguage} />
       {children}
     </Content>
   </Wrapper>

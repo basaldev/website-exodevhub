@@ -2,13 +2,12 @@
 
 import React, { ReactNode } from 'react'
 import { StaticQuery, graphql, navigate } from 'gatsby'
-import styled, { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { ThemeProvider, createGlobalStyle } from 'styled-components'
 
 import theme from '../../config/Theme'
-import { setLanguage, getLanguage } from '../utils/language';
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
-import { Footer } from '../components';
+import { Footer } from '../components'
 
 const GlobalStyle = createGlobalStyle`
   ::selection {
@@ -96,8 +95,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-
-
 interface Props {
   children: ReactNode
 }
@@ -112,25 +109,26 @@ const Layout = ({ children }: Props) => (
       }
     `}
     render={data => {
-      let content = null;
-      let footer = null;
-      if(typeof window !== 'undefined'){
-        if(window.location.search === '?lang=ja'){
-          setLanguage('ja');
+      let content = null
+      let footer = null
+      if (typeof window !== 'undefined') {
+        if (window.location.search === '?lang=ja') {
+          setLanguage('ja')
           navigate('/')
         }
-        content = children;
-        footer = <Footer buildTime={data.site.buildTime}/>
+        content = children
+        footer = <Footer buildTime={data.site.buildTime} />
       }
       return (
-      <ThemeProvider theme={theme}>
-        <React.Fragment>
-          <GlobalStyle />
-          {content}
-          {footer}
-        </React.Fragment>
-      </ThemeProvider>
-    )}}
+        <ThemeProvider theme={theme}>
+          <React.Fragment>
+            <GlobalStyle />
+            {content}
+            {footer}
+          </React.Fragment>
+        </ThemeProvider>
+      )
+    }}
   />
 )
 

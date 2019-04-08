@@ -3,21 +3,19 @@ import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
 import kebabCase from 'lodash/kebabCase'
-import { navigate }  from "gatsby";
+
 import { Layout, Wrapper, Header, Subline, SEO } from '../components'
-import { media } from '../utils/media';
-import { Language } from '../utils/language';
+import { media } from '../utils/media'
 import config from '../../config/SiteConfig'
 import '../utils/prismjs-theme.css'
 import { designSystem } from '../utils/designSystem'
-import LanguageSwitcher from '../components/LanguageSwitcher'
 
 const Content = styled.article`
   grid-column: 2;
   overflow: hidden;
   padding: 1rem 0rem;
   z-index: 9000;
-  position:relative;
+  position: relative;
   max-width: 55vw;
   margin: 0 auto;
   @media ${media.tablet} {
@@ -47,8 +45,10 @@ const Title = styled.h2`
 const PostContent = styled.div`
   padding: 2rem 0;
   margin-top: ${designSystem.spacing(6)};
-  h2,h3,h4 {
-    font-family: 'Noto Sans',sans-serif;
+  h2,
+  h3,
+  h4 {
+    font-family: 'Noto Sans', sans-serif;
     text-transform: capitalize;
   }
   @media ${media.phone} {
@@ -60,7 +60,7 @@ const PostContent = styled.div`
     }
   }
 `
-// TODO: replace with grommet
+
 const outlineButton = `
   padding: ${designSystem.spacing(1)};
   font-weight:bold;
@@ -73,7 +73,7 @@ ${outlineButton}
 border: 3px solid ${designSystem.color('black')};
 margin-right: ${designSystem.spacing(1)};
 `
-// MAKE A COMPONENT IN GROMMET
+
 const Discuss = styled.a`
   ${outlineButton}
   border: 3px solid ${designSystem.color('blue')};
@@ -117,7 +117,7 @@ interface Props {
         medium: string
       }
     }
-  },
+  }
   location: any
 }
 
@@ -127,7 +127,7 @@ const Post = ({
   location,
 }: Props) => {
   const post = postNode.frontmatter
-  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`;
+  const twitterDicuss = `https://twitter.com/search?q=exodevhub.com${slug}&src=typd`
   const MediumClap = post.medium ? (
     <Clap target="_blank" href={post.medium}>
       Clap on Medium

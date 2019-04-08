@@ -1,10 +1,10 @@
-import React, { ReactNode, useState } from 'react'
-import { graphql, navigate } from 'gatsby'
+import React, { useState } from 'react'
+import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import { filter } from 'lodash'
 import { Grid, Hidden } from '@material-ui/core'
 import 'katex/dist/katex.min.css'
-import { FormattedMessage, withIntl, Link } from 'gatsby-plugin-intl'
+import { FormattedMessage, withIntl } from 'gatsby-plugin-intl'
 
 import {
   Layout,
@@ -21,7 +21,6 @@ import {
 } from '../components'
 import { media } from '../utils/media'
 import { designSystem } from '../utils/designSystem'
-import { getLanguage, setLanguage } from '../utils/language'
 
 const Content = styled.div`
   grid-column: 2;
@@ -144,6 +143,7 @@ interface Props {
     }
   }
   location: any
+  intl: any // from `gatsby-plugin-intl`
 }
 
 const IndexPage = ({
@@ -151,18 +151,17 @@ const IndexPage = ({
     allMarkdownRemark: { group },
   },
   location,
+  intl,
 }: Props) => {
   let posts: Array<{ node: any }> = []
   let people: Array<{ node: any }> = []
-
-  let selectedLanguage: string = getLanguage()
 
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.type) {
       case 'post':
         posts = filter(
           postType.edges,
-          o => o.node.frontmatter.language === selectedLanguage
+          o => o.node.frontmatter.language === intl.locale
         )
         break
       case 'person':
@@ -178,7 +177,7 @@ const IndexPage = ({
     <Layout>
       <SEO />
       <Wrapper>
-        <Header location={location} />
+        <Header location={location} selectedLanguage={intl.locale} />
         <Content>
           <AboutSection id="about" background="/assets/about.png">
             <Grid container justify="space-between">
