@@ -55,7 +55,7 @@ const PeopleWrapper = styled.div`
   grid-column: 4;
   display: grid;
   grid-gap: 32px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 
   @media ${media.tablet} {
     grid-template-columns: repeat(4, 1fr);
