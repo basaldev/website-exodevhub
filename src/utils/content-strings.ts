@@ -56,7 +56,7 @@ export const CONTENT_STRINGS = {
           {
           color: 'green',
           bg: `/assets/scale.png`,
-          mailto: `mailto:info@exodevhub.com?subject=Tell me about your [SCALE DEVELOPMENT] service`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
           title: 'SCALE DEVELOPMENT',
           subtitle: `Your cutting-edge development team on-demand`,
           excerpt: `The SCALE ExO attributes are the external traits that enable organizations such as Github, AirBnb, or Uber to have 10x the output as compared to their peers.`,
@@ -74,7 +74,7 @@ export const CONTENT_STRINGS = {
          { color: 'cornflower',
           title: 'EXODEV SPRINT',
           bg: `/assets/sprint.png`,
-          mailto: `mailto:info@exodevhub.com?subject=Tell me about your [EXODEV SPRINT] service`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service`,
           subtitle: `Evolve your technical team`,
           excerpt: `The ExO Dev Sprint is a hands-on educational program designed to evolve your tech team, while also managing your company's immune system (internal resistance to change).`,
           content: [
@@ -92,7 +92,7 @@ export const CONTENT_STRINGS = {
          { color: 'amber',
           title: 'EXODEV WORKSHOP',
           bg: `/assets/workshop.png`,
-          mailto: `mailto:info@exodevhub.com?subject=Tell me about your [EXODEV WORKSHOP] service`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service`,
           subtitle: `Introductory 1 day workshop`,
           excerpt: `In this 1 day workshop we’ll introduce your tech team to the principles and practices of Exponential Organizations that allow them to have a 10x rise in productivity.
           This is a short introductory version of the ExO Dev Sprint.`,
@@ -150,7 +150,7 @@ export const CONTENT_STRINGS = {
           {
           color: 'green',
           bg: `/assets/scale.png`,
-          mailto: `mailto:info@exodevhub.com?subject=Tell me about your [SCALE DEVELOPMENT] service`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [SCALE DEVELOPMENT] service`,
           title: 'SCALE DEVELOPMENT',
           subtitle: `オンデマンド型最先端開発チーム`,
           excerpt: `
@@ -169,7 +169,7 @@ export const CONTENT_STRINGS = {
          { color: 'cornflower',
           title: 'EXODEV SPRINT',
           bg: `/assets/sprint.png`,
-          mailto: `mailto:info@exodevhub.com?subject=Tell me about your [EXODEV SPRINT] service`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV SPRINT] service`,
           subtitle: `開発チームトレーニングプログラム`,
           excerpt: `「ExO Devスプリント」は御社の開発チームに革新をもたらす実践的なハンズオン型トレーニングプログラムです。変革の際に起こりうる組織内の対立を最小化しつつ、スムーズな移行をサポートします。`,
           content: [
@@ -187,7 +187,7 @@ export const CONTENT_STRINGS = {
          { color: 'amber',
           title: 'EXODEV WORKSHOP',
           bg: `/assets/workshop.png`,
-          mailto: `mailto:info@exodevhub.com?subject=Tell me about your [EXODEV WORKSHOP] service`,
+          mailto: `mailto:contact@exodev.team?subject=Tell me about your [EXODEV WORKSHOP] service`,
           subtitle: `1DAYワークショップ`,
           excerpt: `「1DAYワークショップ」では、御社の開発チームの生産性を１０倍向上させるために必要なは飛躍型企業の基本原則と実践方法を提供します。こちらはExO Devスプリントのお試し版となります。`,
           content: []
