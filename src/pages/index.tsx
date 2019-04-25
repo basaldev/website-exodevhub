@@ -76,6 +76,7 @@ const Section = styled.div`
     padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(4)};
   }
   h1 {
+    font-weight:bold;
     @media ${media.phone} {
       font-size: 10vw;
       margin: ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
@@ -136,6 +137,9 @@ const AboutSection = styled.div`
   background-size: contain;
   background-repeat:no-repeat;
   background-position:top;
+  }
+  h1 {
+    font-weight:900;
   }
 `
 
