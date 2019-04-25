@@ -147,7 +147,7 @@ const Post = ({
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
             </span>
-            <Link to={`/categories/${kebabCase(post.category)}`}>
+            <Link to={`/post/category/${kebabCase(post.category)}`}>
               #{post.category}
             </Link>
           </Subline>
