@@ -175,7 +175,7 @@ export const postQuery = graphql`
   query postBySlug($slug: String!) {
     markdownRemark(
       fields: { slug: { eq: $slug } }
-      frontmatter: { type: { eq: "post" } }
+      frontmatter: { posttype: { eq: "post" } }
     ) {
       html
       excerpt

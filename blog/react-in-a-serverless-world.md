@@ -2,7 +2,7 @@
 date: 2019-03-04T09:00:00.000Z
 title: 'React in a Serverless World'
 banner: /assets/social-serverless-world.png
-type: post
+posttype: post
 category: react
 shape: square
 language: en

@@ -2,7 +2,7 @@
 date: 2019-01-30T09:04:31.645Z
 title: 'Web Components: Understanding Attributes and Properties'
 banner: /assets/social-lit-elements.png
-type: post
+posttype: post
 medium: https://medium.com/exodevhub/web-components-understanding-attributes-and-properties-5b8606b90a2
 category: web-components
 language: en

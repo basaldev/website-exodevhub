@@ -161,7 +161,7 @@ const IndexPage = ({
 
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
-    switch (postType.edges[0].node.frontmatter.type) {
+    switch (postType.edges[0].node.frontmatter.posttype) {
       case 'post':
         posts = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
         break;
@@ -255,8 +255,8 @@ export default IndexPage
 
 export const IndexQuery = graphql`
   query IndexQuery {
-    allMarkdownRemark(sort: { fields: frontmatter___type, order: DESC }) {
-      group(field: frontmatter___type) {
+    allMarkdownRemark(sort: { fields: frontmatter___posttype, order: DESC }) {
+      group(field: frontmatter___posttype) {
         edges {
           node {
             fields {
@@ -267,7 +267,7 @@ export const IndexQuery = graphql`
               date(formatString: "YYYY-MM-DD")
               category
               shape
-              type
+              posttype
               fullName
               github
               twitter
