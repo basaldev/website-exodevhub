@@ -2,7 +2,7 @@
 date: 2019-02-19T09:04:31.645Z
 title: 'Webコンポーネント：属性値とプロパティ値'
 banner: /assets/social-lit-elements.png
-type: post
+posttype: post
 medium: https://medium.com/exodevhub/web-components-understanding-attributes-and-properties-5b8606b90a2
 category: web-components
 language: ja

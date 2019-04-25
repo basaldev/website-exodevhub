@@ -63,7 +63,7 @@ export const postQuery = graphql`
   query PersonPage($slug: String!) {
     markdownRemark(
       fields: { slug: { eq: $slug } }
-      frontmatter: { type: { eq: "person" } }
+      frontmatter: { posttype: { eq: "person" } }
     ) {
       frontmatter {
         fullName

@@ -1,141 +1,87 @@
-const path = require('path')
-const _ = require('lodash')
+const { createFilePath } = require('gatsby-source-filesystem')
+const { templateSelector } = require('./gastby-template-selector')
+const path = require('path');
+const _ = require('lodash');
 
-function createSlug(node, key, createNodeField) {
-  if (
-    Object.prototype.hasOwnProperty.call(node, 'frontmatter') &&
-    Object.prototype.hasOwnProperty.call(node.frontmatter, key)
-  ) {
-  createNodeField({ node, name: 'slug', value: `/${_.kebabCase(node.frontmatter[key])}`})
-}
-}
-function createPostType(postType, rawQuery, component, createPage, contextCallback){
-  let result  = []
-
-        _.each(rawQuery, edge => {
-            if(_.get(edge, 'node.frontmatter.type') === postType){
-              result = result.concat(edge);
-            }
-        })
-        result = _.uniq(result)
-        result.forEach((edge, index) => {
-          const extraContext = contextCallback(result, index) || {};
-
-          createPage({
-            path: edge.node.fields.slug,
-            component,
-            context: {
-              slug: edge.node.fields.slug,
-              ...extraContext
-            },
-          })
-        })
-}
-function createTaxonomy(name, postType, rawQuery, component, createPage, contextCallback) {
-  let result = []
-
-  _.each(rawQuery, edge => {
-    if (_.get(edge, 'node.frontmatter.type') === postType && edge.node.frontmatter[name]) {
-      result = result.concat(edge.node.frontmatter[name])
-    }
-  })
-
-  result = _.uniq(result)
-
-  result.forEach((single, index) => {
-    const extraContext = contextCallback(result, index) || {};
-    createPage({
-      path: `/${name}/${_.kebabCase(single)}`,
-      component,
-      context: {
-        single,
-        ...extraContext
-      },
-    })
-  })
-}
-
-exports.onCreateNode = ({ node, actions }) => {
-  const { createNodeField } = actions
-  if (node.internal.type === 'MarkdownRemark') {
-    const slugFields = [
-      'slug',
-      'title',
-      'fullName'
-    ];
-    _.map(slugFields, key => createSlug(node, key, createNodeField))
-  }
-}
-
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-
-  return new Promise((resolve, reject) => {
-    const postPage = path.resolve('src/templates/post.tsx')
-    const categoryPage = path.resolve('src/templates/category.tsx')
-    resolve(
-      graphql(`
-        {
-          posts: allMarkdownRemark {
-            edges {
-              node {
-                fields {
-                  slug
-                }
-                frontmatter {
-                  title
-                  category
-                  type
-                }
+  const allMarkdownRemark = await graphql(
+    `
+      {
+        allMarkdownRemark(
+          sort: { fields: [frontmatter___date], order: DESC }
+          limit: 1000
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                posttype
+                category
               }
             }
           }
         }
-      `).then(result => {
-        if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
-        }
-        const results = result.data.posts.edges;
+      }
+    `
+  )
 
-        createPostType('post', results, postPage, createPage, (r, i) => {
-          return {
-            next: i === 0 ? null : r[i - 1].node,
-            prev: i === r.length - 1 ? null : r[i + 1].node
-          }
-        });
-        createPostType('person', results, path.resolve(`src/templates/person.tsx`), createPage, (r, i) =>  {});
-        // WIP
-        // createTaxonomy('category', 'post', results, categoryPage, createPage, (r, i) => {
-        //   return {}
-        // });
-        let categories = []
-
-        _.each(results, edge => {
-          if (!_.isNull(_.get(edge, 'node.frontmatter.category'))) {
-              categories = categories.concat(edge.node.frontmatter.category)
-          }
-        })
-        categories = _.uniq(categories)
-
-        categories.forEach(category => {
-          createPage({
-            path: `/categories/${_.kebabCase(category)}`,
-            component: categoryPage,
-            context: {
-              category,
-            },
-          })
-        })
-      })
-    )
-  })
+  function createPagesFun(graphql) {
+    const posts = graphql.data.allMarkdownRemark.edges;
+    posts.forEach(post => {
+      if(hasCategory(post.node)){
+        createPage(createTaxonomy(post.node));
+      }
+      createPage(templateSelector(post, posts));
+    })
+  }
+  await createPagesFun(allMarkdownRemark)
 }
 
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  actions.setWebpackConfig({
-    resolve: {
-      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
-    },
-  })
+exports.onCreateNode = ({ node, actions, getNode }) => {
+  const { createNodeField } = actions
+
+  if (node.internal.type === `MarkdownRemark`) {
+    const value = createFilePath({ node, getNode })
+    createNodeField({
+      name: `slug`,
+      node,
+      value,
+    })
+  }
 }
+function hasCategory(post){
+  if(typeof post.frontmatter !== 'undefined'){
+    return post.frontmatter.category !== null && post.frontmatter.category !== '';
+  } else {
+    return false;
+  }
+}
+
+function createTaxonomy(post) {
+    const template = path.resolve(`./src/templates/category.tsx`);
+    const catPath = `/${post.frontmatter.posttype}/category/${_.kebabCase(post.frontmatter.category)}`;
+    return {
+      path: catPath,
+      component: template,
+      context: {
+        category: post.frontmatter.category,
+      },
+  };
+}
+
+
+// let result = []
+
+// _.each(rawQuery, edge => {
+//   if (_.get(edge, 'node.frontmatter.posttype') === postType && edge.node.frontmatter[name]) {
+//     result = result.concat(edge.node.frontmatter[name])
+//   }
+// })
+
+// result = _.uniq(result)
+
+// result.forEach((single, index) => {

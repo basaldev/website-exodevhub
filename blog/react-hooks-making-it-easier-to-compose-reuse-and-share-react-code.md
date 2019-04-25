@@ -2,7 +2,8 @@
 date: 2019-01-16T09:04:31.645Z
 title: 'React Hooks: Making it easier to compose, reuse, and share React code'
 banner: /assets/social-hocks.png
-type: post
+slug: react-hooks-making-it-easier-to-compose-reuse-and-share-react-code
+posttype: post
 category: react
 shape: diamond
 language: en

@@ -128,7 +128,7 @@ const Article = ({ title, date, slug, timeToRead, category, shape }: Props) => {
           <span>
             {date} &mdash; {timeToRead} Min Read - In{' '}
           </span>
-          <Link to={`/categories/${kebabCase(category)}`}> #{category}</Link>
+          <Link to={`/post/category/${kebabCase(category)}`}> #{category}</Link>
         </Meta>
         <Title>
           <Link to={slug}>{title}</Link>

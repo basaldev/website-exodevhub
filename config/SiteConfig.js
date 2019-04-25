@@ -29,5 +29,5 @@ module.exports = {
   // Settings for typography.js
   headerFontFamily: 'Big John Pro',
   bodyFontFamily: 'Noto Sans JP',
-  baseFontSize: '18px',
+  baseFontSize: '16px',
 }

@@ -161,7 +161,7 @@ export default class HTML extends React.Component<Props, {}> {
           />
           <link
             rel="preload"
-            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700"
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900"
           />
         </head>
         <body {...this.props.bodyAttributes}>

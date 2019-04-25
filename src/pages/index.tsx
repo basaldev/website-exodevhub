@@ -76,6 +76,7 @@ const Section = styled.div`
     padding: ${designSystem.spacing(4)} 0 ${designSystem.spacing(4)};
   }
   h1 {
+    font-weight:bold;
     @media ${media.phone} {
       font-size: 10vw;
       margin: ${designSystem.spacing(0)} 0 ${designSystem.spacing(3)};
@@ -137,6 +138,9 @@ const AboutSection = styled.div`
   background-repeat:no-repeat;
   background-position:top;
   }
+  h1 {
+    font-weight:900;
+  }
 `
 
 interface Props {
@@ -161,7 +165,7 @@ const IndexPage = ({
 
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
   group.forEach(postType => {
-    switch (postType.edges[0].node.frontmatter.type) {
+    switch (postType.edges[0].node.frontmatter.posttype) {
       case 'post':
         posts = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
         break;
@@ -255,8 +259,8 @@ export default IndexPage
 
 export const IndexQuery = graphql`
   query IndexQuery {
-    allMarkdownRemark(sort: { fields: frontmatter___type, order: DESC }) {
-      group(field: frontmatter___type) {
+    allMarkdownRemark(sort: { fields: frontmatter___posttype, order: DESC }) {
+      group(field: frontmatter___posttype) {
         edges {
           node {
             fields {
@@ -267,7 +271,7 @@ export const IndexQuery = graphql`
               date(formatString: "YYYY-MM-DD")
               category
               shape
-              type
+              posttype
               fullName
               github
               twitter

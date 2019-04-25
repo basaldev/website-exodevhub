@@ -1,6 +1,6 @@
 ---
 fullName: 'Shinsuke Yamada'
-type: person
+posttype: person
 github: yamoo
 image: /assets/marty.jpg
 twitter: exomarty

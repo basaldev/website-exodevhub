@@ -4,7 +4,7 @@ title: Immutable data management in single state applications
 banner: /assets/social-immutable.png
 medium: >-
   https://medium.com/exodevhub/immutable-data-management-in-single-state-applications-71d1bd84839f
-type: post
+posttype: post
 language: en
 languages:
   en: /immutable-data-management-in-single-state-applications

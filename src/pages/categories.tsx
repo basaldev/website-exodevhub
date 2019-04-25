@@ -63,7 +63,7 @@ const Category = ({
           <LinkHeader text={'Categories'} white="o" />
           {group.map(category => (
             <Title key={category.fieldValue}>
-              <Link to={`/categories/${kebabCase(category.fieldValue)}`}>
+              <Link to={`/post/category/${kebabCase(category.fieldValue)}`}>
                 #{category.fieldValue}
               </Link>{' '}
               ({category.totalCount})
@@ -79,7 +79,7 @@ export default Category
 
 export const postQuery = graphql`
   query CategoriesPage {
-    allMarkdownRemark(filter: { frontmatter: { type: { eq: "post" } } }) {
+    allMarkdownRemark(filter: { frontmatter: { posttype: { eq: "post" } } }) {
       group(field: frontmatter___category) {
         fieldValue
         totalCount

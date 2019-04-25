@@ -9,12 +9,12 @@ export const CONTENT_STRINGS = {
       community: {
         title: `Team`,
         discord: {
-          button: `Join the community`,
+          button: `Talk to us`,
           subtitle: `Online`
         }
       },
       about: {
-        title: 'We are Exodev',
+        title: 'Your on demand expert tech team',
         image: `/assets/about.png`,
         imagePlaceholder: `/assets/about-placeholder.png`,
         content: [
@@ -113,12 +113,12 @@ export const CONTENT_STRINGS = {
       community: {
         title: `Team`,
         discord: {
-          button: `コミュニティに参加する`,
+          button: `チャット`,
           subtitle: `オンライン`
         }
       },
       about: {
-        title: 'We are Exodev',
+        title: 'Your on demand expert tech team',
         image: `/assets/about.png`,
         imagePlaceholder: `/assets/about-placeholder.png`,
         content: [

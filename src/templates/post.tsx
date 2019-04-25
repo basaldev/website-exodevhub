@@ -147,7 +147,7 @@ const Post = ({
             <span>
               {post.date} &mdash; {postNode.timeToRead} Min Read{' '}
             </span>
-            <Link to={`/categories/${kebabCase(post.category)}`}>
+            <Link to={`/post/category/${kebabCase(post.category)}`}>
               #{post.category}
             </Link>
           </Subline>
@@ -175,7 +175,7 @@ export const postQuery = graphql`
   query postBySlug($slug: String!) {
     markdownRemark(
       fields: { slug: { eq: $slug } }
-      frontmatter: { type: { eq: "post" } }
+      frontmatter: { posttype: { eq: "post" } }
     ) {
       html
       excerpt
