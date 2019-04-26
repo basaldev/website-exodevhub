@@ -13,6 +13,7 @@ import {
   SectionTitle,
   LinkHeader,
   ServiceCard,
+  OpensourceCard,
   Person,
   SignUpCommunity,
   Product,
@@ -162,16 +163,23 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
+  let opensources: Array<{ node: any }> = [];
   let products: Array<{ node: any }> = [];
 
 
   let selectedLanguage: string = getLanguage();
 
   const wordings =  (CONTENT_STRINGS.index as any)[selectedLanguage];
+
   group.forEach(postType => {
     switch (postType.edges[0].node.frontmatter.posttype) {
       case 'post':
         posts = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
+        break;
+      case 'opensource':
+        opensources = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage)
+          .map(o => o.node.frontmatter)
+          .map(o => ({ ...o, tags: o.category.split(' ') }));
         break;
       case 'person':
         people = postType.edges;
@@ -183,6 +191,7 @@ const IndexPage = ({
   });
   const [expandedCard, setExpandedCard] = useState(false);
   const updateExpandedCard = () => setExpandedCard(!expandedCard);
+
   return (
     <Layout>
       <SEO />
@@ -234,9 +243,13 @@ const IndexPage = ({
           <Section id="opensource">
             <SectionTitle text={`opensource`} />
             <Grid container spacing={32} alignItems="stretch">
-            {wordings.services.content.map((service: {title:string }, index: number) => {
-            return <Grid item md={6}><ServiceCard expanded={expandedCard} handleExpand={updateExpandedCard} key={index+service.title} {...service} /></Grid>
-          })}
+              {opensources.map(opensource => {
+                return (
+                  <Grid item xs={12} md={6} key={opensource.title}>
+                    <OpensourceCard {...opensource} />
+                  </Grid>
+                );
+              })}
           </Grid>
           </Section>
           </AboutSection>
@@ -292,6 +305,7 @@ export const IndexQuery = graphql`
             }
             frontmatter {
               title
+              description
               name
               platform
               excerpt
@@ -304,6 +318,9 @@ export const IndexQuery = graphql`
               twitter
               image
               language
+              repo
+              stars
+              forks
             }
             timeToRead
           }
