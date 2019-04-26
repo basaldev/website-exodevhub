@@ -103,7 +103,7 @@ const settings = {
   autoplay:true,
   infinite: true,
   speed: 700,
-  autoplaySpeed: 1000,
+  autoplaySpeed: 3000,
   slidesToShow: 2,
   slidesToScroll: 2
 };
