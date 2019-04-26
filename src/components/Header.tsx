@@ -92,8 +92,8 @@ async function AddVisable(event:any){
 const routes = [
   {to: '/#about', name: "About"},
   {to: '/#services', name: "Services"},
-  {to: '/#opensource', name: "Open Source"},
   {to: '/#products', name: "Products"},
+  {to: '/#opensource', name: "Open Source"},
   {to: '/#team', name: "Team"},
   {to: '/#blog', name: "Blog"},
 ]
