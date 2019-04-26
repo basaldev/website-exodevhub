@@ -55,6 +55,7 @@ const Caption = styled('div')`
 `;
 const WhiteButton = styled(Button)`
   background: #fff;
+  margin-top: ${designSystem.spacing(1)};
   color: #000;
 `;
 
