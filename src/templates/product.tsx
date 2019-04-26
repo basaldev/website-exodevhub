@@ -113,12 +113,11 @@ const product = ({
   location,
 }: Props) => {
   const product = productNode.frontmatter
-  console.log(productNode)
   return (
     <Layout>
       <Wrapper>
         <SEO productPath={slug} productNode={productNode} productSEO />
-        <Helmet title={` | ${config.siteTitle}`} />
+        <Helmet title={`${product.name} | ${config.siteTitle}`} />
         <Header location={location} />
         <Content>
           <GridContainer>

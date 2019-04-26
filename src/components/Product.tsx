@@ -3,20 +3,19 @@ import styled from 'styled-components'
 import { Link } from 'gatsby'
 import { designSystem } from '../utils/designSystem'
 import { media } from '../utils/media'
+import { Grid } from '@material-ui/core';
 
 const Post = styled.article`
-  flex:1;
+  position:relative;
+  flex: 1;
   background-image: url(${props => `${props.backgroundimage}`});
   background-position:center;
   background-size:cover;
   min-height: 380px;
-  max-width:33%;
   clear: both;
   overflow:hidden;
   margin-bottom: ${designSystem.spacing(10)};
-  margin-right: ${designSystem.spacing(4)};
   position:relative;
-
   & a {
     position:absolute;
     top:0;
@@ -29,7 +28,8 @@ const Post = styled.article`
   @media ${media.tablet} {
   }
   @media ${media.phone} {
-    max-width:none;
+    width:100%;
+    margin-bottom: 0;
   }
 `;
 
@@ -41,9 +41,11 @@ interface Props {
 
 const Product = ({ image, name, slug }: Props) => {
   return (
+    <Grid item xs={12} md={4} lg={4}>
     <Post backgroundimage={image}>
       <Link to={`${slug}`}></Link>
     </Post>
+    </Grid>
   )
 }
 
