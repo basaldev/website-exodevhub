@@ -15,9 +15,11 @@ import {
   ServiceCard,
   Person,
   SignUpCommunity,
+  Product,
   SEO,
 } from '../components'
 import { media } from '../utils/media'
+import { normalizeProduct } from '../utils/normalizer';
 import { designSystem } from '../utils/designSystem';
 import { getLanguage, setLanguage } from '../utils/language';
 import { CONTENT_STRINGS } from '../utils/content-strings';
@@ -160,6 +162,8 @@ const IndexPage = ({
 }: Props) => {
   let posts: Array<{ node: any }> = [];
   let people: Array<{ node: any }> = [];
+  let products: Array<{ node: any }> = [];
+
 
   let selectedLanguage: string = getLanguage();
 
@@ -171,6 +175,9 @@ const IndexPage = ({
         break;
       case 'person':
         people = postType.edges;
+        break;
+      case 'product':
+        products = postType.edges;
         break
     }
   });
@@ -218,10 +225,11 @@ const IndexPage = ({
           <Section id="products">
             <SectionTitle text={`products`} />
             <Grid container spacing={32} alignItems="stretch">
-            {wordings.services.content.map((service: {title:string }, index: number) => {
-            return <Grid item md={6}><ServiceCard expanded={expandedCard} handleExpand={updateExpandedCard} key={index+service.title} {...service} /></Grid>
-          })}
-          </Grid>
+              {products.map(item => {
+              const single = normalizeProduct(item);
+              return <Product slug={single.slug} platform={single.platform} excerpt={single.excerpt} image={single.image} name={single.name} />
+              })}
+            </Grid>
           </Section>
           <Section id="opensource">
             <SectionTitle text={`opensource`} />
@@ -284,6 +292,9 @@ export const IndexQuery = graphql`
             }
             frontmatter {
               title
+              name
+              platform
+              excerpt
               date(formatString: "YYYY-MM-DD")
               category
               shape
