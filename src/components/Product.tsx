@@ -1,141 +1,89 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
-import kebabCase from 'lodash/kebabCase'
+import { designSystem } from '../utils/designSystem';
+import { Button } from '../components';
 
-import { designSystem } from '../utils/designSystem'
 import { media } from '../utils/media'
-
-const shapeSize = 120
+import { Grid } from '@material-ui/core';
 
 const Post = styled.article`
-  flex: 45% 0 0;
+  position:relative;
+  flex: 1;
+  background-image: url(${props => `${props.backgroundimage}`});
+  background-position:center;
+  background-size:cover;
+  min-height: 380px;
   clear: both;
-  margin-bottom: ${designSystem.spacing(10)};
-  margin-right: ${designSystem.spacing(4)};
-  &:last-of-type {
+  overflow:hidden;
+  color: #fff;
+  position:relative;
+  & a {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
+  }
+
+  @media ${media.smallLaptop} {
+  }
+  @media ${media.tablet} {
+  }
+  @media ${media.phone} {
+    width:100%;
     margin-bottom: 0;
   }
-  @media ${media.phone} {
-    width: auto;
-    margin-right: 0;
-  }
-`
-
-const Title = styled.h2`
-  position: relative;
-  margin-bottom: 0.75rem;
-  text-transform: capitalize;
-  font-weight: bold;
-  font-size: ${designSystem.fontSize('sm')}px;
-  border: ${designSystem.get('border.width')}px solid;
-  display: table;
-  width: 100%;
-  & a {
-    padding: 0 ${designSystem.spacing(3)};
-    vertical-align: middle;
-    display: table-cell;
-    @media ${media.phone} {
-      padding: ${designSystem.spacing(3)};
-    }
-  }
-  clear: both;
-  background: white;
-  height: 110px; //Firefox fix
-`
-type ShapeProps = {
-  type: string
-}
-// TODO: Replace with SVG
-const Shape = styled.div`
-  width: ${shapeSize}px;
-  height: ${shapeSize}px;
-  display: block;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  ${(props: ShapeProps) => {
-    switch (props.type) {
-      case 'square':
-        return `
-      overflow:hidden;
-      background: ${designSystem.color('pink')}
-     `
-      case 'corner':
-        return `
-      overflow:hidden;
-      top: -5px;
-      border-radius: 100% 0 0 0;
-      background: ${designSystem.color('orange')}
-     `
-      case 'diamond':
-        return `
-      overflow:hidden;
-      transform: rotate(45deg);
-      left: 24px;
-      top: 6px;
-      width: 110px;
-      height: 110px;
-      background: ${designSystem.color('blue')}
-     `
-      default:
-      case 'circle':
-        return `
-      overflow:hidden;
-      border-radius: 100%;
-      background: ${designSystem.color('green')}
-     `
-    }
-  }};
-`
-
-const ShapeFence = styled.div`
-  padding-left: ${designSystem.spacing(5)};
-  position: relative;
-  clear: both;
-`
-
-const Meta = styled.div`
+`;
+const Caption = styled('div')`
+  background: #000;
+  border-top: 2px solid ${designSystem.color('yellow')};
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
-  color: ${designSystem.color('white', 'darker')};
-  font-size: ${designSystem.fontSize('xxs')}px;
-  float: right;
-  clear: both;
-  display: block;
-  text-align: right;
-  margin-left: ${designSystem.spacing(6)};
-  @media ${media.phone} {
-    margin-left: ${designSystem.spacing(10)};
+  font-weight: 200;
+  text-transform: unset;
+
+  padding: ${designSystem.spacing(2)};
+  h3 {
+    color: #fff;
+    font-weight:200;
+    font-family: ${designSystem.get(`type.fontFamily.mono`)};
   }
-`
+  p,strong {
+    color: #fff;
+    margin-bottom: 0;
+  }
+`;
+const WhiteButton = styled(Button)`
+  background: #fff;
+  margin-top: ${designSystem.spacing(1)};
+  color: #000;
+`;
 
 interface Props {
-  title: string
-  date: string
-  excerpt: string
+  name: string
   slug: string
-  timeToRead: number
-  category: string
-  shape: string
+  image: string;
+  excerpt: string;
+  platform: string[];
 }
 
-const Article = ({ title, date, slug, timeToRead, category, shape }: Props) => {
+const Product = ({ image, name, slug, excerpt, platform }: Props) => {
   return (
-    <Post>
-      <ShapeFence>
-        <Shape type={shape} />
-        <Meta>
-          <span>
-            {date} &mdash; {timeToRead} Min Read - In{' '}
-          </span>
-          <Link to={`/categories/${kebabCase(category)}`}> #{category}</Link>
-        </Meta>
-        <Title>
-          <Link to={slug}>{title}</Link>
-        </Title>
-      </ShapeFence>
+    <Grid item xs={12} md={4} lg={4}>
+    <Post backgroundimage={image}>
+      <Link to={`${slug}`}></Link>
     </Post>
+    <Caption>
+      <h3>{name}</h3>
+      <p>{excerpt}</p>
+      <strong>PLATFORM: {platform.join(',')}</strong>
+      <Grid container justify="flex-end">
+      <Grid item>
+      <WhiteButton to={`${slug}`}>Learn More</WhiteButton></Grid>
+      </Grid>
+    </Caption>
+    </Grid>
   )
 }
 
-export default Article
+export default Product

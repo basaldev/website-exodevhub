@@ -13,8 +13,10 @@ import DiscordWidget from './DiscordWidget'
 import SignUpCommunity from './SignUpCommunity'
 import Footer from './Footer';
 import ServiceCard from './ServiceCard';
+import OpensourceCard from './OpensourceCard';
 import Texture from './Texture';
-
+import Product from './Product';
+import TechLogo from './TechLogo';
 
 export {
   Article,
@@ -32,5 +34,8 @@ export {
   SignUpCommunity,
   Footer,
   ServiceCard,
-  Texture
+  OpensourceCard,
+  TechLogo,
+  Texture,
+  Product
 }
