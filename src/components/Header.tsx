@@ -23,6 +23,7 @@ const button = `
   line-height: 1;
   font-family: ${designSystem.get('type.fontFamily.mono')};
   font-size: ${(props: ButtonProps) => (props.big ? '1.2rem' : '1rem')};
+  white-space: nowrap;
 `
 
 const Wrapper = styled.header`
@@ -91,6 +92,8 @@ async function AddVisable(event:any){
 const routes = [
   {to: '/#about', name: "About"},
   {to: '/#services', name: "Services"},
+  {to: '/#opensource', name: "Open Source"},
+  {to: '/#products', name: "Products"},
   {to: '/#team', name: "Team"},
   {to: '/#blog', name: "Blog"},
 ]
