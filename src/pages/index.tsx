@@ -215,6 +215,22 @@ const IndexPage = ({
           })}
           </Grid>
           </Section>
+          <Section id="products">
+            <SectionTitle text={`products`} />
+            <Grid container spacing={32} alignItems="stretch">
+            {wordings.services.content.map((service: {title:string }, index: number) => {
+            return <Grid item md={6}><ServiceCard expanded={expandedCard} handleExpand={updateExpandedCard} key={index+service.title} {...service} /></Grid>
+          })}
+          </Grid>
+          </Section>
+          <Section id="opensource">
+            <SectionTitle text={`opensource`} />
+            <Grid container spacing={32} alignItems="stretch">
+            {wordings.services.content.map((service: {title:string }, index: number) => {
+            return <Grid item md={6}><ServiceCard expanded={expandedCard} handleExpand={updateExpandedCard} key={index+service.title} {...service} /></Grid>
+          })}
+          </Grid>
+          </Section>
           </AboutSection>
           <Section  id="team">
             <SectionTitle text={`${wordings.community.title}`} />
