@@ -5,6 +5,6 @@ title: jUnits
 description: A light utility library for Japanese units
 category: utility date japanese
 repo: https://github.com/exodevhub/junits
-stars: 1
+stars: 2
 forks: 0
 ---

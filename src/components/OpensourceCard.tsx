@@ -65,8 +65,12 @@ const Title = styled.a`
 
 const _Chip = styled(Chip)`
   margin: 0 0.6em 0.6em 0;
-  vertical-align: top;
-  border-radius: 3px;
+  padding: ${designSystem.spacing(1)};
+  border-radius: 0;
+  color: #fff;
+  font-family: ${designSystem.get(`type.fontFamily.mono`)};
+  font-size: ${designSystem.fontSize('xs')}px;
+  background-color: ${designSystem.color('blue')};
 `;
 
 const TagsGrid = styled(Grid)`
@@ -110,13 +114,13 @@ export default function OpensourceCard({ title, description, tags, repo, stars, 
   return (
     <_Card>
       <_CardContent>
-        <Title>{title}</Title>
+        <Title href={repo} target="_blank">{title}</Title>
         <Description>{description}</Description>
         <TagGridContainer>
           <TagsGrid container>
             {tags.map(tag =>
               <Grid item key={tag}>
-                <_Chip variant="outlined" label={tag} />
+                <_Chip label={tag} />
               </Grid>
             )}
           </TagsGrid>
