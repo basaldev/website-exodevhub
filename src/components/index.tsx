@@ -35,7 +35,7 @@ export {
   Footer,
   ServiceCard,
   OpensourceCard,
-  Texture,
   TechLogo,
+  Texture,
   Product
 }
