@@ -13,6 +13,7 @@ import DiscordWidget from './DiscordWidget'
 import SignUpCommunity from './SignUpCommunity'
 import Footer from './Footer';
 import ServiceCard from './ServiceCard';
+import OpensourceCard from './OpensourceCard';
 import Texture from './Texture';
 
 
@@ -32,5 +33,6 @@ export {
   SignUpCommunity,
   Footer,
   ServiceCard,
+  OpensourceCard,
   Texture
 }
