@@ -12,7 +12,6 @@ images: [
   ]
 image: '/assets/products/kotoba119/en-banner.jpg'
 status: 'UNRELEASE'
-excerpt: "a game to help people learn japanese words"
+excerpt: "日本語学習ゲーム"
 ---
-Learning languages isn't always very fun. Combining the fun of retro games like mario with flash card techniques, Kotoba119 makes learning languages engaging.
-Each level is randomly generated so you can replay the game until you learn all the words.
+新しい言語の習得は楽しいことばかりではありません。単語帳にマリオ風レトロゲームの要素を加えたKotoba119は、語学習得者のモチベーションを高め苦痛な単語の暗記作業を楽しいものに変えていきます。ゲームマップは毎回ランダムに生成されるので、全ての単語をマスターするまで何度でも飽きずにプレーすることができます。
