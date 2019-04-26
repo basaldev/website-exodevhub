@@ -15,5 +15,7 @@ images: [
   ]
 image: '/assets/products/yaeba/en-banner.jpg'
 status: 'UNRELEASE'
+excerpt: "a harajuku inspired outfit builder"
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+Inspired by the color and volume of Harajuku's fashion scene. Yaeba is designed to help build the outfit you want with the cloths you own and clothes you don't own yet. It connects with a 3rd party ecommerce shop and allowing users build a full outfit to purchase in one order.
+Yaeba also includes social sharing options to help users share their creations.

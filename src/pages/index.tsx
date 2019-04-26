@@ -225,11 +225,11 @@ const IndexPage = ({
           <Section id="products">
             <SectionTitle text={`products`} />
             <Grid container spacing={32} alignItems="stretch">
-            {products.map(item => {
-            const single = normalizeProduct(item);
-            return <Product slug={single.slug} image={single.image} name={single.name} />
-            })}
-          </Grid>
+              {products.map(item => {
+              const single = normalizeProduct(item);
+              return <Product slug={single.slug} excerpt={single.excerpt} image={single.image} name={single.name} />
+              })}
+            </Grid>
           </Section>
           <Section id="opensource">
             <SectionTitle text={`opensource`} />
@@ -292,6 +292,8 @@ export const IndexQuery = graphql`
             }
             frontmatter {
               title
+              name
+              excerpt
               date(formatString: "YYYY-MM-DD")
               category
               shape
