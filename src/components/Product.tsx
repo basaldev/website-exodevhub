@@ -10,6 +10,7 @@ import { Grid } from '@material-ui/core';
 const Post = styled.article`
   position:relative;
   flex: 1;
+  overflow:hidden;
   background-image: url(${props => `${props.backgroundimage}`});
   background-position:center;
   background-size:cover;
@@ -41,7 +42,8 @@ const Caption = styled('div')`
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
   font-weight: 200;
   text-transform: unset;
-
+  position:relative;
+  min-height: 225px;
   padding: ${designSystem.spacing(2)};
   h3 {
     color: #fff;
@@ -57,6 +59,9 @@ const WhiteButton = styled(Button)`
   background: #fff;
   margin-top: ${designSystem.spacing(1)};
   color: #000;
+  position:absolute;
+  bottom: ${designSystem.spacing(1)};
+  right: ${designSystem.spacing(1)};
 `;
 
 interface Props {
@@ -77,10 +82,7 @@ const Product = ({ image, name, slug, excerpt, platform }: Props) => {
       <h3>{name}</h3>
       <p>{excerpt}</p>
       <strong>PLATFORM: {platform.join(',')}</strong>
-      <Grid container justify="flex-end">
-      <Grid item>
-      <WhiteButton to={`${slug}`}>Learn More</WhiteButton></Grid>
-      </Grid>
+      <WhiteButton to={`${slug}`}>Learn More</WhiteButton>
     </Caption>
     </Grid>
   )

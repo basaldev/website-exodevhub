@@ -23,6 +23,7 @@ const button = `
   line-height: 1;
   font-family: ${designSystem.get('type.fontFamily.mono')};
   font-size: ${(props: ButtonProps) => (props.big ? '1.2rem' : '1rem')};
+  white-space: nowrap;
 `
 
 const Wrapper = styled.header`
