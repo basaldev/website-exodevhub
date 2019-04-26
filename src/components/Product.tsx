@@ -37,6 +37,7 @@ const Post = styled.article`
 `;
 const Caption = styled('div')`
   background: #000;
+  border-top: 2px solid ${designSystem.color('yellow')};
   font-family: ${designSystem.get(`type.fontFamily.mono`)};
   font-weight: 200;
   text-transform: unset;
@@ -47,8 +48,9 @@ const Caption = styled('div')`
     font-weight:200;
     font-family: ${designSystem.get(`type.fontFamily.mono`)};
   }
-  p {
+  p,strong {
     color: #fff;
+    margin-bottom: 0;
   }
 `;
 const WhiteButton = styled(Button)`
@@ -61,9 +63,10 @@ interface Props {
   slug: string
   image: string;
   excerpt: string;
+  platform: string[];
 }
 
-const Product = ({ image, name, slug, excerpt }: Props) => {
+const Product = ({ image, name, slug, excerpt, platform }: Props) => {
   return (
     <Grid item xs={12} md={4} lg={4}>
     <Post backgroundimage={image}>
@@ -72,6 +75,7 @@ const Product = ({ image, name, slug, excerpt }: Props) => {
     <Caption>
       <h3>{name}</h3>
       <p>{excerpt}</p>
+      <strong>PLATFORM: {platform.join(',')}</strong>
       <Grid container justify="flex-end">
       <Grid item>
       <WhiteButton to={`${slug}`}>Learn More</WhiteButton></Grid>

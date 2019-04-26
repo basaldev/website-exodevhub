@@ -177,7 +177,7 @@ const IndexPage = ({
         people = postType.edges;
         break;
       case 'product':
-        products = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
+        products = postType.edges;
         break
     }
   });
@@ -227,7 +227,7 @@ const IndexPage = ({
             <Grid container spacing={32} alignItems="stretch">
               {products.map(item => {
               const single = normalizeProduct(item);
-              return <Product slug={single.slug} excerpt={single.excerpt} image={single.image} name={single.name} />
+              return <Product slug={single.slug} platform={single.platform} excerpt={single.excerpt} image={single.image} name={single.name} />
               })}
             </Grid>
           </Section>
@@ -293,6 +293,7 @@ export const IndexQuery = graphql`
             frontmatter {
               title
               name
+              platform
               excerpt
               date(formatString: "YYYY-MM-DD")
               category
