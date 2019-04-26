@@ -102,7 +102,7 @@ const settings = {
   arrows:false,
   autoplay:true,
   infinite: true,
-  speed: 700,
+  speed: 300,
   slidesToShow: 2,
   slidesToScroll: 2
 };
