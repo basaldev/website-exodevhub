@@ -14,6 +14,10 @@ import SignUpCommunity from './SignUpCommunity'
 import Footer from './Footer';
 import ServiceCard from './ServiceCard';
 import Texture from './Texture';
+import Product from './Product';
+import TechLogo from './TechLogo';
+
+
 
 
 export {
@@ -32,5 +36,7 @@ export {
   SignUpCommunity,
   Footer,
   ServiceCard,
-  Texture
+  Texture,
+  TechLogo,
+  Product
 }

@@ -1,141 +1,50 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'gatsby'
-import kebabCase from 'lodash/kebabCase'
-
 import { designSystem } from '../utils/designSystem'
 import { media } from '../utils/media'
 
-const shapeSize = 120
-
 const Post = styled.article`
-  flex: 45% 0 0;
+  flex:1;
+  background-image: url(${props => `${props.backgroundimage}`});
+  background-position:center;
+  background-size:cover;
+  min-height: 380px;
+  max-width:33%;
   clear: both;
+  overflow:hidden;
   margin-bottom: ${designSystem.spacing(10)};
   margin-right: ${designSystem.spacing(4)};
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-  @media ${media.phone} {
-    width: auto;
-    margin-right: 0;
-  }
-`
+  position:relative;
 
-const Title = styled.h2`
-  position: relative;
-  margin-bottom: 0.75rem;
-  text-transform: capitalize;
-  font-weight: bold;
-  font-size: ${designSystem.fontSize('sm')}px;
-  border: ${designSystem.get('border.width')}px solid;
-  display: table;
-  width: 100%;
   & a {
-    padding: 0 ${designSystem.spacing(3)};
-    vertical-align: middle;
-    display: table-cell;
-    @media ${media.phone} {
-      padding: ${designSystem.spacing(3)};
-    }
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height: 100%;
   }
-  clear: both;
-  background: white;
-  height: 110px; //Firefox fix
-`
-type ShapeProps = {
-  type: string
-}
-// TODO: Replace with SVG
-const Shape = styled.div`
-  width: ${shapeSize}px;
-  height: ${shapeSize}px;
-  display: block;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  ${(props: ShapeProps) => {
-    switch (props.type) {
-      case 'square':
-        return `
-      overflow:hidden;
-      background: ${designSystem.color('pink')}
-     `
-      case 'corner':
-        return `
-      overflow:hidden;
-      top: -5px;
-      border-radius: 100% 0 0 0;
-      background: ${designSystem.color('orange')}
-     `
-      case 'diamond':
-        return `
-      overflow:hidden;
-      transform: rotate(45deg);
-      left: 24px;
-      top: 6px;
-      width: 110px;
-      height: 110px;
-      background: ${designSystem.color('blue')}
-     `
-      default:
-      case 'circle':
-        return `
-      overflow:hidden;
-      border-radius: 100%;
-      background: ${designSystem.color('green')}
-     `
-    }
-  }};
-`
-
-const ShapeFence = styled.div`
-  padding-left: ${designSystem.spacing(5)};
-  position: relative;
-  clear: both;
-`
-
-const Meta = styled.div`
-  font-family: ${designSystem.get(`type.fontFamily.mono`)};
-  color: ${designSystem.color('white', 'darker')};
-  font-size: ${designSystem.fontSize('xxs')}px;
-  float: right;
-  clear: both;
-  display: block;
-  text-align: right;
-  margin-left: ${designSystem.spacing(6)};
+  @media ${media.smallLaptop} {
+  }
+  @media ${media.tablet} {
+  }
   @media ${media.phone} {
-    margin-left: ${designSystem.spacing(10)};
+    max-width:none;
   }
-`
+`;
 
 interface Props {
-  title: string
-  date: string
-  excerpt: string
+  name: string
   slug: string
-  timeToRead: number
-  category: string
-  shape: string
+  image: string;
 }
 
-const Article = ({ title, date, slug, timeToRead, category, shape }: Props) => {
+const Product = ({ image, name, slug }: Props) => {
   return (
-    <Post>
-      <ShapeFence>
-        <Shape type={shape} />
-        <Meta>
-          <span>
-            {date} &mdash; {timeToRead} Min Read - In{' '}
-          </span>
-          <Link to={`/categories/${kebabCase(category)}`}> #{category}</Link>
-        </Meta>
-        <Title>
-          <Link to={slug}>{title}</Link>
-        </Title>
-      </ShapeFence>
+    <Post backgroundimage={image}>
+      <Link to={`${slug}`}></Link>
     </Post>
   )
 }
 
-export default Article
+export default Product
