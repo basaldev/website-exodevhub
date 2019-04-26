@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Helmet from 'react-helmet'
 import { Link, graphql } from 'gatsby'
 import styled from 'styled-components'
@@ -108,45 +108,61 @@ const settings = {
   slidesToScroll: 2
 };
 
-const product = ({
-  pageContext: { slug },
-  data: { markdownRemark: productNode },
-  location,
-}: Props) => {
-  const product = productNode.frontmatter
-  return (
-    <Layout>
-      <Wrapper>
-        <SEO productPath={slug} productNode={productNode} productSEO />
-        <Helmet title={`${product.name} | ${config.siteTitle}`} />
-        <Header location={location} />
-        <Content>
-          <GridContainer>
-            <Grid container justify="space-between" >
-              <Grid item xs={12} lg={6} >
-                <h1>{product.name}</h1>
-                <div dangerouslySetInnerHTML={{ __html: productNode.html }} />
-                <ClientList container>
-                  <Grid item xs={12} md={12}><ClientListHeader>Technology used</ClientListHeader></Grid>
-                  {product.technology.map((name: string, index: number) => {
-                    return <ClientLogo item key={index + name}><TechLogo name={name} /></ClientLogo>
-                  })}
-                </ClientList>
-              </Grid>
-              <Grid item xs={12} lg={6} >
-                <Slider {...settings}>
-                  {product.images.map(src =>  <Slide key={src}><img src={src} ></img></Slide>)}
-                </Slider>
-              </Grid>
-            </Grid>
-          </GridContainer>
-        </Content>
-      </Wrapper>
-    </Layout>
-  )
-}
+export default class Product extends Component<Props> {
+  slider: any;
 
-export default product
+  refSlider = (ref: any) => {
+    this.slider = ref;
+    this.initialSlide();
+  };
+
+  initialSlide() {
+    setTimeout(() => {
+      this.slider.slickPause();
+      this.slider.slickNext();
+      this.slider.slickPlay();
+    }, settings.autoplaySpeed / 3);
+  }
+
+  render() {
+    const {
+      pageContext: { slug },
+      data: { markdownRemark: productNode },
+      location,
+    } = this.props;
+    const product = productNode.frontmatter
+    return (
+      <Layout>
+        <Wrapper>
+          <SEO productPath={slug} productNode={productNode} productSEO />
+          <Helmet title={`${product.name} | ${config.siteTitle}`} />
+          <Header location={location} />
+          <Content>
+            <GridContainer>
+              <Grid container justify="space-between" >
+                <Grid item xs={12} lg={6} >
+                  <h1>{product.name}</h1>
+                  <div dangerouslySetInnerHTML={{ __html: productNode.html }} />
+                  <ClientList container>
+                    <Grid item xs={12} md={12}><ClientListHeader>Technology used</ClientListHeader></Grid>
+                    {product.technology.map((name: string, index: number) => {
+                      return <ClientLogo item key={index + name}><TechLogo name={name} /></ClientLogo>
+                    })}
+                  </ClientList>
+                </Grid>
+                <Grid item xs={12} lg={6} >
+                  <Slider ref={this.refSlider} {...settings}>
+                    {product.images.map(src =>  <Slide key={src}><img src={src} ></img></Slide>)}
+                  </Slider>
+                </Grid>
+              </Grid>
+            </GridContainer>
+          </Content>
+        </Wrapper>
+      </Layout>
+    );
+  }
+}
 
 export const productQuery = graphql`
   query productBySlug($slug: String!) {
