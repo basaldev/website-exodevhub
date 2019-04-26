@@ -177,7 +177,7 @@ const IndexPage = ({
         people = postType.edges;
         break;
       case 'product':
-        products = postType.edges;
+        products = filter(postType.edges, o => o.node.frontmatter.language === selectedLanguage);
         break
     }
   });
