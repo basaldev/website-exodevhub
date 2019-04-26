@@ -15,6 +15,10 @@ import Footer from './Footer';
 import ServiceCard from './ServiceCard';
 import OpensourceCard from './OpensourceCard';
 import Texture from './Texture';
+import Product from './Product';
+import TechLogo from './TechLogo';
+
+
 
 
 export {
@@ -34,5 +38,7 @@ export {
   Footer,
   ServiceCard,
   OpensourceCard,
-  Texture
+  TechLogo,
+  Texture,
+  Product
 }
