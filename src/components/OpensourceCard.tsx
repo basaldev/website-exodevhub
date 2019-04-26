@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Card, CardContent, Chip } from '@material-ui/core';
+import { Grid, Card, CardContent, CardActions, Chip } from '@material-ui/core';
 import AntdIcon from '@ant-design/icons-react';
 import { StarFill, ForkOutline } from '@ant-design/icons';
 import styled from 'styled-components';
@@ -17,6 +17,11 @@ interface Props {
   forks: number;
 }
 
+const Icon = styled(AntdIcon)`
+  fill: #fff;
+  vertical-align: middle;
+`;
+
 const _Card = styled(Card)`
   width: 100%;
   border-radius: 0;
@@ -25,7 +30,7 @@ const _Card = styled(Card)`
 `;
 
 const _CardContent = styled(CardContent)`
-  padding: 24px;
+  padding: 24px 24px 12px;
 `;
 
 const Description = styled.p`
@@ -47,6 +52,7 @@ const Title = styled.a`
   color: #000;
   text-transform: uppercase;
   word-break: break-word;
+  cursor: pointer;
 
   @media ${media.tablet} {
     font-size: 3vw;
@@ -63,11 +69,41 @@ const _Chip = styled(Chip)`
   border-radius: 3px;
 `;
 
+const TagsGrid = styled(Grid)`
+  flex-wrap: nowrap;
+  overflow: auto;
+`;
+
+const TagGridContainer = styled.div`
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  }
+`;
+
+const StatGrid = styled(Grid)`
+  padding: 0 18px;
+  line-height: 1;
+`;
+
+const _CardActions = styled(CardActions)`
+  background: #000;
+`;
+
 const Count = styled.a`
   padding: 0 1em;
-  color: #000;
-  vertical-align: top;
+  color: ${designSystem.color('white')};
   font-size: 0.9em;
+  &:hover {
+    color: ${designSystem.color('yellow')};
+  }
 `;
 
 export default function OpensourceCard({ title, description, tags, repo, stars, forks }: Props) {
@@ -76,23 +112,26 @@ export default function OpensourceCard({ title, description, tags, repo, stars, 
       <_CardContent>
         <Title>{title}</Title>
         <Description>{description}</Description>
-        <Grid container>
-          {tags.map(tag =>
-            <Grid item key={tag}>
-              <_Chip variant="outlined" label={tag} />
-            </Grid>
-          )}
-        </Grid>
-        <Grid container>
-          <Grid item>
-            <AntdIcon type={StarFill} /><Count href={repo} target="_blank">{stars}</Count>
-          </Grid>
-          <Grid item>
-            <AntdIcon type={ForkOutline} /><Count href={repo} target="_blank">{forks}</Count>
-          </Grid>
-        </Grid>
+        <TagGridContainer>
+          <TagsGrid container>
+            {tags.map(tag =>
+              <Grid item key={tag}>
+                <_Chip variant="outlined" label={tag} />
+              </Grid>
+            )}
+          </TagsGrid>
+        </TagGridContainer>
       </_CardContent>
+      <_CardActions>
+        <StatGrid container>
+          <Grid item>
+            <Icon type={StarFill} /><Count href={repo} target="_blank">{stars}</Count>
+          </Grid>
+          <Grid item>
+            <Icon type={ForkOutline} /><Count href={repo} target="_blank">{forks}</Count>
+          </Grid>
+        </StatGrid>
+      </_CardActions>
     </_Card>
   );
 }
-
