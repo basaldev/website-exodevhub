@@ -241,7 +241,7 @@ const IndexPage = ({
             </Grid>
           </Section>
           <Section id="opensource">
-            <SectionTitle text={`opensource`} />
+            <SectionTitle text={`open source`} />
             <Grid container spacing={32} alignItems="stretch">
               {opensources.map(opensource => {
                 return (
