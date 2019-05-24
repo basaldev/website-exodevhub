@@ -15,6 +15,7 @@ interface Props {
 
 const Wrapper = styled.div`
   margin-bottom: ${designSystem.spacing(2)};
+  white-space: nowrap;
   @media ${media.phone} {
     position:absolute;
     z-index: 9;
